@@ -1,0 +1,80 @@
+﻿<metro:MetroWindow 
+    x:Class="Compendium.WPF.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Compendium.WPF"
+    xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:view="clr-namespace:Compendium.WPF.Views"
+    mc:Ignorable="d"
+    x:Name="Root"
+    Title="D&amp;D 5e Campaign Compendium"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    TextElement.FontWeight="Medium"
+    TextElement.FontSize="14"
+    TitleCaps="False"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    Height="350"
+    Width="525">
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary
+                    Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    <Grid>
+        <material:DialogHost
+            Identifier="RootDialog">
+            <material:DrawerHost
+                IsLeftDrawerOpen="{Binding ElementName=SpellViewer, Path=IsDrawerOpen}">
+                <material:DrawerHost.LeftDrawerContent>
+                    <DockPanel
+                        MinWidth="212">
+                        <ToggleButton
+                            Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                            DockPanel.Dock="Top"
+                            Height="40"
+                            Margin="12,4,0,4"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding ElementName=SpellViewer, Path=IsDrawerOpen, Mode=TwoWay}" />
+                        <ListBox
+                            x:Name="DemoItemsListBox"
+                            Margin="0 16 0 16"
+                            SelectedIndex="0"
+                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                            <ListBoxItem
+                                Content="Spell Viewer" />
+                            <ListBoxItem
+                                Content="Class Viewer" />
+                            <ListBoxItem
+                                Content="Race Viewer" />
+                            <ListBoxItem
+                                Content="Background Viewer" />
+                            <ListBoxItem
+                                Content="Feat Viewer" />
+                            <ListBoxItem
+                                Content="Item Viewer" />
+                        </ListBox>
+                    </DockPanel>
+                </material:DrawerHost.LeftDrawerContent>
+                <DockPanel>
+                    <!-- CONTENT -->
+                    <view:SpellViewerView 
+                        x:Name="SpellViewer"
+                        DataContext="{Binding SpellViewer}"/>
+                </DockPanel>
+            </material:DrawerHost>
+        </material:DialogHost>
+    </Grid>
+</metro:MetroWindow>

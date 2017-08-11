@@ -1,0 +1,22 @@
+﻿{
+  "sources": [
+    {
+      "name": "Player's Handbook"
+    },
+    {
+      "name": "Elemental Evil"
+    },
+    {
+      "name": "Sword Coast Adventurer's Guide"
+    },
+    {
+      "name": "Volo's Guide to Monsters"
+    },
+    {
+      "name": "Unearthed Arcana"
+    },
+    {
+      "name": "Homebrew"
+    }
+  ]
+}

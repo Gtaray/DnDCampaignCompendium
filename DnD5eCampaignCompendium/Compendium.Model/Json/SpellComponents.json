@@ -1,0 +1,16 @@
+﻿{
+  "components": [
+    {
+      "name": "Verbal",
+      "initial": "V"
+    },
+    {
+      "name": "Somatic",
+      "initial": "S"
+    },
+    {
+      "name": "Material",
+      "initial": "M"
+    }
+  ]
+}
