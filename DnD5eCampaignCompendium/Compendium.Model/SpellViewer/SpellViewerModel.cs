@@ -16,6 +16,7 @@ namespace Compendium.Model.SpellViewer
         public SpellViewerModel(CompendiumModel compendium)
         {
             Compendium = compendium;
+            Compendium.SpellViewer = this;
 
             _AllSpells = new ObservableList<Spell>();
             _SpellSchools = new ObservableList<SpellSchool>();

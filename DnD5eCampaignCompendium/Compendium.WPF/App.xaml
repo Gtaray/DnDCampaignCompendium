@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     xmlns:local="clr-namespace:Compendium.WPF"
+    xmlns:vm="clr-namespace:Compendium.WPF.ViewModels"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -44,6 +45,9 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <vm:ViewModelLocator
+                x:Key="Locator" />
 
             <!-- tell Dragablz tab control to use the Material Design theme -->
             <Style

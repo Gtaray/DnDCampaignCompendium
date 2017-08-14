@@ -94,16 +94,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\SelectedPageVisibilityConverter.cs" />
     <Compile Include="Converters\StringIsNullToBoolConverter.cs" />
     <Compile Include="Dialogs\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extentions\RunVisibility.cs" />
+    <Compile Include="ViewModels\ClassViewer\ClassViewerViewModel.cs" />
+    <Compile Include="ViewModels\ClassViewer\ClassViewModel.cs" />
     <Compile Include="ViewModels\CompendiumViewModel.cs" />
-    <Compile Include="ViewModels\SpellViewer\SpellDisplayViewModel.cs" />
-    <Compile Include="ViewModels\SpellViewer\SpellHeaderViewModel.cs" />
+    <Compile Include="ViewModels\SpellViewer\SpellViewModel.cs" />
     <Compile Include="ViewModels\SpellViewer\SpellListViewModel.cs" />
     <Compile Include="ViewModels\SpellViewer\SpellViewerViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\ClassViewerView.xaml.cs">
+      <DependentUpon>ClassViewerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SpellDisplayView.xaml.cs">
       <DependentUpon>SpellDisplayView.xaml</DependentUpon>
     </Compile>
@@ -126,6 +132,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ClassViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SpellDisplayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,7 +176,9 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Readme_Assisticant_Snippets.txt" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Compendium.Model\Compendium.Model.csproj">
       <Project>{cd9be9cd-ab80-47f4-9a5b-376fb9925379}</Project>

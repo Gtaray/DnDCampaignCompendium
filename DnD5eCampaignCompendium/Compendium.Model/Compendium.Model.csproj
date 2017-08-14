@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterClasses\CharacterClass.cs" />
+    <Compile Include="CharacterClasses\ClassSelectionModel.cs" />
     <Compile Include="CharacterClasses\ClassViewerModel.cs" />
     <Compile Include="Common\BaseModel.cs" />
     <Compile Include="Common\ContentSource.cs" />
@@ -65,9 +66,12 @@
     <Compile Include="SpellViewer\SpellComponent.cs" />
     <Compile Include="SpellViewer\SpellList.cs" />
     <Compile Include="SpellViewer\SpellSchool.cs" />
+    <Compile Include="SpellViewer\SpellSelectionModel.cs" />
     <Compile Include="SpellViewer\SpellViewerModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Readme_Assisticant_Snippets.txt" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Json\Classes.json" />
     <EmbeddedResource Include="Json\Spells.json" />

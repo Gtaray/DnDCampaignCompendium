@@ -8,9 +8,11 @@
     xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:view="clr-namespace:Compendium.WPF.Views"
+    xmlns:convert="clr-namespace:Compendium.WPF.Converters"
     mc:Ignorable="d"
     x:Name="Root"
     Title="D&amp;D 5e Campaign Compendium"
+    DataContext="{Binding Compendium, Source={StaticResource Locator}}"
     GlowBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -23,6 +25,9 @@
     Width="525">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
+            <convert:SelectedPageVisibilityConverter
+                x:Key="PageVisConverter" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -37,9 +42,9 @@
         <material:DialogHost
             Identifier="RootDialog">
             <material:DrawerHost
-                IsLeftDrawerOpen="{Binding ElementName=SpellViewer, Path=IsDrawerOpen}">
+                IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
                 <material:DrawerHost.LeftDrawerContent>
-                    <DockPanel
+                    <StackPanel
                         MinWidth="212">
                         <ToggleButton
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}"
@@ -47,32 +52,64 @@
                             Height="40"
                             Margin="12,4,0,4"
                             HorizontalAlignment="Right"
-                            IsChecked="{Binding ElementName=SpellViewer, Path=IsDrawerOpen, Mode=TwoWay}" />
+                            IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                         <ListBox
-                            x:Name="DemoItemsListBox"
+                            x:Name="NavigationListBox"
+                            ItemsSource="{Binding NavList}"
+                            SelectedIndex="{Binding SelectedPage, Mode=TwoWay}"
                             Margin="0 16 0 16"
-                            SelectedIndex="0"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
-                            <ListBoxItem
-                                Content="Spell Viewer" />
-                            <ListBoxItem
-                                Content="Class Viewer" />
-                            <ListBoxItem
-                                Content="Race Viewer" />
-                            <ListBoxItem
-                                Content="Background Viewer" />
-                            <ListBoxItem
-                                Content="Feat Viewer" />
-                            <ListBoxItem
-                                Content="Item Viewer" />
                         </ListBox>
-                    </DockPanel>
+                    </StackPanel>
                 </material:DrawerHost.LeftDrawerContent>
                 <DockPanel>
+                    <!-- APP BAR -->
+                    <material:ColorZone
+                        Height="48"
+                        material:ShadowAssist.ShadowDepth="Depth2"
+                        Mode="PrimaryMid"
+                        DockPanel.Dock="Top"
+                        Canvas.ZIndex="10">
+                        <DockPanel>
+                            <ToggleButton
+                                Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                Height="40"
+                                x:Name="MenuToggleButton"
+                                DockPanel.Dock="Left"
+                                Margin="12,0,0,0" />
+
+                            <!--<material:PopupBox
+                                DockPanel.Dock="Right"
+                                PlacementMode="BottomAndAlignRightEdges"
+                                StaysOpen="False"
+                                Height="40"
+                                Margin="0,0,12,0">
+                                <StackPanel>
+
+                                </StackPanel>
+                            </material:PopupBox>-->
+
+                            <TextBlock
+                                Text="{Binding PageTitle}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="22"
+                                Margin="24,0,0,0" />
+                        </DockPanel>
+                    </material:ColorZone>
                     <!-- CONTENT -->
-                    <view:SpellViewerView 
-                        x:Name="SpellViewer"
-                        DataContext="{Binding SpellViewer}"/>
+                    <Grid
+                        Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=0}">
+                        <view:SpellViewerView
+                            x:Name="SpellViewer"
+                            DataContext="{Binding SpellViewer}" />
+                    </Grid>
+                    <Grid
+                        Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=1}">
+                        <view:ClassViewerView
+                            x:Name="ClassViewer"
+                            DataContext="{Binding ClassViewer}" />
+                    </Grid>
                 </DockPanel>
             </material:DrawerHost>
         </material:DialogHost>

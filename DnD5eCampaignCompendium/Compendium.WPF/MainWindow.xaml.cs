@@ -17,7 +17,6 @@ namespace Compendium.WPF
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new CompendiumViewModel();
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -30,7 +29,7 @@ namespace Compendium.WPF
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
 
-            SpellViewer.IsDrawerOpen = false;
+            MenuToggleButton.IsChecked = false;
         }
     }
 }

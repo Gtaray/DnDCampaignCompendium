@@ -16,6 +16,7 @@ namespace Compendium.Model.CharacterClasses
         public ClassViewerModel(CompendiumModel compendium)
         {
             Compendium = compendium;
+            Compendium.ClassViewer = this;
             _Classes = new ObservableList<CharacterClass>();
         }
 

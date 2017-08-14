@@ -28,10 +28,10 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         public bool ReadOnly
         { get { return _Model.ReadOnly; } }
 
-        public IEnumerable<SpellHeaderViewModel> Spells
-        { get { return _Model.Spells.Select(s => new SpellHeaderViewModel(s)); } }
+        public IEnumerable<SpellViewModel> Spells
+        { get { return _Model.Spells.Select(s => new SpellViewModel(s)); } }
 
-        public void AddSpell(SpellHeaderViewModel spell)
+        public void AddSpell(SpellViewModel spell)
         {
             _Model.AddSpell(spell.Model);
         }

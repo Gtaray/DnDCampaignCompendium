@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Compendium.Model.Helpers
 {
-    class ResourceHelper
+    public class ResourceHelper
     {
         public static string ReadEmbeddedResourceContent(string location)
         {

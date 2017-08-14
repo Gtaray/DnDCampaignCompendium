@@ -1,4 +1,5 @@
-﻿using Assisticant.Collections;
+﻿using Assisticant;
+using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model.SpellViewer;
 using Dragablz;
@@ -13,23 +14,23 @@ namespace Compendium.WPF.ViewModels.SpellViewer
     public class SpellViewerViewModel
     {
         private readonly SpellViewerModel _Model;
+        private readonly SpellSelectionModel _SelectedSpell;
 
-        public SpellViewerViewModel(SpellViewerModel model)
+        public SpellViewerViewModel(SpellViewerModel model, SpellSelectionModel selected)
         {
             _Model = model;
+            _SelectedSpell = selected;
         }
 
-        public IEnumerable<SpellHeaderViewModel> Spells
+        public IEnumerable<SpellViewModel> Spells
         {
-            get { return _Model.AllSpells.Select(s => new SpellHeaderViewModel(s)); }
+            get { return _Model.AllSpells.Select(s => new SpellViewModel(s)); }
         }
 
-        private Observable<SpellHeaderViewModel> _SelectedSpell = 
-            new Observable<SpellHeaderViewModel>(default(SpellHeaderViewModel));
-        public SpellHeaderViewModel SelectedSpell
+        public SpellViewModel SelectedSpell
         {
-            get { return _SelectedSpell; }
-            set { _SelectedSpell.Value = value; }
+            get { return new SpellViewModel(_SelectedSpell.Value); }
+            set { _SelectedSpell.Value = value.Model; }
         }
     }
 }
