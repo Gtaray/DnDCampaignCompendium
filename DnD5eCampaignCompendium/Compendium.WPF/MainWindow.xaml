@@ -21,8 +21,8 @@
     TextElement.FontSize="14"
     TitleCaps="False"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-    Height="350"
-    Width="525">
+    Height="800"
+    Width="1000">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <convert:SelectedPageVisibilityConverter
@@ -97,18 +97,17 @@
                                 Margin="24,0,0,0" />
                         </DockPanel>
                     </material:ColorZone>
-                    <!-- CONTENT -->
+                    
+                    <!-- PAGES -->
                     <Grid
                         Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=0}">
                         <view:SpellViewerView
-                            x:Name="SpellViewer"
-                            DataContext="{Binding SpellViewer}" />
+                            x:Name="SpellViewer"/>
                     </Grid>
                     <Grid
                         Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=1}">
                         <view:ClassViewerView
-                            x:Name="ClassViewer"
-                            DataContext="{Binding ClassViewer}" />
+                            x:Name="ClassViewer"/>
                     </Grid>
                 </DockPanel>
             </material:DrawerHost>

@@ -6,46 +6,79 @@
     xmlns:local="clr-namespace:Compendium.WPF.Views"
     xmlns:vm="clr-namespace:Compendium.WPF.ViewModels.SpellViewer"
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:convert="clr-namespace:Compendium.WPF.Converters"
+    xmlns:xceed="http://schemas.xceed.com/wpf/xaml/datagrid"
     mc:Ignorable="d" 
-    d:DesignHeight="500" d:DesignWidth="500"
+    d:DesignHeight="500" d:DesignWidth="800"
+    DataContext="{Binding SpellViewer, Source={StaticResource Locator}}"
     x:Name="SpellViewerRoot">
     <UserControl.Resources>
+        <convert:ClassFilterIsVisibleConverter
+            x:Key="classFilterVis" />
+        <CollectionViewSource
+            x:Key="Spells"
+            Source="{Binding Spells}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription
+                    PropertyName="Level"
+                    Direction="Ascending" />
+                <scm:SortDescription
+                    PropertyName="Name"
+                    Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+            <!--<CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription
+                    PropertyName="Level" />
+            </CollectionViewSource.GroupDescriptions>-->
+        </CollectionViewSource>
+
+        <HierarchicalDataTemplate
+            x:Key="CheckBoxItemTemplate"
+            ItemsSource="{Binding Children, Mode=OneTime}">
+            <StackPanel
+                Orientation="Horizontal">
+                <!-- These elements are bound to a Class object. -->
+                <CheckBox
+                    Focusable="False"
+                    Content="{Binding Label, Mode=OneWay}"
+                    IsChecked="{Binding IsChecked}"
+                    Command="{Binding DataContext.ToggleClassFilterCommand, ElementName=SpellViewerRoot}"
+                    CommandParameter="{Binding }"
+                    Margin="0,1"
+                    VerticalAlignment="Center" />
+            </StackPanel>
+        </HierarchicalDataTemplate>
+
         <Style
-            x:Key="GroupHeaderStyle"
-            TargetType="{x:Type GroupItem}">
+            x:Key="TreeViewItemStyle"
+            TargetType="TreeViewItem">
             <Setter
-                Property="Template">
+                Property="IsExpanded"
+                Value="False" />
+            <Setter
+                Property="Visibility">
                 <Setter.Value>
-                    <ControlTemplate
-                        TargetType="{x:Type GroupItem}">
-                        <Expander
-                            x:Name="exp"
-                            IsExpanded="True"
-                            Background="LightGray"
-                            Foreground="Black">
-                            <Expander.Header>
-                                <TextBlock
-                                    FontWeight="Bold"
-                                    TextAlignment="Left">
-                                    <TextBlock.Inlines>
-                                        <Run
-                                            Text="Level" />
-                                        <Run
-                                            Text="{Binding Path=Name, Mode=OneWay}" />
-                                    </TextBlock.Inlines>
-                                </TextBlock>
-                            </Expander.Header>
-                            <ItemsPresenter />
-                        </Expander>
-                    </ControlTemplate>
+                    <MultiBinding
+                        Converter="{StaticResource classFilterVis}">
+                        <Binding
+                            Path="" />
+                        <Binding
+                            ElementName="ShowAllClassesCheckbox" 
+                            Path="IsChecked"/>
+                    </MultiBinding>
                 </Setter.Value>
             </Setter>
+            <Setter
+                Property="KeyboardNavigation.AcceptsReturn"
+                Value="True" />
         </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition
-                Width="0" />
+                Width="225"
+                MaxWidth="300"/>
             <ColumnDefinition
                 Width="3*" />
             <ColumnDefinition
@@ -53,19 +86,113 @@
         </Grid.ColumnDefinitions>
 
         <!-- Filters -->
-        
-        <!-- Display -->
+        <ScrollViewer
+            Grid.Column="0"
+            VerticalScrollBarVisibility="Auto"
+            CanContentScroll="True">
+            <DockPanel>
+                <!--FILTER BY SPELL LEVEL-->
+                <Expander
+                    Header="Filter by Level"
+                    DockPanel.Dock="Top"
+                    IsExpanded="True"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="2">
+                    <ItemsControl
+                        ItemsSource="{Binding LevelFilters}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox
+                                    Content="{Binding Label}"
+                                    IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="0,1" />
+                                <!--Command="{Binding DataContext.ToggleLevelFilterCommand, ElementName=SpellViewerRoot}"
+                                    CommandParameter="{Binding }"-->
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
+
+                <!--FILTER BY CLASS/SUBCLASS-->
+                <Expander
+                    Header="Filter by Class"
+                    DockPanel.Dock="Top"
+                    IsExpanded="True"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TreeView
+                            Height="Auto"
+                            HorizontalAlignment="Stretch"
+                            ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                            ItemTemplate="{StaticResource CheckBoxItemTemplate}"
+                            ItemsSource="{Binding ClassFilterFlags}"
+                            BorderThickness="0">
+                            <TreeView.Template>
+                                <ControlTemplate>
+                                    <Border>
+                                        <ItemsPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </TreeView.Template>
+                        </TreeView>
+                        <CheckBox
+                            x:Name="ShowAllClassesCheckbox"
+                            Content="Show all classes"
+                            IsChecked="{Binding ShowAllClasses}"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Left" 
+                            Grid.Row="1"/>
+                    </Grid>
+                </Expander>
+                
+                <!--FILTER BY SCHOOL-->
+                <Expander
+                    Header="Filter by School"
+                    DockPanel.Dock="Top"
+                    IsExpanded="True"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="1">
+                </Expander>
+
+                <!--FILTER BY COMPONENTS-->
+                <Expander
+                    Header="Filter by Components"
+                    DockPanel.Dock="Top"
+                    IsExpanded="True"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="1">
+                </Expander>
+
+                <!--FILTER BY SOURCE-->
+                <Expander
+                    Header="Filter by Source"
+                    DockPanel.Dock="Top"
+                    IsExpanded="True"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="1">
+                </Expander>
+            </DockPanel>
+        </ScrollViewer>
+
+                <!-- Display -->
         <local:SpellDisplayView
-            DataContext="{Binding SelectedSpell}"
             Grid.Column="2"
             Canvas.ZIndex="0"/>
 
         <!-- Spell List -->
         <DataGrid
             SelectedItem="{Binding SelectedSpell, Mode=TwoWay}"
-            ItemsSource="{Binding Spells}"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+            ItemsSource="{Binding FilteredSpells}"
+            material:DataGridAssist.ColumnHeaderPadding="8"
+            material:DataGridAssist.CellPadding="13 8 8 8"
             HeadersVisibility="Column"
             AutoGenerateColumns="False"
             CanUserAddRows="False"
@@ -77,21 +204,50 @@
             AllowDrop="False"
             ScrollViewer.CanContentScroll="True"
             VirtualizingPanel.IsVirtualizing="True"
+            VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+            VirtualizingPanel.VirtualizationMode="Recycling"
+            VirtualizingPanel.ScrollUnit="Item"
             Grid.Column="1"
             Canvas.ZIndex="0">
-            <DataGrid.GroupStyle>
-                <GroupStyle
-                    ContainerStyle="{StaticResource GroupHeaderStyle}">
+            <!--<DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style
+                            TargetType="{x:Type GroupItem}">
+                            <Setter
+                                Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate
+                                        TargetType="{x:Type GroupItem}">
+                                        <Expander
+                                            IsExpanded="True"
+                                            Background="{StaticResource PrimaryHueLightBrush}"
+                                            Foreground="{StaticResource PrimaryHueLightForegroundBrush}">
+                                            <Expander.Header>
+                                                <TextBlock
+                                                    Text="{Binding Path=Name, StringFormat=Level {0} spells}"
+                                                    TextAlignment="Left" />
+                                            </Expander.Header>
+                                            <Expander.Content>
+                                                <ItemsPresenter />
+                                            </Expander.Content>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
                     <GroupStyle.Panel>
                         <ItemsPanelTemplate>
                             <DataGridRowsPresenter />
                         </ItemsPanelTemplate>
                     </GroupStyle.Panel>
                 </GroupStyle>
-            </DataGrid.GroupStyle>
-            <!--<DataGrid.CellStyle>
+            </DataGrid.GroupStyle>-->
+            <DataGrid.CellStyle>
                 <Style
-                    TargetType="DataGridCell">
+                    TargetType="DataGridCell"
+                    BasedOn="{StaticResource MaterialDesignDataGridCell}">
                     <Setter
                         Property="BorderThickness"
                         Value="0" />
@@ -99,24 +255,32 @@
                         Property="FocusVisualStyle"
                         Value="{x:Null}" />
                 </Style>
-            </DataGrid.CellStyle>-->
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Header="Level"
+                    Binding="{Binding Level, Mode=OneWay, IsAsync=True, FallbackValue=#}"
+                    SortDirection="Ascending"
+                    IsReadOnly="True"/>
                 <DataGridTextColumn
                     Header="Name"
                     Binding="{Binding Name, Mode=OneWay, IsAsync=True, FallbackValue=Loading...}"
                     Width="220"
+                    SortDirection="Ascending"
                     IsReadOnly="True" />
                 <DataGridTextColumn
                     Header="School"
                     Binding="{Binding School, Mode=OneWay, IsAsync=True, FallbackValue=...}"
                     IsReadOnly="True" />
                 <DataGridCheckBoxColumn
-                    Header="Conc"
+                    Header="Concentration"
                     Binding="{Binding Concentration, Mode=OneWay, IsAsync=True, FallbackValue=False}"
+                    ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                     IsReadOnly="True" />
                 <DataGridCheckBoxColumn
                     Header="Ritual"
                     Binding="{Binding Ritual, Mode=OneWay, IsAsync=True, FallbackValue=False}"
+                    ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>

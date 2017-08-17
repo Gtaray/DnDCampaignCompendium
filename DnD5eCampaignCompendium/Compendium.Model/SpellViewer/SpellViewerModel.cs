@@ -1,4 +1,5 @@
 ﻿using Assisticant.Collections;
+using Compendium.Model.CharacterClasses;
 using Compendium.Model.Common;
 using Newtonsoft.Json;
 using System;
@@ -55,6 +56,51 @@ namespace Compendium.Model.SpellViewer
         public IEnumerable<SpellComponent> Components
         {
             get { return _Components; }
+        }
+        #endregion
+
+        #region Filtering
+        public void InitializeFilters(IEnumerable<CharacterClass> classes)
+        {
+            _LevelFilterFlags = new ObservableList<FilterFlag<int>>()
+            {
+                new FilterFlag<int>(0, () => "Cantrips", false),
+                new FilterFlag<int>(1, () => "1st-level", false),
+                new FilterFlag<int>(2, () => "2nd-level", false),
+                new FilterFlag<int>(3, () => "3rd-level", false),
+                new FilterFlag<int>(4, () => "4th-level", false),
+                new FilterFlag<int>(5, () => "5th-level", false),
+                new FilterFlag<int>(6, () => "6th-level", false),
+                new FilterFlag<int>(7, () => "7th-level", false),
+                new FilterFlag<int>(8, () => "8th-level", false),
+                new FilterFlag<int>(9, () => "9th-level", false)
+            };
+
+            foreach(CharacterClass cc in classes)
+                _ClassFilterFlags.Add(GetClassFilterObject(cc));
+        }
+
+        private FilterFlag<CharacterClass> GetClassFilterObject(CharacterClass cc)
+        {
+            FilterFlag<CharacterClass> newfilter = new FilterFlag<CharacterClass>(cc, () => cc.Name, false);
+            foreach (var child in cc.Subclasses)
+                newfilter.AddChildFilter(GetClassFilterObject(child));
+
+            return newfilter;
+        }
+
+        private ObservableList<FilterFlag<int>> _LevelFilterFlags = 
+            new ObservableList<FilterFlag<int>>();
+        public IEnumerable<FilterFlag<int>> LevelFilterFlags
+        {
+            get { return _LevelFilterFlags; }
+        }
+
+        private ObservableList<FilterFlag<CharacterClass>> _ClassFilterFlags = 
+            new ObservableList<FilterFlag<CharacterClass>>();
+        public IEnumerable<FilterFlag<CharacterClass>> ClassFilterFlags
+        {
+            get { return _ClassFilterFlags; }
         }
         #endregion
 

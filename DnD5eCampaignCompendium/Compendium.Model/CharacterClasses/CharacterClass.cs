@@ -78,7 +78,7 @@ namespace Compendium.Model.CharacterClasses
             get
             {
                 if (_HasSpells == null)
-                    _HasSpells = new Computed<bool>(() => _Spells.Count() > 0);
+                    _HasSpells = new Computed<bool>(() => _Spells.Count() > 0 || Subclasses.Any(s => s.HasSpells));
                 return _HasSpells.Value;
             }
         }
