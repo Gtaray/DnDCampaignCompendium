@@ -119,6 +119,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ClassFilterIsVisibleConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SelectedPageVisibilityConverter.cs" />
     <Compile Include="Converters\StringIsNullToBoolConverter.cs" />
     <Compile Include="Dialogs\MessageDialog.xaml.cs">
@@ -126,6 +127,9 @@
     </Compile>
     <Compile Include="Extentions\LinqExtensions.cs" />
     <Compile Include="Extentions\RunVisibility.cs" />
+    <Compile Include="UserControls\LabeledTextBlock.xaml.cs">
+      <DependentUpon>LabeledTextBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ClassViewer\ClassViewerViewModel.cs" />
     <Compile Include="ViewModels\ClassViewer\ClassViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterFlagViewModel.cs" />
@@ -162,6 +166,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\LabeledTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ClassViewerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -6,6 +6,8 @@
     xmlns:local="clr-namespace:Compendium.WPF.Views"
     xmlns:ext="clr-namespace:Compendium.WPF.Extentions"
     xmlns:c="clr-namespace:Compendium.WPF.Converters"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
     mc:Ignorable="d"
     DataContext="{Binding SpellDisplay, Source={StaticResource Locator}}"
     d:DesignHeight="300" d:DesignWidth="300">
@@ -16,7 +18,51 @@
     <Grid>
         <ScrollViewer
             VerticalScrollBarVisibility="Auto">
-            <RichTextBox
+            <ItemsControl>
+                <TextBlock
+                    Text="{Binding Name}"
+                    Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                <TextBlock
+                    Text="{Binding LevelAndSchool}"
+                    Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+
+                <uc:LabeledTextBlock
+                    LabelText="Casting Time:"
+                    TextBlock="{Binding CastingTime}"
+                    Height="30" />
+
+                <uc:LabeledTextBlock
+                    LabelText="Range:"
+                    TextBlock="{Binding Range}"
+                    Height="30" />
+
+                <uc:LabeledTextBlock
+                    LabelText="Components:"
+                    TextBlock="{Binding Components}"
+                    Height="30" />
+
+                <uc:LabeledTextBlock
+                    LabelText="Duration:"
+                    TextBlock="{Binding Duration}"
+                    Height="30" />
+
+                <TextBlock
+                    Text="{Binding Description}"
+                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Text="{Binding HigherLevel}"
+                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                    TextWrapping="Wrap" />
+
+                <uc:LabeledTextBlock
+                    LabelText="Source:"
+                    TextBlock="{Binding Source}"
+                    Height="30" />
+            </ItemsControl>
+            
+            <!-- OLD -->
+            <!--<RichTextBox
                 IsReadOnly="True"
                 BorderThickness="0">
                 <FlowDocument>
@@ -114,7 +160,7 @@
                             ext:RunVisibility.Visible="{Binding ErrataList, Converter={StaticResource StringToBoolConverter}, Mode=OneWay}" />
                     </Paragraph>
                 </FlowDocument>
-            </RichTextBox>
+            </RichTextBox>-->
         </ScrollViewer>
     </Grid>
 </UserControl>

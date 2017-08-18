@@ -2,7 +2,9 @@
 using Assisticant.Collections;
 using Assisticant.Collections.Impl;
 using Assisticant.Fields;
+using Compendium.Model;
 using Compendium.Model.CharacterClasses;
+using Compendium.Model.Common;
 using Compendium.Model.SpellViewer;
 using Compendium.WPF.Extentions;
 using Compendium.WPF.ViewModels.Common;
@@ -21,54 +23,93 @@ namespace Compendium.WPF.ViewModels.SpellViewer
 {
     public class SpellViewerViewModel
     {
-        private readonly SpellViewerModel _Model;
+        private readonly CompendiumModel _Compendium;
         private readonly SpellSelectionModel _SelectedSpell;
 
-        public SpellViewerViewModel(SpellViewerModel model, SpellSelectionModel selected)
+        public SpellViewerViewModel(CompendiumModel compendium, SpellSelectionModel selected)
         {
-            _Model = model;
+            _Compendium = compendium;
             _SelectedSpell = selected;
 
-            // Initialize filter
-            _AllFilters = new GroupFilter();
+            // Initialize filters
+            _ClassFilters = new ObservableList<FilterFlagViewModel<CharacterClass>>(
+                _ClassViewerModel.Classes.Select(c => GetClassFilterObject(c)));
 
-            // Initialize collection view and apply filter
-            SpellCollectionView = new CollectionViewSource();
-            SpellCollectionView.Source = Spells;
-            SpellCollectionView.SortDescriptions.Add(new SortDescription("Level", ListSortDirection.Ascending));
-            SpellCollectionView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-            SpellCollectionView.View.Filter = _AllFilters.Filter;
+            _SchoolFilters = new ObservableList<FilterFlagViewModel<SpellSchool>>(
+                _SpellViewerModel.SpellSchools.Select(s => new FilterFlagViewModel<SpellSchool>(s, () => s.Name)));
+
+            _ComponentFilters = new ObservableList<FilterFlagViewModel<SpellComponent>>(
+                _SpellViewerModel.Components.Select(c => new FilterFlagViewModel<SpellComponent>(c, () => c.Name)));
+
+            _SourceFilters = new ObservableList<FilterFlagViewModel<ContentSource>>(
+                _Compendium.ContentSources.Select(s => new FilterFlagViewModel<ContentSource>(s, () => s.Name)));
         }
 
+        private SpellViewerModel _SpellViewerModel => _Compendium.SpellViewer;
+        private ClassViewerModel _ClassViewerModel => _Compendium.ClassViewer;
+
         public IEnumerable<SpellHeaderViewModel> Spells =>
-            _Model.AllSpells.Select(s => new SpellHeaderViewModel(s));
+            _SpellViewerModel.AllSpells.Select(s => new SpellHeaderViewModel(s));
 
         public IEnumerable<SpellHeaderViewModel> FilteredSpells
         {
             get
             {
-                var list = _Model.AllSpells;
+                var list = _SpellViewerModel.AllSpells;
                 if (LevelFilters.Any(f => f.IsChecked))
                     list = list.Where(s => LevelFilters.ElementAt(s.Level).IsChecked);
+
+                if (ClassFilters.Any(f => f.AnyChecked))
+                {
+                    var checkedClasses = GetCheckedClassFilters().Select(f => f.Filter);
+                    list = list.Where(s => s.Classes.Intersect(checkedClasses).Count() > 0);
+                }
+
+                if (SchoolFilters.Any(f => f.IsChecked))
+                {
+                    var checkedSchools = SchoolFilters.Where(f => f.IsChecked);
+                    list = list.Where(s => checkedSchools.Any(f => f.Filter == s.School));
+                }
+
+                if(ComponentFilters.Any(f => f.IsChecked))
+                {
+                    var checkedComps = ComponentFilters.Where(f => f.IsChecked).Select(f => f.Filter);
+                    if (IgnoreUncheckedComponents)
+                        list = list.Where(s => s.Components.Intersect(checkedComps).Count() > 0);
+                    else
+                        list = list.Where(s => ComponentFilters.All(f =>
+                            (f.IsChecked && s.Components.Contains(f.Filter)) ||
+                            (!f.IsChecked && !s.Components.Contains(f.Filter))));
+                }
+
+                if(SourceFilters.Any(f => f.IsChecked))
+                {
+                    var checkedSources = SourceFilters.Where(f => f.IsChecked);
+                    list = list.Where(s => checkedSources.Any(f => f.Filter == s.Source));
+                }
+
                 return list.Select(s => new SpellHeaderViewModel(s));
-                //return _Model.AllSpells.Where(s => _AllFilters.Filter(s)).Select(s => new SpellHeaderViewModel(s));
             }
         }
 
-        public CollectionViewSource SpellCollectionView;
-
         public SpellHeaderViewModel SelectedSpell
         {
-            get { return new SpellHeaderViewModel(_SelectedSpell.Value); }
+            get
+            {
+                if (FilteredSpells.Count() == 0)
+                    return null;
+                else if (_SelectedSpell.Value != null)
+                    return new SpellHeaderViewModel(_SelectedSpell.Value);
+                else
+                    return FilteredSpells.First();
+            }
             set { _SelectedSpell.Value = value?.Model; }
         }
 
         #region Filters
-        private GroupFilter _AllFilters;
-
         #region By Level
-
-        private ObservableList<FilterFlagViewModel<int>> _LevelFilters = new ObservableList<FilterFlagViewModel<int>>()
+        private ObservableList<FilterFlagViewModel<int>> _LevelFilters = 
+            new ObservableList<FilterFlagViewModel<int>>()
         {
             new FilterFlagViewModel<int>(0, () => "Cantrips", false),
             new FilterFlagViewModel<int>(1, () => "1st-level", false),
@@ -81,101 +122,49 @@ namespace Compendium.WPF.ViewModels.SpellViewer
             new FilterFlagViewModel<int>(8, () => "8th-level", false),
             new FilterFlagViewModel<int>(9, () => "9th-level", false)
         };
-        public IEnumerable<FilterFlagViewModel<int>> LevelFilters
-        {
-            get { return _LevelFilters; }
-        }
-
-        private ICommand _ToggleLevelFilterCommand;
-        public ICommand ToggleLevelFilterCommand
-        {
-            get
-            {
-                if (_ToggleLevelFilterCommand == null)
-                {
-                    _ToggleLevelFilterCommand = new RelayCommand<FilterFlagViewModel<int>>(
-                        param => this.ToggleLevelFilter()
-                        );
-                }
-                return _ToggleLevelFilterCommand;
-            }
-        }
-
-        private void ToggleLevelFilter()
-        {
-            // After toggling any of the level filter flags
-            // if any of the level filters are checked, add the level filter
-            if (_LevelFilters.Any(f => f.IsChecked == true))
-                _AllFilters.AddFilter(FilterByLevel);
-            // If none of the level filters are checked, remove the level filter
-            else
-                _AllFilters.RemoveFilter(FilterByLevel);
-        }
-
-        private bool FilterByLevel(object e)
-        {
-            var src = e as SpellHeaderViewModel;
-            if (src == null)
-                return false;
-            bool accept = _LevelFilters.ElementAt(src.Level).IsChecked;
-            return accept;
-        }
+        public IEnumerable<FilterFlagViewModel<int>> LevelFilters => _LevelFilters;
         #endregion
 
         #region By Class
+        private ObservableList<FilterFlagViewModel<CharacterClass>> _ClassFilters;
+        public IEnumerable<FilterFlagViewModel<CharacterClass>> ClassFilters => _ClassFilters;
 
-        private ObservableList<FilterFlagViewModel<CharacterClass>> _ClassFilters = new ObservableList<FilterFlagViewModel<CharacterClass>>();
-        public IEnumerable<FilterFlagViewModel<CharacterClass>> ClassFilters
+        private FilterFlagViewModel<CharacterClass> GetClassFilterObject(CharacterClass cc)
         {
-            get { return _ClassFilters; }
+            FilterFlagViewModel<CharacterClass> newfilter = 
+                new FilterFlagViewModel<CharacterClass>(cc, () => cc.Name, false);
+            foreach (var child in cc.Subclasses)
+                newfilter.AddChildFilter(GetClassFilterObject(child));
+
+            return newfilter;
         }
 
-        private ICommand _ToggleClassFilterCommand;
-        public ICommand ToggleClassFilterCommand
+        private IEnumerable<FilterFlagViewModel<CharacterClass>> GetCheckedClassFilters()
         {
-            get
-            {
-                if (_ToggleClassFilterCommand == null)
-                {
-                    _ToggleClassFilterCommand = new RelayCommand<FilterFlagViewModel<CharacterClass>>(
-                        param => this.ToggleClassFilter(param)
-                    );
-                }
-                return _ToggleClassFilterCommand;
-            }
+            return ClassFilters.Flatten(c => c.Children).Where(c => c.IsChecked);
         }
+        #endregion
 
-        private void ToggleClassFilter(FilterFlagViewModel<CharacterClass> flag)
-        {
-            // if checked, add
-            //if (flag.IsChecked)
-            //{
-            //    if (!ClassFilters.Contains(flag.Filter))
-            //        ClassFilters.Add(flag.Filter);
-            //    // Since at least one filter is checked and added to the filter list
-            //    // we add the class filter to the group filter (doesn't get added multiple times)
-            //    _AllFilters.AddFilter(FilterByClass);
-            //}
-            //// if unchecked, remove
-            //else
-            //{
-            //    if (ClassFilters.Contains(flag.Filter))
-            //        ClassFilters.Remove(flag.Filter);
-            //    // After removing a filter, check if there are still filters in the filter list
-            //    // if not, remove the class filter from the group filter
-            //    if (ClassFilters.Count() == 0)
-            //        _AllFilters.RemoveFilter(FilterByClass);
-            //}
-        }
+        #region By School
+        private ObservableList<FilterFlagViewModel<SpellSchool>> _SchoolFilters;
+        public IEnumerable<FilterFlagViewModel<SpellSchool>> SchoolFilters => _SchoolFilters;
+        #endregion
 
-        private bool FilterByClass(object e)
+        #region By Components
+        private ObservableList<FilterFlagViewModel<SpellComponent>> _ComponentFilters;
+        public IEnumerable<FilterFlagViewModel<SpellComponent>> ComponentFilters => _ComponentFilters;
+
+        private Observable<bool> _IgnoreUncheckedComponents = new Observable<bool>(true);
+        public bool IgnoreUncheckedComponents
         {
-            var src = e as SpellHeaderViewModel;
-            if (src == null)
-                return false;
-            bool accept = ClassFilters.Any(f => src.Model.Classes.Contains(f.Filter));
-            return accept;
+            get { return _IgnoreUncheckedComponents; }
+            set { _IgnoreUncheckedComponents.Value = value; }
         }
+        #endregion
+
+        #region By Source
+        private ObservableList<FilterFlagViewModel<ContentSource>> _SourceFilters;
+        public IEnumerable<FilterFlagViewModel<ContentSource>> SourceFilters => _SourceFilters;
         #endregion
         #endregion
     }

@@ -29,7 +29,7 @@ namespace Compendium.WPF.ViewModels
 
         public object Compendium => ViewModel(() => new CompendiumViewModel(_Compendium));
 
-        public object SpellViewer => ViewModel(() => new SpellViewerViewModel(_SpellViewer, _SelectedSpell));
+        public object SpellViewer => ViewModel(() => new SpellViewerViewModel(_Compendium, _SelectedSpell));
         public object SpellDisplay => ViewModel(() => new SpellDisplayViewModel(_SelectedSpell));
 
         public object ClassViewer => ViewModel(() => new ClassViewerViewModel(_ClassViewer, _SelectedClass));
@@ -65,11 +65,6 @@ namespace Compendium.WPF.ViewModels
                 // needs to be populated before creating classes that query for those spells
                 _ClassViewer.DeserializeClasses(
                     ResourceHelper.ReadEmbeddedResourceContent(CLASSES));
-
-
-                // INITIALIZE FITLERS
-                // Once all data has been loaded, we can initialize the filters of each model
-                _SpellViewer.InitializeFilters(_ClassViewer.Classes);
             }
         }
     }
