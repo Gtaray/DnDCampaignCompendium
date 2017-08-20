@@ -16,8 +16,8 @@
     <UserControl.Resources>
         <convert:ClassFilterIsVisibleConverter
             x:Key="classFilterVis" />
-        <convert:NullToVisibilityConverter
-            x:Key="nullToVis" />
+        <BooleanToVisibilityConverter
+            x:Key="boolToVis" />
 
         <Style
             x:Key="TreeViewItemStyle"
@@ -65,6 +65,12 @@
         </HierarchicalDataTemplate>
     </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 Width="225"
@@ -75,9 +81,21 @@
                 Width="2*" />
         </Grid.ColumnDefinitions>
 
+        <!-- NAME FILTER -->
+        <TextBox
+            Text="{Binding NameFilter, Delay=500, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            material:HintAssist.Hint="Search spell name and description"
+            material:HintAssist.FloatingScale="0.75"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            HorizontalAlignment="Stretch"
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            Margin="8"/>
+
         <!-- FILTERS -->
         <ScrollViewer
             Grid.Column="0"
+            Grid.Row="1"
             VerticalScrollBarVisibility="Auto"
             CanContentScroll="True">
             <DockPanel>
@@ -185,16 +203,37 @@
                         ItemsSource="{Binding SourceFilters}"
                         ItemTemplate="{StaticResource FilterCheckboxTemplate}" />
                 </Expander>
+
+                <Expander
+                    Header="Other Filters"
+                    DockPanel.Dock="Top"
+                    IsExpanded="False"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="2">
+                    <ItemsControl>
+                        <CheckBox
+                            Content="Show only ritual spells"
+                            Style="{StaticResource MaterialDesignCheckBox}"
+                            IsChecked="{Binding ShowRitualSpells, UpdateSourceTrigger=PropertyChanged}" 
+                            Margin="0 1"/>
+                        <CheckBox
+                            Content="Show only concentration spells"
+                            Style="{StaticResource MaterialDesignCheckBox}"
+                            IsChecked="{Binding ShowConcentrationSpells, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="0 1" />
+                    </ItemsControl>
+                </Expander>
             </DockPanel>
         </ScrollViewer>
 
         <!-- SPELL DISPLAY -->
         <local:SpellDisplayView
-            Visibility="{Binding SelectedSpell, Converter={StaticResource nullToVis}}"
+            Visibility="{Binding Path=DataContext.SpellDisplayIsVisible, Converter={StaticResource boolToVis}, ElementName=SpellViewerRoot}"
             Grid.Column="2"
+            Grid.Row="1"
             Canvas.ZIndex="0"/>
 
-        <!-- DATAGRID -->
+        <!-- SPELL LIST -->
         <DataGrid
             SelectedItem="{Binding SelectedSpell, Mode=TwoWay}"
             ItemsSource="{Binding FilteredSpells}"
@@ -215,6 +254,7 @@
             VirtualizingPanel.VirtualizationMode="Recycling"
             VirtualizingPanel.ScrollUnit="Item"
             Grid.Column="1"
+            Grid.Row="1"
             Canvas.ZIndex="0">
             <DataGrid.CellStyle>
                 <Style
@@ -244,7 +284,7 @@
                     Header="School"
                     Binding="{Binding School, Mode=OneWay, IsAsync=True, FallbackValue=...}"
                     IsReadOnly="True" />
-                <DataGridCheckBoxColumn
+                <!--<DataGridCheckBoxColumn
                     Header="Concentration"
                     Binding="{Binding Concentration, Mode=OneWay, IsAsync=True, FallbackValue=False}"
                     ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
@@ -253,7 +293,7 @@
                     Header="Ritual"
                     Binding="{Binding Ritual, Mode=OneWay, IsAsync=True, FallbackValue=False}"
                     ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-                    IsReadOnly="True" />
+                    IsReadOnly="True" />-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -54,10 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterClasses\CharacterClass.cs" />
+    <Compile Include="CharacterClasses\ClassFeature.cs" />
     <Compile Include="CharacterClasses\ClassSelectionModel.cs" />
+    <Compile Include="CharacterClasses\ClassTableColumn.cs" />
     <Compile Include="CharacterClasses\ClassViewerModel.cs" />
     <Compile Include="Common\BaseModel.cs" />
     <Compile Include="Common\ContentSource.cs" />
+    <Compile Include="Common\Enums.cs" />
     <Compile Include="Common\Errata.cs" />
     <Compile Include="Common\FilterFlag.cs" />
     <Compile Include="CompendiumModel.cs" />

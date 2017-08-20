@@ -56,7 +56,7 @@ namespace Compendium.WPF.ViewModels.SpellViewer
 
         public string Description => Selected?.Description;
 
-        public string HigherLevel => Selected?.HigherLevel;
+        public string HigherLevel => string.IsNullOrEmpty(Selected?.HigherLevel) ? null : Selected.HigherLevel;
 
         public string Source => Selected?.Source != null
             ? Selected.Source.ToString() 

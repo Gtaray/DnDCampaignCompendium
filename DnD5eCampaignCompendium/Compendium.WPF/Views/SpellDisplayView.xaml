@@ -14,6 +14,8 @@
     <UserControl.Resources>
         <c:StringIsNullToBoolConverter
             x:Key="StringToBoolConverter" />
+        <c:NullToVisibilityConverter
+            x:Key="NullToVis" />
     </UserControl.Resources>
     <Grid>
         <ScrollViewer
@@ -50,9 +52,15 @@
                     Text="{Binding Description}"
                     Style="{StaticResource MaterialDesignBody1TextBlock}"
                     TextWrapping="Wrap" />
+
+                <Label
+                    Content="At Higher Level"
+                    Style="{StaticResource MaterialDesignLabel}"
+                    Visibility="{Binding HigherLevel, Converter={StaticResource NullToVis}}"/>
                 <TextBlock
                     Text="{Binding HigherLevel}"
                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                    Visibility="{Binding HigherLevel, Converter={StaticResource NullToVis}}"
                     TextWrapping="Wrap" />
 
                 <uc:LabeledTextBlock
@@ -60,107 +68,6 @@
                     TextBlock="{Binding Source}"
                     Height="30" />
             </ItemsControl>
-            
-            <!-- OLD -->
-            <!--<RichTextBox
-                IsReadOnly="True"
-                BorderThickness="0">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run
-                            Text="{Binding Name, Mode=OneWay}"
-                            FontWeight="Bold"
-                            FontFamily="Lucida Bright"
-                            FontSize="18" />
-                        <LineBreak />
-                        <Run
-                            Text="{Binding LevelAndSchool, Mode=OneWay}"
-                            FontStyle="Italic"
-                            FontSize="14" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run
-                            Text="Casting Time: "
-                            FontWeight="Bold"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <Run
-                            Text="{Binding CastingTime, Mode=OneWay}"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <LineBreak />
-                        <Run
-                            Text="Range: "
-                            FontWeight="Bold"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <Run
-                            Text="{Binding Range, Mode=OneWay}"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <LineBreak />
-                        <Run
-                            Text="Components: "
-                            FontWeight="Bold"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <Run
-                            Text="{Binding Path=Components, Mode=OneWay}"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <LineBreak />
-                        <Run
-                            Text="Duration: "
-                            FontWeight="Bold"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <Run
-                            Text="{Binding Duration, Mode=OneWay}"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run
-                            Text="{Binding Description, Mode=OneWay}"
-                            FontSize="12"
-                            FontFamily="Courier New" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run
-                            Text="    At Higher Levels: "
-                            FontWeight="Bold"
-                            FontStyle="Italic"
-                            FontFamily="Courier New"
-                            ext:RunVisibility.Visible="{Binding HigherLevel, Converter={StaticResource StringToBoolConverter}, Mode=OneWay}" />
-                        <Run
-                            Text="{Binding HigherLevel, Mode=OneWay}"
-                            FontFamily="Courier New"
-                            ext:RunVisibility.Visible="{Binding HigherLevel, Converter={StaticResource StringToBoolConverter}, Mode=OneWay}" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run
-                            Text="Source: "
-                            FontWeight="Bold"
-                            FontFamily="Courier New" />
-                        <Run
-                            Text="{Binding Source, Mode=OneWay}"
-                            FontFamily="Courier New" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run
-                            Text="Errata:"
-                            FontWeight="Bold"
-                            FontStyle="Italic"
-                            FontFamily="Courier New"
-                            ext:RunVisibility.Visible="{Binding ErrataList, Converter={StaticResource StringToBoolConverter}, Mode=OneWay}" />
-                        <LineBreak />
-                        <Run
-                            Text="{Binding ErrataList, Mode=OneWay}"
-                            FontFamily="Courier New"
-                            ext:RunVisibility.Visible="{Binding ErrataList, Converter={StaticResource StringToBoolConverter}, Mode=OneWay}" />
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>-->
         </ScrollViewer>
     </Grid>
 </UserControl>

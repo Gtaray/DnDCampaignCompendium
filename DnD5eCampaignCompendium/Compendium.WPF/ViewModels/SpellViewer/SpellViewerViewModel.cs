@@ -56,6 +56,10 @@ namespace Compendium.WPF.ViewModels.SpellViewer
             get
             {
                 var list = _SpellViewerModel.AllSpells;
+                if (!string.IsNullOrEmpty(NameFilter))
+                    list = list.Where(s => s.Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0 || 
+                    s.Description.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+
                 if (LevelFilters.Any(f => f.IsChecked))
                     list = list.Where(s => LevelFilters.ElementAt(s.Level).IsChecked);
 
@@ -71,7 +75,7 @@ namespace Compendium.WPF.ViewModels.SpellViewer
                     list = list.Where(s => checkedSchools.Any(f => f.Filter == s.School));
                 }
 
-                if(ComponentFilters.Any(f => f.IsChecked))
+                if (ComponentFilters.Any(f => f.IsChecked))
                 {
                     var checkedComps = ComponentFilters.Where(f => f.IsChecked).Select(f => f.Filter);
                     if (IgnoreUncheckedComponents)
@@ -82,11 +86,17 @@ namespace Compendium.WPF.ViewModels.SpellViewer
                             (!f.IsChecked && !s.Components.Contains(f.Filter))));
                 }
 
-                if(SourceFilters.Any(f => f.IsChecked))
+                if (SourceFilters.Any(f => f.IsChecked))
                 {
                     var checkedSources = SourceFilters.Where(f => f.IsChecked);
                     list = list.Where(s => checkedSources.Any(f => f.Filter == s.Source));
                 }
+
+                if (ShowConcentrationSpells)
+                    list = list.Where(s => s.IsConcentration);
+
+                if (ShowRitualSpells)
+                    list = list.Where(s => s.IsRitual);
 
                 return list.Select(s => new SpellHeaderViewModel(s));
             }
@@ -96,19 +106,25 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         {
             get
             {
-                if (FilteredSpells.Count() == 0)
-                    return null;
-                else if (_SelectedSpell.Value != null)
-                    return new SpellHeaderViewModel(_SelectedSpell.Value);
-                else
-                    return FilteredSpells.First();
+                return _SelectedSpell.Value == null ? null : new SpellHeaderViewModel(_SelectedSpell.Value);
             }
             set { _SelectedSpell.Value = value?.Model; }
         }
 
+        public bool SpellDisplayIsVisible => _SelectedSpell.Value != null;
+
         #region Filters
+        #region By Name
+        Observable<string> _NameFilter = new Observable<string>();
+        public string NameFilter
+        {
+            get { return _NameFilter.Value; }
+            set { _NameFilter.Value = value; }
+        }
+        #endregion
+
         #region By Level
-        private ObservableList<FilterFlagViewModel<int>> _LevelFilters = 
+        private ObservableList<FilterFlagViewModel<int>> _LevelFilters =
             new ObservableList<FilterFlagViewModel<int>>()
         {
             new FilterFlagViewModel<int>(0, () => "Cantrips", false),
@@ -131,7 +147,7 @@ namespace Compendium.WPF.ViewModels.SpellViewer
 
         private FilterFlagViewModel<CharacterClass> GetClassFilterObject(CharacterClass cc)
         {
-            FilterFlagViewModel<CharacterClass> newfilter = 
+            FilterFlagViewModel<CharacterClass> newfilter =
                 new FilterFlagViewModel<CharacterClass>(cc, () => cc.Name, false);
             foreach (var child in cc.Subclasses)
                 newfilter.AddChildFilter(GetClassFilterObject(child));
@@ -165,6 +181,22 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         #region By Source
         private ObservableList<FilterFlagViewModel<ContentSource>> _SourceFilters;
         public IEnumerable<FilterFlagViewModel<ContentSource>> SourceFilters => _SourceFilters;
+        #endregion
+
+        #region By Misc
+        Observable<bool> _ShowRitualSpells = new Observable<bool>(false);
+        public bool ShowRitualSpells
+        {
+            get { return _ShowRitualSpells.Value; }
+            set { _ShowRitualSpells.Value = value; }
+        }
+
+        Observable<bool> _ShowConcentrationSpells = new Observable<bool>(false);
+        public bool ShowConcentrationSpells
+        {
+            get { return _ShowConcentrationSpells.Value; }
+            set { _ShowConcentrationSpells.Value = value; }
+        }
         #endregion
         #endregion
     }

@@ -50,8 +50,67 @@ namespace Compendium.Model.CharacterClasses
             CharacterClass newClass = new CharacterClass()
             {
                 Name = (string)obj.name,
-                SubclassTitle = (string)obj.subclassCategory
+                HD = (string)obj.hd,
+                DisplayName = obj.displayName != null ? (string)obj.displayName : "",
+                ArmorProfs = obj.armorProf != null ? (string)obj.armorProf : "",
+                WeaponProfs = obj.weaponProf != null ? (string)obj.weaponProf : "",
+                ToolProfs = obj.toolProf != null ? (string)obj.toolProf : "",
+                SaveProfs = obj.saveProf != null ? (string)obj.saveProf : "",
+                SkillProfs = obj.skillProf != null ? (string)obj.skillProf : "",
+                SubclassTitle = obj.subclassCategory != null ? (string)obj.subclassCategory : ""
             };
+
+            if(obj.description != null)
+            {
+                foreach (var line in obj.description)
+                    newClass.AddDescriptionLine((string)line);
+            }
+
+            if(obj.startingGear != null)
+            {
+                foreach (var gear in obj.startingGear)
+                    newClass.AddStartingGear((string)gear);
+            }
+
+            if(obj.features != null)
+            {
+                foreach (var feature in obj.features)
+                {
+                    ClassFeature newFeature = new ClassFeature()
+                    {
+                        Name = feature.name != null ? (string)feature.name : "",
+                        Level = feature.level != null ? (int)feature.level : 1,
+                        TableName = feature.tableName != null ? (string)feature.tableName : "",
+                        TableOnly = feature.tableOnly != null ? (bool)feature.tableOnly : true
+                    };
+
+                    if (obj.description != null)
+                    {
+                        foreach (var line in obj.description)
+                            newFeature.AddLineToDescription((string)line);
+                    }
+
+                    newClass.AddFeature(newFeature);
+                }
+            }
+
+            if(obj.featureColumns != null)
+            {
+                foreach(var column in obj.featureColumns)
+                {
+                    ClassTableColumn ctc = new ClassTableColumn()
+                    {
+                        ColumnHeader = column.columnHeader != null ? (string)column.columnHeader : ""
+                    };
+                    if(obj.values != null)
+                    {
+                        foreach (var line in obj.values)
+                            ctc.AddColumnValue((string)line);
+                    }
+
+                    newClass.AddTableColumn(ctc);
+                }
+            }
 
             // Parse spell list
             foreach(string id in obj.spells)
