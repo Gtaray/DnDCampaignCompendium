@@ -118,6 +118,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\IntToMarginConverter.cs" />
     <Compile Include="Converters\ClassFilterIsVisibleConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SelectedPageVisibilityConverter.cs" />
@@ -125,6 +126,8 @@
     <Compile Include="Dialogs\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Extentions\BindableSelectedItemBehavior.cs" />
+    <Compile Include="Extentions\DependencyObjectExtensions.cs" />
     <Compile Include="Extentions\LinqExtensions.cs" />
     <Compile Include="Extentions\RunVisibility.cs" />
     <Compile Include="UserControls\BulletedList.xaml.cs">
@@ -134,7 +137,7 @@
       <DependentUpon>LabeledTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ClassViewer\ClassViewerViewModel.cs" />
-    <Compile Include="ViewModels\ClassViewer\ClassViewModel.cs" />
+    <Compile Include="ViewModels\ClassViewer\ClassHeaderViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterFlagViewModel.cs" />
     <Compile Include="ViewModels\Common\GroupFilter.cs" />
     <Compile Include="ViewModels\Common\RelayCommand.cs" />

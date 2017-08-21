@@ -51,7 +51,7 @@ namespace Compendium.Model.CharacterClasses
             {
                 Name = (string)obj.name,
                 HD = (string)obj.hd,
-                DisplayName = obj.displayName != null ? (string)obj.displayName : "",
+                ShortName = obj.displayName != null ? (string)obj.displayName : "",
                 ArmorProfs = obj.armorProf != null ? (string)obj.armorProf : "",
                 WeaponProfs = obj.weaponProf != null ? (string)obj.weaponProf : "",
                 ToolProfs = obj.toolProf != null ? (string)obj.toolProf : "",

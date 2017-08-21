@@ -2,6 +2,7 @@
   "classes": [
     {
       "name": "Barbarian",
+      "shortname": "",
 	  "hd": "d12",
 	  "armorProf": "Light armor, medium armor, shields",
 	  "weaponProf" : "Simple weapons, martial weapons",
@@ -234,123 +235,129 @@
       "subclassCategory": "Primal Path",
       "spells": [],
 	  "subclasses": [
-		{
-			"name": "Berserker",
-			"displayName" : "Path of the Berserker",
-			"description" : [
-				"For some barbarians, rage is a means to an end - that end being violence. The Path of the Berserker is a path of untrammeled fury, slick with blood. As you enter the berserker's range, you thrill in the chaos of battle, heedless of your own health or well-being."
-			],
-			"features" : [
-				{
-					"name" : "Frenzy",
-					"description" : [
-						"Starting when you choose this path at 3rd level, you can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion.", 
-					]
-				},
-				{
-					"name" : "Mindless Rage",
-					"description" : [
-						"Beginning at 6th level, you can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage.", 
-					]
-				},
-				{
-					"name" : "Intimidating Presence",
-					"description" : [
-						"Beginning at 10th level, you can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency  bonus + your Charisma modifier) or be frightened of you until the endn of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened creature until the end of your next turn. This effects ends if the creature ends its turn out of line of sight or more than 60 feet away from you.",
-						"If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours." 
-					]
-				},
-				{
-					"name" : "Retaliation",
-					"description" : [
-						"Starting at 14th level, when you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature.", 
-					]
-				},
-			],
-			"subclasses": [],
-			"subclassCategory": null,
-			"spells": []
-		},
-        {
-			"name": "Totem Warrior",
-			"displayName" : "Path of the Totem Warrior",
-			"description" : [
-				"The Path of the Totem Warrior is a spiritual journey, as the barbarian accepts a spirit animal as guide, protector, and inspiration. In battle, your totem spirit fills you with supernatural might, adding magical fuel to your barbarian rage.",
-				"Most barbarian tribes consider a totem animal to be kin to a particular clan. In such cases, it is unusual for an individual to have more than one totem animal spirit, though exceptions exist."
-			],
-			"features" : [
-				{
-					"name" : "Spirit Seeker",
-					"description" : [
-						"Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. At 3rd level when you adopt this path, you gain the ability to cast the __beast sense__ and __speak with animals__ spells, but only as rituals."
-					]
-				},
-				{
-					"name" : "Totem Spirit",
-					"description" : [
-						"At 3rd level, when you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object - an amulet or similar adornment - that incorporates fur or feathres, claws, teeth, or bones of the totem animal. At your option, you also gain minor physical attributes that are reminiscent of your totem spirit. For example, if you have a bear totem spirit, you might be unusually hairy and thick-skinned, or if your totem is an eagle, your eyes turn bright yellow.",
-						"Your totem animal might be an animal related to those listed here but more appropriate to your homeland. For example, you could choose a hawk or vulture in place of an eagle.",
-						"**Bear.** While raging, you have resistance to all damage except psychic damage. The spirit of the bear makes you tough enough to stand up to any punishment.",
-						"**Eagle.** While you're raging and aren't wearing heavy armor, other creature have disadvantage on opportunity attack rolls against you, and you can use the Dash action as a bonus action on your turn. The spirit of the eagle makes you into a predator who can wave through the fray with ease.",
-						"**Wolf.** While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters."
-					]
-				},
-				{
-					"name" : "Aspect of the Beast",
-					"description" : [
-						"At 6th level, you gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected at 3rd level or a different one.",
-						"**Bear.** You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have advantage on Strength checks made to push, pull, lift, or break objects.",
-						"**Eagle.** You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disavantage on your Wisdom (Perception) checks.",
-						"**Wolf.** You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace."
-					]
-				},
-				{
-					"name" : "Spirit Walker",
-					"description" : [
-						"At 10th level, you can cast the __commune with nature__ spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for Totem Spirit or Aspect of the Beast appears to you to convey the information you seek.", 
-					]
-				},
-				{
-					"name" : "Totemic Attunement",
-					"description" : [
-						"At 14th level, you gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
-						"**Bear.** While you're raging, any creature within 5 feet of you that's hostile to you has disadvantage on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened.",
-						"**Eagle.** WHile raging, you have a flying speed equal to your current walking speed. This benefit only works in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft.",
-						"**Wolf.** While you're raging, you can use a bonus action on your turn to knock a Large or smaller creature prone when you hit it with melee weapon attack."
-					]
-				}
-			],
-			"subclasses": [],
-			"subclassCategory": null,
-			"spells": [
-				"speak_with_animals",
-				"beast_sense"
-			]
-        },
-        {
-          "name": "Battlerager",
-          "subclasses": [],
-          "subclassCategory": null,
-          "spells": []
-        }
+      {
+        "name" :  "Path of the Berserker",
+        "shortname": "Berserker",
+        "displayName": "Path of the Berserker",
+        "description": [
+          "For some barbarians, rage is a means to an end - that end being violence. The Path of the Berserker is a path of untrammeled fury, slick with blood. As you enter the berserker's range, you thrill in the chaos of battle, heedless of your own health or well-being."
+        ],
+        "features": [
+          {
+            "name": "Frenzy",
+            "description": [
+              "Starting when you choose this path at 3rd level, you can go into a frenzy when you rage. If you do so, for the duration of your rage you can make a single melee weapon attack as a bonus action on each of your turns after this one. When your rage ends, you suffer one level of exhaustion.",
+            ]
+          },
+          {
+            "name": "Mindless Rage",
+            "description": [
+              "Beginning at 6th level, you can't be charmed or frightened while raging. If you are charmed or frightened when you enter your rage, the effect is suspended for the duration of the rage.",
+            ]
+          },
+          {
+            "name": "Intimidating Presence",
+            "description": [
+              "Beginning at 10th level, you can use your action to frighten someone with your menacing presence. When you do so, choose one creature that you can see within 30 feet of you. If the creature can see or hear you, it must succeed on a Wisdom saving throw (DC equal to 8 + your proficiency  bonus + your Charisma modifier) or be frightened of you until the endn of your next turn. On subsequent turns, you can use your action to extend the duration of this effect on the frightened creature until the end of your next turn. This effects ends if the creature ends its turn out of line of sight or more than 60 feet away from you.",
+              "If the creature succeeds on its saving throw, you can't use this feature on that creature again for 24 hours."
+            ]
+          },
+          {
+            "name": "Retaliation",
+            "description": [
+              "Starting at 14th level, when you take damage from a creature that is within 5 feet of you, you can use your reaction to make a melee weapon attack against that creature.",
+            ]
+          },
+        ],
+        "subclasses": [ ],
+        "subclassCategory": null,
+        "spells": [ ]
+      },
+      {
+        "name": "Path of the Totem Warrior",
+        "shortname": "Totem Warrior",
+        "displayName": "Path of the Totem Warrior",
+        "description": [
+          "The Path of the Totem Warrior is a spiritual journey, as the barbarian accepts a spirit animal as guide, protector, and inspiration. In battle, your totem spirit fills you with supernatural might, adding magical fuel to your barbarian rage.",
+          "Most barbarian tribes consider a totem animal to be kin to a particular clan. In such cases, it is unusual for an individual to have more than one totem animal spirit, though exceptions exist."
+        ],
+        "features": [
+          {
+            "name": "Spirit Seeker",
+            "description": [
+              "Yours is a path that seeks attunement with the natural world, giving you a kinship with beasts. At 3rd level when you adopt this path, you gain the ability to cast the __beast sense__ and __speak with animals__ spells, but only as rituals."
+            ]
+          },
+          {
+            "name": "Totem Spirit",
+            "description": [
+              "At 3rd level, when you adopt this path, you choose a totem spirit and gain its feature. You must make or acquire a physical totem object - an amulet or similar adornment - that incorporates fur or feathres, claws, teeth, or bones of the totem animal. At your option, you also gain minor physical attributes that are reminiscent of your totem spirit. For example, if you have a bear totem spirit, you might be unusually hairy and thick-skinned, or if your totem is an eagle, your eyes turn bright yellow.",
+              "Your totem animal might be an animal related to those listed here but more appropriate to your homeland. For example, you could choose a hawk or vulture in place of an eagle.",
+              "**Bear.** While raging, you have resistance to all damage except psychic damage. The spirit of the bear makes you tough enough to stand up to any punishment.",
+              "**Eagle.** While you're raging and aren't wearing heavy armor, other creature have disadvantage on opportunity attack rolls against you, and you can use the Dash action as a bonus action on your turn. The spirit of the eagle makes you into a predator who can wave through the fray with ease.",
+              "**Wolf.** While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. The spirit of the wolf makes you a leader of hunters."
+            ]
+          },
+          {
+            "name": "Aspect of the Beast",
+            "description": [
+              "At 6th level, you gain a magical benefit based on the totem animal of your choice. You can choose the same animal you selected at 3rd level or a different one.",
+              "**Bear.** You gain the might of a bear. Your carrying capacity (including maximum load and maximum lift) is doubled, and you have advantage on Strength checks made to push, pull, lift, or break objects.",
+              "**Eagle.** You gain the eyesight of an eagle. You can see up to 1 mile away with no difficulty, able to discern even fine details as though looking at something no more than 100 feet away from you. Additionally, dim light doesn't impose disavantage on your Wisdom (Perception) checks.",
+              "**Wolf.** You gain the hunting sensibilities of a wolf. You can track other creatures while traveling at a fast pace, and you can move stealthily while traveling at a normal pace."
+            ]
+          },
+          {
+            "name": "Spirit Walker",
+            "description": [
+              "At 10th level, you can cast the __commune with nature__ spell, but only as a ritual. When you do so, a spiritual version of one of the animals you chose for Totem Spirit or Aspect of the Beast appears to you to convey the information you seek.",
+            ]
+          },
+          {
+            "name": "Totemic Attunement",
+            "description": [
+              "At 14th level, you gain a magical benefit based on a totem animal of your choice. You can choose the same animal you selected previously or a different one.",
+              "**Bear.** While you're raging, any creature within 5 feet of you that's hostile to you has disadvantage on attack rolls against targets other than you or another character with this feature. An enemy is immune to this effect if it can't see or hear you or if it can't be frightened.",
+              "**Eagle.** WHile raging, you have a flying speed equal to your current walking speed. This benefit only works in short bursts; you fall if you end your turn in the air and nothing else is holding you aloft.",
+              "**Wolf.** While you're raging, you can use a bonus action on your turn to knock a Large or smaller creature prone when you hit it with melee weapon attack."
+            ]
+          }
+        ],
+        "subclasses": [ ],
+        "subclassCategory": null,
+        "spells": [
+          "speak_with_animals",
+          "beast_sense"
+        ]
+      },
+      {
+        "name": "Path of the Battlerager",
+        "shortname": "Battlerager",
+        "subclasses": [ ],
+        "subclassCategory": null,
+        "spells": [ ]
+      }
       ],
     },
     {
       "name": "Bard",
+      "shortname": "",
       "subclasses": [
         {
-          "name": "Lore",
-          "subclasses": [],
+          "name": "College of Lore",
+          "shortname": "Lore",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Valor",
-          "subclasses": [],
+          "name": "College of Valor",
+          "shortname": "Valor",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         }
@@ -490,8 +497,9 @@
       "name": "Cleric",
       "subclasses": [
         {
-          "name": "Arcana",
-          "subclasses": [],
+          "name": "Arcana Domain",
+          "shortname": "Arcana",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "detect_magic",
@@ -509,8 +517,9 @@
           "isUA": false
         },
         {
-          "name": "Knowledge",
-          "subclasses": [],
+          "name": "Knowledge Domain",
+          "shortname": "Knowledge",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "command",
@@ -528,8 +537,9 @@
           "isUA": false
         },
         {
-          "name": "Life",
-          "subclasses": [],
+          "name": "Life Domain",
+          "shortname": "Life",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "bless",
@@ -547,8 +557,9 @@
           "isUA": false
         },
         {
-          "name": "Light",
-          "subclasses": [],
+          "name": "Light Domain",
+          "shortname": "Light",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "burning_hands",
@@ -566,8 +577,9 @@
           "isUA": false
         },
         {
-          "name": "Nature",
-          "subclasses": [],
+          "name": "Nature Domain",
+          "shortname": "Nature",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "animal_friendship",
@@ -585,8 +597,9 @@
           "isUA": false
         },
         {
-          "name": "Tempest",
-          "subclasses": [],
+          "name": "Tempest Domain",
+          "shortname": "Tempest",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "fog_cloud",
@@ -604,8 +617,9 @@
           "isUA": false
         },
         {
-          "name": "Trickery",
-          "subclasses": [],
+          "name": "Trickery Domain",
+          "shortname": "Trickery",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "charm_person",
@@ -623,8 +637,9 @@
           "isUA": false
         },
         {
-          "name": "War",
-          "subclasses": [],
+          "name": "War Domain",
+          "shortname": "War",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "divine_favor",
@@ -642,8 +657,9 @@
           "isUA": false
         },
         {
-          "name": "City",
-          "subclasses": [],
+          "name": "City Domain",
+          "shortname": "City",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "on_off",
@@ -778,8 +794,9 @@
       "name": "Druid",
       "subclasses": [
         {
-          "name": "Arctic",
-          "subclasses": [],
+          "name": "Arctic Circle",
+          "shortname": "Arctic",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "hold_person",
@@ -795,8 +812,9 @@
           "isUA": false
         },
         {
-          "name": "Coast",
-          "subclasses": [],
+          "name": "Coast Circle",
+          "shortname": "Coast",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "mirror_image",
@@ -812,8 +830,9 @@
           "isUA": false
         },
         {
-          "name": "Desert",
-          "subclasses": [],
+          "name": "Desert Circle",
+          "shortname": "Desert",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "blur",
@@ -829,8 +848,9 @@
           "isUA": false
         },
         {
-          "name": "Forest",
-          "subclasses": [],
+          "name": "Forest Circle",
+          "shortname": "Forest",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "barkskin",
@@ -846,8 +866,9 @@
           "isUA": false
         },
         {
-          "name": "Grassland",
-          "subclasses": [],
+          "name": "Grassland Circle",
+          "shortname": "Grassland",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "invisibility",
@@ -863,8 +884,9 @@
           "isUA": false
         },
         {
-          "name": "Mountain",
-          "subclasses": [],
+          "name": "Mountain Circle",
+          "shortname": "Mountain",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "spider_climb",
@@ -880,8 +902,9 @@
           "isUA": false
         },
         {
-          "name": "Swamp",
-          "subclasses": [],
+          "name": "Swamp Circle",
+          "shortname": "Swamp",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "darkness",
@@ -897,8 +920,9 @@
           "isUA": false
         },
         {
-          "name": "Underdark",
-          "subclasses": [],
+          "name": "Underdark Circle",
+          "shortname": "Underdark",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "spider_climb",
@@ -1066,24 +1090,27 @@
       "name": "Fighter",
       "subclasses": [
         {
-          "name": "Champion",
-          "subclasses": [],
+          "name": "Champion Archetype",
+          "shortname": "Champion",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Battle Master",
-          "subclasses": [],
+          "name": "Battle Master Archetype",
+          "shortname": "Battle Master",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Eldritch Knight",
-          "subclasses": [],
+          "name": "Eldritch Knight Archetype",
+          "shortname": "Eldritch Knight",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "acid_splash",
@@ -1255,16 +1282,18 @@
           "isUA": false
         },
         {
-          "name": "Purple Dragon Knight",
-          "subclasses": [],
+          "name": "Purple Dragon Knight Archetype",
+          "shortname": "Purple Dragon Knight",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Monster Hunter",
-          "subclasses": [],
+          "name": "Monster Hunter Archetype",
+          "shortname": "Monster Hunter",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "detect_magic",
@@ -1283,8 +1312,9 @@
       "name": "Monk",
       "subclasses": [
         {
-          "name": "Open Hand",
-          "subclasses": [],
+          "name": "Way of the Open Hand",
+          "shortname": "Open Hand",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "sanctuary"
@@ -1293,8 +1323,9 @@
           "isUA": false
         },
         {
-          "name": "Shadow",
-          "subclasses": [],
+          "name": "Way of Shadow",
+          "shortname": "Shadow",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "minor_illusion",
@@ -1307,8 +1338,9 @@
           "isUA": false
         },
         {
-          "name": "Four Elements",
-          "subclasses": [],
+          "name": "Way of the Four Elements",
+          "shortname": "Four Elements",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "thunderwave",
@@ -1327,16 +1359,18 @@
           "isUA": false
         },
         {
-          "name": "Long Death",
-          "subclasses": [],
+          "name": "Way of the Long Death",
+          "shortname": "Long Death",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Sun Soul",
-          "subclasses": [],
+          "name": "Way of the Sun Soul",
+          "shortname": "Sun Soul",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "burning_hands"
@@ -1354,8 +1388,9 @@
       "name": "Paladin",
       "subclasses": [
         {
-          "name": "Devotion",
-          "subclasses": [],
+          "name": "Oath of Devotion",
+          "shortname": "Devotion",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "protection_from_evil_and_good",
@@ -1373,8 +1408,9 @@
           "isUA": false
         },
         {
-          "name": "Ancients",
-          "subclasses": [],
+          "name": "Oath of the Ancients",
+          "shortname": "Ancients",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "ensnaring_strike",
@@ -1392,8 +1428,9 @@
           "isUA": false
         },
         {
-          "name": "Vengeance",
-          "subclasses": [],
+          "name": "Oath of Vengeance",
+          "shortname": "Vengeance",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "bane",
@@ -1411,8 +1448,9 @@
           "isUA": false
         },
         {
-          "name": "Crown",
-          "subclasses": [],
+          "name": "Oath of the Crown",
+          "shortname": "Crown",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "command",
@@ -1486,24 +1524,27 @@
       "name": "Ranger",
       "subclasses": [
         {
-          "name": "Hunter",
-          "subclasses": [],
+          "name": "Hunter Archetype",
+          "shortname": "Hunter",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Beast Master",
-          "subclasses": [],
+          "name": "Beast Master Archetype",
+          "shortname": "Beast Master",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Deep Stalker",
-          "subclasses": [],
+          "name": "Deep Stalker Archetype",
+          "shortname": "Deep Stalker",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "disguise_self",
@@ -1575,24 +1616,27 @@
       "name": "Rogue",
       "subclasses": [
         {
-          "name": "Thief",
-          "subclasses": [],
+          "name": "Thief Archetype",
+          "shortname": "Thief",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Assassin",
-          "subclasses": [],
+          "name": "Assassin Archetype",
+          "shortname": "Assassin",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Arcane Trickster",
-          "subclasses": [],
+          "name": "Arcane Trickster Archetype",
+          "shortname": "Arcane Trickster",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "acid_splash",
@@ -1764,26 +1808,29 @@
           "isUA": false
         },
         {
-          "name": "Mastermind",
-          "subclasses": [],
+          "name": "Mastermind Archetype",
+          "shortname": "Mastermind",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Swashbuckler",
-          "subclasses": [],
+          "name": "Swashbuckler Archetype",
+          "shortname": "Swashbuckler",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Inquisitive",
-          "subclasses": [],
+          "name": "Inquisitive Archetype",
+          "shortname": "Inquisitive",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         }
@@ -1797,195 +1844,38 @@
       "name": "Sorcerer",
       "subclasses": [
         {
-          "name": "Draconic Bloodline",
-          "subclasses": [],
+          "name": "Draconic Bloodline Origin",
+          "shortname": "Draconic Bloodline",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Wild Magic",
-          "subclasses": [],
+          "name": "Wild Magic Origin",
+          "shortname": "Wild Magic",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Storm",
-          "subclasses": [],
+          "name": "Storm Origin",
+          "shortname": "Storm",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         },
         {
-          "name": "Shadow",
-          "subclasses": [],
+          "name": "Shadow Origin",
+          "shortname": "Shadow",
+          "subclasses": [ ],
           "subclassCategory": null,
-          "spells": [],
-          "isHomebrew": false,
-          "isUA": false
-        },
-        {
-          "name": "Favored Soul",
-          "subclasses": [
-            {
-              "name": "Knowledge",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "command",
-                "identify",
-                "augury",
-                "suggestion",
-                "nondetection",
-                "speak_with_dead",
-                "arcane_eye",
-                "confusion",
-                "legend_lore",
-                "scrying"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "Life",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "bless",
-                "cure_wounds",
-                "lesser_restoration",
-                "spiritual_weapon",
-                "beacon_of_hope",
-                "revivify",
-                "death_ward",
-                "guardian_of_faith",
-                "mass_cure_wounds",
-                "raise_dead"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "Light",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "burning_hands",
-                "faerie_fire",
-                "flaming_sphere",
-                "scorching_ray",
-                "daylight",
-                "fireball",
-                "guardian_of_faith",
-                "wall_of_fire",
-                "flame_strike",
-                "scrying"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "Nature",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "animal_friendship",
-                "speak_with_animals",
-                "barkskin",
-                "spike_growth",
-                "plant_growth",
-                "wind_wall",
-                "dominate_beast",
-                "grasping_vine",
-                "insect_plague",
-                "tree_stride"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "Tempest",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "fog_cloud",
-                "thunderwave",
-                "gust_of_wind",
-                "shatter",
-                "call_lightning",
-                "sleet_storm",
-                "control_weather",
-                "ice_storm",
-                "destructive_wave",
-                "insect_plague"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "Trickery",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "charm_person",
-                "disguise_self",
-                "mirror_image",
-                "pass_without_trace",
-                "blink",
-                "dispel_magic",
-                "dimension_door",
-                "polymorph",
-                "dominate_person",
-                "modify_memory"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "War",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "divine_favor",
-                "shield_of_faith",
-                "magic_weapon",
-                "spiritual_weapon",
-                "crusaders_mantle",
-                "spirit_guardians",
-                "freedom_of_movement",
-                "stoneskin",
-                "flame_strike",
-                "hold_monster"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            },
-            {
-              "name": "City",
-              "subclasses": [],
-              "subclassCategory": null,
-              "spells": [
-                "comprehend_languages",
-                "remote_access",
-                "find_vehicle",
-                "heat_metal",
-                "lightning_bolt",
-                "protection_from_ballistics",
-                "locate_creature",
-                "synchronicity",
-                "commune_with_city",
-                "shutdown"
-              ],
-              "isHomebrew": false,
-              "isUA": false
-            }
-          ],
-          "subclassCategory": "Domain",
-          "spells": [],
+          "spells": [ ],
           "isHomebrew": false,
           "isUA": false
         }
@@ -2181,8 +2071,9 @@
       "name": "Warlock",
       "subclasses": [
         {
-          "name": "Archfey",
-          "subclasses": [],
+          "name": "Archfey Patron",
+          "shortname": "Archfey",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "faerie_fire",
@@ -2200,8 +2091,9 @@
           "isUA": false
         },
         {
-          "name": "Fiend",
-          "subclasses": [],
+          "name": "Fiend Patron",
+          "shortname": "Fiend",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "burning_hands",
@@ -2219,8 +2111,9 @@
           "isUA": false
         },
         {
-          "name": "Great Old One",
-          "subclasses": [],
+          "name": "Great Old One Patron",
+          "shortname": "Great Old One",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "dissonant_whispers",
@@ -2238,7 +2131,7 @@
           "isUA": false
         },
         {
-          "name": "Undying",
+          "shortname": "Undying",
           "subclasses": [],
           "subclassCategory": null,
           "spells": [
@@ -2257,7 +2150,7 @@
           "isUA": false
         },
         {
-          "name": "Undying Light",
+          "shortname": "Undying Light",
           "subclasses": [],
           "subclassCategory": null,
           "spells": [
@@ -2273,7 +2166,7 @@
           "isUA": false
         },
         {
-          "name": "Ghost in the Machine",
+          "shortname": "Ghost in the Machine",
           "subclasses": [],
           "subclassCategory": null,
           "spells": [
@@ -2675,8 +2568,9 @@
       "name": "Magus",
       "subclasses": [
         {
-          "name": "Arcane Order",
-          "subclasses": [],
+          "name": "Society of the Arcane Order",
+          "shortname": "Arcane Order",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "arcing_arrow",
@@ -2757,8 +2651,9 @@
           "isUA": false
         },
         {
-          "name": "Knights Stygian",
-          "subclasses": [],
+          "name": "Society of the Knights Stygian",
+          "shortname": "Knights Stygian",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "blade_ward",
@@ -2830,8 +2725,9 @@
           "isUA": false
         },
         {
-          "name": "Primordial Seal",
-          "subclasses": [],
+          "name": "Society of the Primordial Seal",
+          "shortname": "Primordial Seal",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "acid_splash",
@@ -2914,8 +2810,9 @@
           "isUA": false
         },
         {
-          "name": "Shadow Court",
-          "subclasses": [],
+          "name": "Society of the Shadow Court",
+          "shortname": "Shadow Court",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "corrupted_ki_kata",
@@ -2991,8 +2888,9 @@
           "isUA": false
         },
         {
-          "name": "Sylvan Circle",
-          "subclasses": [],
+          "name": "Society of the Sylvan Circle",
+          "shortname": "Sylvan Circle",
+          "subclasses": [ ],
           "subclassCategory": null,
           "spells": [
             "booming_blade",

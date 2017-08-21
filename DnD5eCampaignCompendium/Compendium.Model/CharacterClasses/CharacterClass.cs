@@ -29,11 +29,11 @@ namespace Compendium.Model.CharacterClasses
             set { _Name.Value = value; }
         }
 
-        private Observable<string> _DisplayName = new Observable<string>();
-        public string DisplayName
+        private Observable<string> _ShortName = new Observable<string>();
+        public string ShortName
         {
-            get { return _DisplayName; }
-            set { _DisplayName.Value = value; }
+            get { return _ShortName; }
+            set { _ShortName.Value = value; }
         }
 
         private ObservableList<string> _Description = new ObservableList<string>();

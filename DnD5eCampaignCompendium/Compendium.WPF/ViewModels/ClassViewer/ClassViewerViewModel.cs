@@ -1,6 +1,7 @@
 ﻿using Assisticant;
 using Assisticant.Fields;
 using Compendium.Model.CharacterClasses;
+using Compendium.WPF.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,12 @@ namespace Compendium.WPF.ViewModels.ClassViewer
             _SelectedClass = selected;
         }
 
-        public IEnumerable<ClassViewModel> Classes
+        public IEnumerable<ClassHeaderViewModel> Classes
         {
-            get { return _Model.Classes.Select(s => new ClassViewModel(s)); }
+            get { return _Model.Classes.Select(s => new ClassHeaderViewModel(s, _SelectedClass)); }
         }
 
-        public ClassViewModel SelectedClass
-        {
-            get { return new ClassViewModel(_SelectedClass.Value); }
-            set { _SelectedClass.Value = value.Model; }
-        }
+        public ClassHeaderViewModel SelectedClass =>
+            _SelectedClass.Value != null ? new ClassHeaderViewModel(_SelectedClass.Value, _SelectedClass) : null;
     }
 }

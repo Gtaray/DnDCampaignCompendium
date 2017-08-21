@@ -5,10 +5,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:Compendium.WPF.Views"
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:convert="clr-namespace:Compendium.WPF.Converters"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ext="clr-namespace:Compendium.WPF.Extentions"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300"
     DataContext="{Binding ClassViewer, Source={StaticResource Locator}}"
     x:Name="ClassViewerRoot">
+    <UserControl.Resources>
+        <convert:IntToMarginConverter
+            x:Key="IntToMargin" />
+
+        <HierarchicalDataTemplate
+            x:Key="TreeItemTemplate"
+            ItemsSource="{Binding Subclasses, Mode=OneTime}">
+            <TextBlock
+                Text="{Binding Name}"
+                Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+        </HierarchicalDataTemplate>
+
+        <Style
+            x:Key="TreeViewItemStyle"
+            TargetType="TreeViewItem"
+            BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+            <Setter
+                Property="IsSelected"
+                Value="{Binding IsSelected, Mode=TwoWay}" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition
@@ -21,66 +45,35 @@
         <!-- FILTERS -->
 
         <!-- DISPLAY -->
+        <TextBlock
+            Text="{Binding SelectedClass}" 
+            Grid.Column="2"/>
+
 
         <!-- LIST -->
-        <DataGrid
-            SelectedItem="{Binding SelectedClass, Mode=TwoWay}"
-            ItemsSource="{Binding Classes}"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            HeadersVisibility="Column"
-            AutoGenerateColumns="False"
-            CanUserAddRows="False"
-            CanUserReorderColumns="True"
-            CanUserResizeColumns="True"
-            CanUserResizeRows="False"
-            IsReadOnly="True"
-            SelectionUnit="FullRow"
-            AllowDrop="False"
-            ScrollViewer.CanContentScroll="True"
-            VirtualizingPanel.IsVirtualizing="True"
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto"
             Grid.Column="1"
             Canvas.ZIndex="0">
-            <!--<DataGrid.GroupStyle>
-                <GroupStyle
-                    ContainerStyle="{StaticResource GroupHeaderStyle}">
-                    <GroupStyle.Panel>
-                        <ItemsPanelTemplate>
-                            <DataGridRowsPresenter />
-                        </ItemsPanelTemplate>
-                    </GroupStyle.Panel>
-                </GroupStyle>
-            </DataGrid.GroupStyle>-->
-            <!--<DataGrid.CellStyle>
-                <Style
-                    TargetType="DataGridCell">
-                    <Setter
-                        Property="BorderThickness"
-                        Value="0" />
-                    <Setter
-                        Property="FocusVisualStyle"
-                        Value="{x:Null}" />
-                </Style>
-            </DataGrid.CellStyle>-->
-            <DataGrid.Columns>
-                <DataGridTextColumn
-                    Header="Name"
-                    Binding="{Binding Name, Mode=OneWay, IsAsync=True, FallbackValue=Loading...}"
-                    Width="220"
-                    IsReadOnly="True" />
-                <!--<DataGridTextColumn
-                    Header="School"
-                    Binding="{Binding School, Mode=OneWay, IsAsync=True, FallbackValue=...}"
-                    IsReadOnly="True" />
-                <DataGridCheckBoxColumn
-                    Header="Conc"
-                    Binding="{Binding Concentration, Mode=OneWay, IsAsync=True, FallbackValue=False}"
-                    IsReadOnly="True" />
-                <DataGridCheckBoxColumn
-                    Header="Ritual"
-                    Binding="{Binding Ritual, Mode=OneWay, IsAsync=True, FallbackValue=False}"
-                    IsReadOnly="True" />-->
-            </DataGrid.Columns>
-        </DataGrid>
+            <TreeView
+                ItemsSource="{Binding Classes}"
+                ItemTemplate="{StaticResource TreeItemTemplate}"
+                ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                Style="{StaticResource MaterialDesignTreeView}"
+                FocusVisualStyle="{StaticResource MaterialDesignTreeViewItemFocusVisual}"
+                BorderThickness="0"
+                ScrollViewer.CanContentScroll="True"
+                VirtualizingPanel.IsVirtualizing="True"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <TreeView.Template>
+                    <ControlTemplate>
+                        <Border>
+                            <ItemsPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </TreeView.Template>
+            </TreeView>
+        </ScrollViewer>
     </Grid>
 </UserControl>
