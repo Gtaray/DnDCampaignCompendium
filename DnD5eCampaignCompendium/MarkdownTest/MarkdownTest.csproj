@@ -47,6 +47,14 @@
       <HintPath>..\packages\Markdig.0.13.1\lib\net40\Markdig.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.0.823, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows" />
@@ -68,8 +76,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HtmlToXaml\HtmlCssParser.cs" />
+    <Compile Include="HtmlToXaml\HtmlLexicalAnalyzer.cs" />
+    <Compile Include="HtmlToXaml\HtmlParser.cs" />
+    <Compile Include="HtmlToXaml\HtmlSchema.cs" />
+    <Compile Include="HtmlToXaml\HtmlTokenType.cs" />
     <Compile Include="Model\MarkdownModel.cs" />
-    <Compile Include="ViewModels\HtmlToFlowDocumentConverter.cs" />
+    <Compile Include="HtmlToXaml\HtmlToFlowDocumentConverter.cs" />
+    <Compile Include="HtmlToXaml\HtmlToXamlConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">

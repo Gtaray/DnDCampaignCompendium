@@ -2,22 +2,23 @@
 As a druid, you gain the following class features
 
 ### Hit Points
-**Hit Dice:** 1d8 per druid level
-**Hit Points at 1st Level:** 8 + your Constitution modifier
-**Hit Points at Higher Levels:** d8 (or 5) + your Constitution modifier per druid level after 1st
+**Hit Dice:** 1d8 per druid level  
+**Hit Points at 1st Level:** 8 + your Constitution modifier  
+**Hit Points at Higher Levels:** d8 (or 5) + your Constitution modifier per druid level after 1st  
 
 ### Proficiencies
-**Armor:** Light armor, medium armor, shields (druids will not wear armor or use shields made of metal)
-**Weapons:** Clubs, daggers, darts, javelins, maces, quarterstafs, scimitars, sickles, slings, spears
-**Tools:** Herbalism kit
+**Armor:** Light armor, medium armor, shields (druids will not wear armor or use shields made of metal)  
+**Weapons:** Clubs, daggers, darts, javelins, maces, quarterstafs, scimitars, sickles, slings, spears  
+**Tools:** Herbalism kit  
 
-**Saving Throws:** Intelligence, Wisdom
+
+**Saving Throws:** Intelligence, Wisdom  
 **Skills:** Choose two from Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, and Survival
 
 ### Equipment
 You start with the following equipment, in addition to the equipment granted by your background:
-* __(a)__ a wooden shield or __(b)__ any simple weapon
-* __(a)__ a scimitar or __(b)__ any simple melee weapon
+* _(a)_ a wooden shield or _(b)_ any simple weapon
+* _(a)_ a scimitar or _(b)_ any simple melee weapon
 * Leather armor, an explorer's pack, and a druidic focus
 
 ## Druidic
@@ -43,7 +44,7 @@ You can also change your list of prepared Spells when you finish a Long Rest. Pr
 
 Wisdom is your spellcasting ability for your druid Spells, since your magic draws upon your devotion and Attunement to nature. You use your Wisdom whenever a spell refers to your spellcasting ability. In addition, you use your Wisdom modifier when Setting the saving throw DC for a druid spell you cast and when Making an Attack roll with one.
 
-**Spell save DC** = 8 + your proficiency bonus + your Wisdom modifier
+**Spell save DC** = 8 + your proficiency bonus + your Wisdom modifier  
 **Spell attack modifier** = your proficiency bonus + your Wisdom modifier
 
 ### Ritual Casting
@@ -58,6 +59,7 @@ Starting at 2nd level, you can use your action to magically assume the shape of 
 Your druid level determines the Beasts you can transform into, as shown in the Beast Shapes table. At 2nd level, for example, you can transform into any beast that has a challenge rating of 1/4 or lower that doesn't have a flying or swimming speed.
 
 **Beast Shapes**
+
 **Level** | **Max. CR** | **Limitations** | **Example**
 :-----|:--------|:------------|:-------
 2nd|1/4|No flying or swimming speed|Wolf
@@ -114,66 +116,66 @@ Once you gain access to a circle spell, you always have it prepared, and it does
 #### Arctic
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__hold person, spike growth__
-5th|__sleet storm, slow__
-7th|__freedom of movement, ice storm__
-9th|__cojmmune with nature, cone of cold__
+3rd|_hold person, spike growth_
+5th|_sleet storm, slow_
+7th|_freedom of movement, ice storm_
+9th|_cojmmune with nature, cone of cold_
 
 #### Coast
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__mirror image, misty step__
-5th|__water breathing, water walk__
-7th|__control water, freedom of movement__
-9th|__conjure elemental, scrying__
+3rd|_mirror image, misty step_
+5th|_water breathing, water walk_
+7th|_control water, freedom of movement_
+9th|_conjure elemental, scrying_
 
 #### Desert
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__blur, silence__
-5th|__create food and water, protection from energy__
-7th|__blight, hallucinatory terrain__
-9th|__insect plague, wall of stone__
+3rd|_blur, silence_
+5th|_create food and water, protection from energy_
+7th|_blight, hallucinatory terrain_
+9th|_insect plague, wall of stone_
 
 #### Forest
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__barkskin, spider climb__
-5th|__call lightning, plant growth__
-7th|__divination, freedom of movement__
-9th|__commune with nature, tree stride__
+3rd|_barkskin, spider climb_
+5th|_call lightning, plant growth_
+7th|_divination, freedom of movement_
+9th|_commune with nature, tree stride_
 
 #### Grassland
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__invisibility, pass without trace__
-5th|__daylight, haste__
-7th|__divination, freedom of movement__
-9th|__dream, insect plague__
+3rd|_invisibility, pass without trace_
+5th|_daylight, haste_
+7th|_divination, freedom of movement_
+9th|_dream, insect plague_
 
 #### Mountain
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__spider climb, spike growth__
-5th|__lightning bolt, meld into stone__
-7th|__stone shape, stoneskin__
-9th|__passwall, wall of stone__
+3rd|_spider climb, spike growth_
+5th|_lightning bolt, meld into stone_
+7th|_stone shape, stoneskin_
+9th|_passwall, wall of stone_
 
 #### Swamp
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__darkness, Melf's acid arrw__
-5th|__water walk, stinking cloud__
-7th|__fredom of movement, locate creature__
-9th|__insect plague, scrying__
+3rd|_darkness, Melf's acid arrw_
+5th|_water walk, stinking cloud_
+7th|_fredom of movement, locate creature_
+9th|_insect plague, scrying_
 
 #### Underdark
 **Druid Level** | **Circle Spells
 :--------------:|:---------------
-3rd|__spider climb, web__
-5th|__gaseous form, stinking cloud__
-7th|__greater invisibility, stone shape__
-9th|__cloudkill, insect plague__
+3rd|_spider climb, web_
+5th|_gaseous form, stinking cloud_
+7th|_greater invisibility, stone shape_
+9th|_cloudkill, insect plague_
 
 ### Land's Stride
 Starting at 6th level, moving through nonmagical difficult terrain costs you no extra Movement. You can also pass through nonmagical Plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard.
@@ -210,4 +212,4 @@ Starting at 6th level, your attacks in beast form count as magical for the purpo
 At 10th level, you can expend two uses of Wild Shape at the same time to transform into an air elemental, an earth elemental, a fire elemental, or a water elemental.
 
 ### Thousand Forms
-By 14th level, you have learned to use magic to alter your physical form in more subtle ways. You can cast the __alter self__ spell at will.
+By 14th level, you have learned to use magic to alter your physical form in more subtle ways. You can cast the _alter self_ spell at will.

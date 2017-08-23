@@ -5,13 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarkdownTest"
         xmlns:vm="clr-namespace:MarkdownTest.ViewModels"
-        mc:Ignorable="d"
+        xmlns:html="clr-namespace:MarkdownTest.HtmlToXaml"
+        xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextElement.FontWeight="Regular"
+    TextElement.FontSize="13"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    
+    mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <vm:
+        <html:HtmlToFlowDocumentConverter
+            x:Key="HtmlToXaml" />
     </Window.Resources>
     <Grid>
-        
+        <FlowDocumentScrollViewer
+            Document="{Binding HTML, Converter={StaticResource HtmlToXaml}}">
+            <FlowDocumentScrollViewer.Resources>
+                <Style
+                    TargetType="{x:Type Paragraph}">
+                    <Setter
+                        Property="FontFamily"
+                        Value="Comic Sans" />
+                </Style>
+            </FlowDocumentScrollViewer.Resources>
+        </FlowDocumentScrollViewer>
     </Grid>
 </Window>

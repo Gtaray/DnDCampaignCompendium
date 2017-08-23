@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 
-namespace MarkdownTest.ViewModels
+namespace MarkdownTest.HtmlToXaml
 {
     public class HtmlToFlowDocumentConverter : IValueConverter
     {
