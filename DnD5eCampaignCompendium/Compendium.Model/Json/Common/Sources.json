@@ -1,21 +1,27 @@
 ﻿{
   "sources": [
     {
+      "id": "players_handbook",
       "name": "Player's Handbook"
     },
     {
+      "id": "elemental_evil",
       "name": "Elemental Evil"
     },
     {
+      "id": "sword_coast",
       "name": "Sword Coast Adventurer's Guide"
     },
     {
+      "id": "volos_guide",
       "name": "Volo's Guide to Monsters"
     },
     {
+      "id": "unearthed_arcana",
       "name": "Unearthed Arcana"
     },
     {
+      "id": "homebrew",
       "name": "Homebrew"
     }
   ]

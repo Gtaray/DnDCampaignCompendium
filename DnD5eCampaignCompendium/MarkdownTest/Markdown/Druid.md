@@ -17,9 +17,34 @@ As a druid, you gain the following class features
 
 ### Equipment
 You start with the following equipment, in addition to the equipment granted by your background:
-* _(a)_ a wooden shield or _(b)_ any simple weapon
-* _(a)_ a scimitar or _(b)_ any simple melee weapon
-* Leather armor, an explorer's pack, and a druidic focus
+
++ _(a)_ a wooden shield or _(b)_ any simple weapon
++ _(a)_ a scimitar or _(b)_ any simple melee weapon
++ Leather armor, an explorer's pack, and a druidic focus
+
+___
+|~Level | Profiency~Bonus |~Features                                        | Cantrips~Known |~1st |~2nd |~3rd |~4th |~5th |~6th |~7th |~8th |~9th |
+|:-----:|:---------------:|:*-----------------------------------------------|:--------------:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|1st    |+2               |Druid, Spellcasting                              |2               |2    |-    |-    |-    |-    |-    |-    |-    |-    |
+|2nd    |+2               |Wild Shape, Druid Circle                         |2               |3    |-    |-    |-    |-    |-    |-    |-    |-    |
+|3rd    |+2               |-                                                |2               |4    |2    |-    |-    |-    |-    |-    |-    |-    |
+|4th    |+2               |Wild Shape improvement, Ability Score Improvement|2               |4    |3    |-    |-    |-    |-    |-    |-    |-    |
+|5th    |+3               |-                                                |2               |4    |3    |2    |-    |-    |-    |-    |-    |-    |
+|6th    |+3               |Druid Circle feature                             |3               |4    |3    |3    |-    |-    |-    |-    |-    |-    |
+|7th    |+3               |-                                                |3               |4    |3    |3    |1    |-    |-    |-    |-    |-    |
+|8th    |+3               |Wild Shape improvement, Ability Score Improvement|3               |4    |3    |3    |2    |-    |-    |-    |-    |-    |
+|9th    |+4               |-		                                        |3               |4    |3    |3    |3    |1    |-    |-    |-    |-    |
+|10th   |+4               |Druid Circle feature                             |4               |4    |3    |3    |3    |2    |-    |-    |-    |-    |
+|11th   |+4               |-                                                |4               |4    |3    |3    |3    |2    |1    |-    |-    |-    |
+|12th   |+4               |Ability Score Improvement                        |4               |4    |3    |3    |3    |2    |1    |-    |-    |-    |
+|13th   |+5               |-                                                |4               |4    |3    |3    |3    |2    |1    |1    |-    |-    |
+|14th   |+5               |Druid Circle feature                             |4               |4    |3    |3    |3    |2    |1    |1    |-    |-    |
+|15th   |+5               |-                                                |4               |4    |3    |3    |3    |2    |1    |1    |1    |-    |
+|16th   |+5               |Ability Score Improvement                        |4               |4    |3    |3    |3    |2    |1    |1    |1    |-    |
+|17th   |+6               |-                                                |4               |4    |3    |3    |3    |2    |1    |1    |1    |1    |
+|18th   |+6               |Timeless Body, Beast Spells                      |4               |4    |3    |3    |3    |3    |1    |1    |1    |1    |
+|19th   |+6               |Ability Score Improvement                        |4               |4    |3    |3    |3    |3    |2    |1    |1    |1    |
+|20th   |+6               |Archdruid                                        |4               |4    |3    |3    |3    |2    |2    |2    |1    |1    |
 
 ## Druidic
 You know Druidic, the secret Language of druids. You can speak the Language and use it to leave hidden messages. You and others who know this Language automatically spot such a Message. Others spot the message's presence with a successful DC 15 Wisdom (Perception) check but can't decipher it without magic.
@@ -58,23 +83,22 @@ Starting at 2nd level, you can use your action to magically assume the shape of 
 
 Your druid level determines the Beasts you can transform into, as shown in the Beast Shapes table. At 2nd level, for example, you can transform into any beast that has a challenge rating of 1/4 or lower that doesn't have a flying or swimming speed.
 
-**Beast Shapes**
-
-**Level** | **Max. CR** | **Limitations** | **Example**
-:-----|:--------|:------------|:-------
-2nd|1/4|No flying or swimming speed|Wolf
-4th|1/2|No fying speed|Crocodile
-8th|1|-|Giant eagle
+#### Beast Shapes
+| Level | Max. CR | Limitations               | Example   |
+|:------|:--------|:*-------------------------|:----------|
+|2nd    |1/4      |No flying or swimming speed|Wolf       |
+|4th    |1/2      |No fying speed             |Crocodile  |
+|8th    |1        |-                          |Giant eagle|
 
 You can stay in a beast shape for a number of hours equal to half your druid level (rounded down). You then revert to your normal form unless you expend another use of this feature. You can revert to your normal form earlier by using a Bonus Action on Your Turn. You automatically revert if you fall Unconscious, drop to 0 hit points, or die.
 
 While you are transformed, the following rules apply:
 
-* Your game Statistics are replaced by the Statistics of the beast, but you retain your alignment, personality, and Intelligence, Wisdom, and Charisma scores. You also retain all of your skill and saving throw proficiencies, in addition to gaining those of the creature. If the creature has the same proficiency as you and the bonus in its stat block is higher than yours, use the creature's bonus instead of yours. If the creature has any legendary or lair actions, you can't use them.
-* When you transform, you assume the beast's Hit Points and Hit Dice. When you revert to your normal form, you return to the number of hit points you had before you transformed. However, if you revert as a result of Dropping to 0 Hit Points, any excess damage carries over to your normal form. For example, if you take 10 damage in animal form and have only 1 hit point left, you revert and take 9 damage. As long as the excess damage doesn't reduce your normal form to 0 hit points, you aren't knocked Unconscious.
-* You can't cast Spells, and your ability to speak or take any action that requires hands is limited to the capabilities of your beast form. Transforming doesn't break your Concentration on a spell you've already cast, however, or prevent you from taking actions that are part of a spell, such as Call Lightning, that you've already cast.
-* You retain the benefit of any features from your class, race, or other source and can use them if the new form is physically capable of doing so. However, you can't use any of your Special senses, such as Darkvision, unless your new form also has that sense.
-* You choose whether your Equipment falls to the ground in your space, merges into your new form, or is worn by it. Worn Equipment functions as normal, but the DM decides whether it is practical for the new form to wear a piece of Equipment, based on the creature's shape and size. Your Equipment doesn't change size or shape to match the new form, and any Equipment that the new form can't wear must either fall to the ground or merge with it. Equipment that merges with the form has no effect until you leave the form.
++ Your game Statistics are replaced by the Statistics of the beast, but you retain your alignment, personality, and Intelligence, Wisdom, and Charisma scores. You also retain all of your skill and saving throw proficiencies, in addition to gaining those of the creature. If the creature has the same proficiency as you and the bonus in its stat block is higher than yours, use the creature's bonus instead of yours. If the creature has any legendary or lair actions, you can't use them.
++ When you transform, you assume the beast's Hit Points and Hit Dice. When you revert to your normal form, you return to the number of hit points you had before you transformed. However, if you revert as a result of Dropping to 0 Hit Points, any excess damage carries over to your normal form. For example, if you take 10 damage in animal form and have only 1 hit point left, you revert and take 9 damage. As long as the excess damage doesn't reduce your normal form to 0 hit points, you aren't knocked Unconscious.
++ You can't cast Spells, and your ability to speak or take any action that requires hands is limited to the capabilities of your beast form. Transforming doesn't break your Concentration on a spell you've already cast, however, or prevent you from taking actions that are part of a spell, such as Call Lightning, that you've already cast.
++ You retain the benefit of any features from your class, race, or other source and can use them if the new form is physically capable of doing so. However, you can't use any of your Special senses, such as Darkvision, unless your new form also has that sense.
++ You choose whether your Equipment falls to the ground in your space, merges into your new form, or is worn by it. Worn Equipment functions as normal, but the DM decides whether it is practical for the new form to wear a piece of Equipment, based on the creature's shape and size. Your Equipment doesn't change size or shape to match the new form, and any Equipment that the new form can't wear must either fall to the ground or merge with it. Equipment that merges with the form has no effect until you leave the form.
 
 ## Druid Circle
 At 2nd level, you choose to Identify with a circle of druids, such as the Circle of the Land. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.
@@ -114,68 +138,68 @@ Choose that land—arctic, coast, desert, forest, grassland, mountain, or swamp�
 Once you gain access to a circle spell, you always have it prepared, and it doesn’t count against the number of Spells you can prepare each day. If you gain access to a spell that doesn’t appear on the druid spell list, the spell is nonetheless a druid spell for you.
 
 #### Arctic
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_hold person, spike growth_
-5th|_sleet storm, slow_
-7th|_freedom of movement, ice storm_
-9th|_cojmmune with nature, cone of cold_
+| Druid Level | Circle Spells                      |
+|:-----------:|:*----------------------------------|
+|3rd          |_hold person, spike growth_         |
+|5th          |_sleet storm, slow_                 |
+|7th          |_freedom of movement, ice storm_    |
+|9th          |_cojmmune with nature, cone of cold_|
 
 #### Coast
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_mirror image, misty step_
-5th|_water breathing, water walk_
-7th|_control water, freedom of movement_
-9th|_conjure elemental, scrying_
+| Druid Level | Circle Spells                      |
+|:-----------:|:*----------------------------------|
+|3rd          |_mirror image, misty step_          |
+|5th          |_water breathing, water walk_       |
+|7th          |_control water, freedom of movement_|
+|9th          |_conjure elemental, scrying_        |
 
 #### Desert
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_blur, silence_
-5th|_create food and water, protection from energy_
-7th|_blight, hallucinatory terrain_
-9th|_insect plague, wall of stone_
+| Druid Level | Circle Spells                                 |
+|:-----------:|:*---------------------------------------------|
+|3rd          |_blur, silence_                                |
+|5th          |_create food and water, protection from energy_|
+|7th          |_blight, hallucinatory terrain_                |
+|9th          |_insect plague, wall of stone_                 |
 
 #### Forest
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_barkskin, spider climb_
-5th|_call lightning, plant growth_
-7th|_divination, freedom of movement_
-9th|_commune with nature, tree stride_
+| Druid Level | Circle Spells                    |
+|:-----------:|:*--------------------------------|
+|3rd          |_barkskin, spider climb_          |
+|5th          |_call lightning, plant growth_    |
+|7th          |_divination, freedom of movement_ |
+|9th          |_commune with nature, tree stride_|
 
 #### Grassland
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_invisibility, pass without trace_
-5th|_daylight, haste_
-7th|_divination, freedom of movement_
-9th|_dream, insect plague_
+| Druid Level | Circle Spells|
+|:-----------:|:*--------------------------------|
+|3rd          |_invisibility, pass without trace_|
+|5th          |_daylight, haste_                 |
+|7th          |_divination, freedom of movement_ |
+|9th          |_dream, insect plague_            |
 
 #### Mountain
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_spider climb, spike growth_
-5th|_lightning bolt, meld into stone_
-7th|_stone shape, stoneskin_
-9th|_passwall, wall of stone_
+| Druid Level | Circle Spells                   |
+|:-----------:|:*-------------------------------|
+|3rd          |_spider climb, spike growth_     |
+|5th          |_lightning bolt, meld into stone_|
+|7th          |_stone shape, stoneskin_         |
+|9th          |_passwall, wall of stone_        |
 
 #### Swamp
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_darkness, Melf's acid arrw_
-5th|_water walk, stinking cloud_
-7th|_fredom of movement, locate creature_
-9th|_insect plague, scrying_
+| Druid Level | Circle Spells                       |
+|:-----------:|:*-----------------------------------|
+|3rd          |_darkness, Melf's acid arrw_         |
+|5th          |_water walk, stinking cloud_         |
+|7th          |_fredom of movement, locate creature_|
+|9th          |_insect plague, scrying_             |
 
 #### Underdark
-**Druid Level** | **Circle Spells
-:--------------:|:---------------
-3rd|_spider climb, web_
-5th|_gaseous form, stinking cloud_
-7th|_greater invisibility, stone shape_
-9th|_cloudkill, insect plague_
+| Druid Level | Circle Spells                     |
+|:-----------:|:*---------------------------------|
+|3rd          |_spider climb, web_                |
+|5th          |_gaseous form, stinking cloud_     |
+|7th          |_greater invisibility, stone shape_|
+|9th          |_cloudkill, insect plague_         |
 
 ### Land's Stride
 Starting at 6th level, moving through nonmagical difficult terrain costs you no extra Movement. You can also pass through nonmagical Plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard.

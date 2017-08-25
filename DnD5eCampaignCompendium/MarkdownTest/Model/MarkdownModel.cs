@@ -15,7 +15,7 @@ namespace MarkdownTest.Model
         }
 
         private Observable<string> _HTML = new Observable<string>();
-        public string HTML
+        public string Markdown
         {
             get { return _HTML; }
             set { _HTML.Value = value; }

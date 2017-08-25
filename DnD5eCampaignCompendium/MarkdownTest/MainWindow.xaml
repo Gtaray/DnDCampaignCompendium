@@ -5,32 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarkdownTest"
         xmlns:vm="clr-namespace:MarkdownTest.ViewModels"
-        xmlns:html="clr-namespace:MarkdownTest.HtmlToXaml"
+        xmlns:md="clr-namespace:MarkdownTest.MarkdownToXaml"
         xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    TextElement.FontWeight="Regular"
-    TextElement.FontSize="13"
-    TextOptions.TextFormattingMode="Ideal"
-    TextOptions.TextRenderingMode="Auto"
-    
-    mc:Ignorable="d"
+        mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
-        <html:HtmlToFlowDocumentConverter
-            x:Key="HtmlToXaml" />
+        <md:Markdown
+            DocumentStyle="{StaticResource DocumentStyle}"
+            BodyStyle="{StaticResource BodyStyle}"
+            Heading1Style="{StaticResource H1Style}"
+            Heading2Style="{StaticResource H2Style}"
+            Heading3Style="{StaticResource H3Style}"
+            Heading4Style="{StaticResource H4Style}"
+            TableStyle="{StaticResource TableStyle}"
+            HalfTableStyle="{StaticResource HalfTableStyle}"
+            TableHeaderRowStyle="{StaticResource HeaderRowStyle}"
+            TableRowStyle="{StaticResource RowStyle}"
+            TableRowAlternatingColor="{DynamicResource Accent100}"
+            ListStyle="{StaticResource ListStyle}"
+            LinkStyle="{StaticResource LinkStyle}"
+            ImageStyle="{StaticResource ImageStyle}"
+            SeparatorStyle="{StaticResource SeparatorStyle}"
+            x:Key="Markdown" />
+
+        <md:TextToFlowDocumentConverter
+            x:Key="TextToFlowDocumentConverter"
+            Markdown="{StaticResource Markdown}" />
     </Window.Resources>
     <Grid>
         <FlowDocumentScrollViewer
-            Document="{Binding HTML, Converter={StaticResource HtmlToXaml}}">
-            <FlowDocumentScrollViewer.Resources>
-                <Style
-                    TargetType="{x:Type Paragraph}">
-                    <Setter
-                        Property="FontFamily"
-                        Value="Comic Sans" />
-                </Style>
-            </FlowDocumentScrollViewer.Resources>
-        </FlowDocumentScrollViewer>
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Margin="5"
+            Document="{Binding Markdown, Converter={StaticResource TextToFlowDocumentConverter}}" />
     </Grid>
 </Window>

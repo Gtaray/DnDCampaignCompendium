@@ -34,7 +34,7 @@ namespace Compendium.WPF.ViewModels
             get { return _NavList; }
         }
 
-        private Observable<int> _SelectedPage = new Observable<int>(0);
+        private Observable<int> _SelectedPage = new Observable<int>(1);
         public int SelectedPage
         {
             get { return _SelectedPage; }

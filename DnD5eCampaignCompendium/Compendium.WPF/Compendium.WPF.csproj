@@ -69,6 +69,10 @@
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows" />
@@ -120,6 +124,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\IntToMarginConverter.cs" />
     <Compile Include="Converters\ClassFilterIsVisibleConverter.cs" />
+    <Compile Include="Converters\MarkdownToFlowDocConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SelectedPageVisibilityConverter.cs" />
     <Compile Include="Converters\StringIsNullToBoolConverter.cs" />
@@ -129,6 +134,7 @@
     <Compile Include="Extentions\BindableSelectedItemBehavior.cs" />
     <Compile Include="Extentions\DependencyObjectExtensions.cs" />
     <Compile Include="Extentions\LinqExtensions.cs" />
+    <Compile Include="Extentions\Markdown.cs" />
     <Compile Include="Extentions\RunVisibility.cs" />
     <Compile Include="UserControls\BulletedList.xaml.cs">
       <DependentUpon>BulletedList.xaml</DependentUpon>
@@ -172,6 +178,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles\MarkdownStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\BulletedList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

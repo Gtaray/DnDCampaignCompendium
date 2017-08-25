@@ -1,0 +1,451 @@
+﻿{
+  "classes": [
+    {
+      "name": "Barbarian",
+			"id": "barbarian",
+      "file": "Classes\\Barbarian\\Barbarian.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Path of the Berserker",
+					"id": "barbarian.berserker",
+          "source": "players_handbook",
+          "file": "Classes\\Barbarian\\Berserker.md"
+        },
+        {
+          "name": "Path of the Totem Warrior",
+					"id": "barbarian.totem_warrior",
+          "source": "players_handbook",
+          "file": "Classes\\Barbarian\\TotemWarrior.md"
+        },
+        {
+          "name": "Path of the Battlerager",
+					"id": "barbarian.battlerager",
+          "source": "sword_coast",
+          "file": "Classes\\Barbarian\\Battlerager.md"
+        }
+      ]
+    },
+    {
+      "name": "Bard",
+			"id": "bard",
+      "file": "Classes\\Bard\\Bard.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "College of Lore",
+					"id": "bard.lore",
+          "source": "players_handbook",
+          "file": "Classes\\Bard\\Lore.md"
+        },
+        {
+          "name": "College of Valor",
+					"id": "bard.valor",
+          "source": "players_handbook",
+          "file": "Classes\\Bard\\Valor.md"
+        }
+      ]
+    },
+    {
+      "name": "Cleric",
+			"id": "cleric",
+      "file": "Classes\\Cleric\\Cleric.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Knowledge Domain",
+					"id": "cleric.knowledge",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\Knowledge.md"
+        },
+        {
+          "name": "Life Domain",
+					"id": "cleric.life",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\Life.md"
+        },
+        {
+          "name": "Light Domain",
+					"id": "cleric.light",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\Light.md"
+        },
+        {
+          "name": "Nature Domain",
+					"id": "cleric.nature",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\Nature.md"
+        },
+        {
+          "name": "Tempest Domain",
+					"id": "cleric.tempest",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\Tempest.md"
+        },
+        {
+          "name": "Trickery Domain",
+					"id": "cleric.trickery",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\Trickery.md"
+        },
+        {
+          "name": "War Domain",
+					"id": "cleric.war",
+          "source": "players_handbook",
+          "file": "Classes\\Cleric\\War.md"
+        }
+      ]
+    },
+    {
+      "name": "Druid",
+			"id": "druid",
+      "file": "Classes\\Druid\\Druid.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Circle of the Land",
+					"id": "druid.land",
+          "source": "players_handbook",
+          "file": "Classes\\Druid\\Land.md"
+        },
+        {
+          "name": "Circle of the Moon",
+					"id": "druid.moon",
+          "source": "players_handbook",
+          "file": "Classes\\Druid\\Moon.md"
+        },
+				{
+					"name": "Arctic",
+					"id": "druid.land.arctic",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Coast",
+					"id": "druid.land.coast",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Desert",
+					"id": "druid.land.desert",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Forest",
+					"id": "druid.land.forest",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Grassland",
+					"id": "druid.land.grassland",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Mountain",
+					"id": "druid.land.mountain",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Swamp",
+					"id": "druid.land.swamp",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+				{
+					"name": "Underdark",
+					"id": "druid.land.underdark",
+					"source": "players_handbook",
+					"file": "",
+					"filterOnly": true
+				},
+      ]
+    },
+    {
+      "name": "Figher",
+			"id": "fighter",
+      "file": "Classes\\Fighter\\Fighter.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Champion Archetype",
+					"id": "fighter.champion",
+          "source": "players_handbook",
+          "file": "Classes\\Figher\\Champion.md"
+        },
+        {
+          "name": "Battlemaster Archetype",
+					"id": "fighter.battlemaster",
+          "source": "players_handbook",
+          "file": "Classes\\Figher\\Battlemaster.md"
+        },
+        {
+          "name": "Eldritch Knight Archetype",
+					"id": "fighter.eldritch_knight",
+          "source": "players_handbook",
+          "file": "Classes\\Figher\\EldritcKnight.md"
+        }
+      ]
+    },
+    {
+      "name": "Monk",
+			"id": "monk",
+      "file": "Classes\\Monk\\Monk.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Way of the Open Hand",
+					"id": "monk.open_hand",
+          "source": "players_handbook",
+          "file": "Classes\\Monk\\OpenHand.md"
+        },
+        {
+          "name": "Way of Shadow",
+					"id": "monk.shadow",
+          "source": "players_handbook",
+          "file": "Classes\\Monk\\Shadow.md"
+        },
+        {
+          "name": "Way of the Four Elements",
+					"id": "monk.four_elements",
+          "source": "players_handbook",
+          "file": "Classes\\Monk\\FourElements.md"
+        }
+      ]
+    },
+    {
+      "name": "Paladin",
+			"id": "paladin",
+      "file": "Classes\\Paladin\\Paladin.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Oath of Devotion",
+					"id": "paladin.devotion",
+          "source": "players_handbook",
+          "file": "Classes\\Paladin\\Devotion.md"
+        },
+        {
+          "name": "Oath of the Ancients",
+					"id": "paladin.ancients",
+          "source": "players_handbook",
+          "file": "Classes\\Paladin\\Ancients.md"
+        },
+        {
+          "name": "Oath of Vengeance",
+					"id": "paladin.vengeance",
+          "source": "players_handbook",
+          "file": "Classes\\Paladin\\Vengeance.md"
+        },
+        {
+          "name": "Oath of the Crown",
+					"id": "paladin.crown",
+          "source": "sword_coast",
+          "file": "Classes\\Paladin\\Crown.md"
+        }
+      ]
+    },
+    {
+      "name": "Ranger",
+			"id": "ranger",
+      "file": "Classes\\Ranger\\Ranger.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Hunter Archetype",
+					"id": "ranger.hunter",
+          "source": "players_handbook",
+          "file": "Classes\\Ranger\\Hunter.md"
+        },
+        {
+          "name": "Beast Master Archetype",
+					"id": "ranger.beast_master",
+          "source": "players_handbook",
+          "file": "Classes\\Ranger\\BeastMaster.md"
+        }
+      ]
+    },
+    {
+      "name": "Rogue",
+			"id": "rogue",
+      "file": "Classes\\Rogue\\Rogue.md",
+      "subclasses": [
+        {
+          "name": "Thief Archetype",
+					"id": "rogue.thief",
+          "source": "players_handbook",
+          "file": "Classes\\Rogue\\Thief.md"
+        },
+        {
+          "name": "Assassin Archetype",
+					"id": "rogue.assassin",
+          "source": "players_handbook",
+          "file": "Classes\\Rogue\\Assassin.md"
+        },
+        {
+          "name": "Arcane Trickster Archetype",
+					"id": "rogue.arcane_trickster", 
+          "source": "players_handbook",
+          "file": "Classes\\Rogue\\ArcaneTrickster.md"
+        }
+      ]
+    },
+    {
+      "name": "Sorcerer",
+			"id": "sorcerer",
+      "file": "Classes\\Sorcerer\\Sorcerer.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Draconic Bloodline Origin",
+					"id": "sorcerer.draconic",
+          "source": "players_handbook",
+          "file": "Classes\\Sorcerer\\Draconic.md"
+        },
+        {
+          "name": "Wild Magic Origin",
+					"id": "sorcerer.wild_magic",
+          "source": "players_handbook",
+          "file": "Classes\\Sorcerer\\Wild.md"
+        },
+        {
+          "name": "Storm Origin",
+					"id": "sorcerer.storm",
+          "source": "elemental_evil",
+          "file": "Classes\\Sorcerer\\Storm.md"
+        }
+      ]
+    },
+    {
+      "name": "Warlock",
+			"id": "warlock",
+      "file": "Classes\\Sorcerer\\Sorcerer.md",
+      "source": "players_handbook",
+      "subclasses": [
+        {
+          "name": "Archfey Patron",
+					"id": "warlock.archfey",
+          "source": "players_handbook",
+          "file": "Classes\\Warlock\\Archfey.md"
+        },
+        {
+          "name": "Fiend Patron",
+					"id": "warlock.fiend",
+          "source": "players_handbook",
+          "file": "Classes\\Warlock\\Fiend.md"
+        },
+        {
+          "name": "Great Old One Patron",
+					"id": "warlock.great_old_one",
+          "source": "players_handbook",
+          "file": "Classes\\Warlock\\GreatOldOne.md"
+        }
+      ]
+    },
+    {
+      "name": "Wizard",
+			"id": "wizard",
+      "source": "players_handbook",
+      "file": "Classes\\Wizard\\Wizard.md",
+      "subclasses": [
+        {
+          "name": "School of Abjuration",
+					"id": "wizard.abjuration",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Abjuration.md"
+        },
+        {
+          "name": "School of Conjuration",
+					"id": "wizard.conjuration",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Conjuration.md"
+        },
+        {
+          "name": "School of Divination",
+				"id": "wizard.divination",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Divination.md"
+        },
+        {
+          "name": "School of Enchantment",
+					"id": "wizard.enchantment",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Enchantment.md"
+        },
+        {
+          "name": "School of Evocation",
+				"id": "wizard.evocation",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Evocation.md"
+        },
+        {
+          "name": "School of Illusion",
+					"id": "wizard.illusion",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Illusion.md"
+        },
+        {
+					"name": "School of Necromancy",
+					"id": "wizard.necromancy",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Necromancy.md"
+        },
+        {
+          "name": "School of Transmutation",
+					"id": "wizard.transmutation",
+          "source": "players_handbook",
+          "file": "Classes\\Wizard\\Transmutation.md"
+        }
+      ]
+    },
+    {
+      "name": "Magus",
+			"id": "magus",
+      "source": "homebrew",
+      "file": "Classes\\Magus\\Magus.md",
+      "subclasses": [
+        {
+          "name": "Society of the Arcane Order",
+					"id": "magus.arcane_order",
+          "source": "homebrew",
+          "file": "Classes\\Magus\\ArcaneOrder.md"
+        },
+        {
+          "name": "Society of the Knights Stygian",
+			"id": "magus.knights_stygian",
+          "source": "homebrew",
+          "file": "Classes\\Magus\\KnightsStygian.md"
+        },
+        {
+          "name": "Society of the Primordial Seal",
+					"id": "magus.primordial_seal",
+          "source": "homebrew",
+          "file": "Classes\\Magus\\PrimordialSeal.md"
+        },
+        {
+          "name": "Society of the Shadow Court",
+					"id": "magus.shadow_court",
+          "source": "homebrew",
+          "file": "Classes\\Magus\\ShadowCourt.md"
+        },
+        {
+          "name": "Society of the Sylvan Circle",
+					"id": "magus.sylvan_circle",
+          "source": "homebrew",
+          "file": "Classes\\Magus\\SylvanCircle.md"
+        }
+      ]
+    }
+  ]
+}

@@ -31,13 +31,7 @@ namespace MarkdownTest.ViewModels
                 using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(MARKDOWN))
                 using (StreamReader reader = new StreamReader(stream))
                 {
-                    string md = reader.ReadToEnd();
-                    var pipeline = new MarkdownPipelineBuilder()
-                        .UseAdvancedExtensions()
-                        .UsePipeTables()
-                        .Build();
-                    var result = Markdown.ToHtml(md, pipeline);
-                    _Model.HTML = result;
+                    _Model.Markdown = reader.ReadToEnd();
                 }
             }
         }

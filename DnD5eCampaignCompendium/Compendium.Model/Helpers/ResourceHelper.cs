@@ -18,5 +18,15 @@ namespace Compendium.Model.Helpers
                 return reader.ReadToEnd();
             }
         }
+
+        // TODO:
+        // Change to raise popup event instead of returning null
+        public static string ReadTextFromFile(string file)
+        {
+            if (!File.Exists(file))
+                return null;
+
+            return File.ReadAllText(file);
+        }
     }
 }

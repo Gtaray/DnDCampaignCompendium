@@ -1,0 +1,7 @@
+{
+	"sources" : "Common\\Sources.json",
+	"classes" : "Classes\\Classes.json",
+	"spells" : "Spells\\spells.json",
+	"spellSchools" : "Spells\\SpellSchools.json",
+	"spellComponents" : "Spells\\SpellComponents.json",
+}

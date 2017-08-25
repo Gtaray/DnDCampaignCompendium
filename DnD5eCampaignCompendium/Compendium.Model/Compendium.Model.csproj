@@ -54,9 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterClasses\CharacterClass.cs" />
-    <Compile Include="CharacterClasses\ClassFeature.cs" />
     <Compile Include="CharacterClasses\ClassSelectionModel.cs" />
-    <Compile Include="CharacterClasses\ClassTableColumn.cs" />
     <Compile Include="CharacterClasses\ClassViewerModel.cs" />
     <Compile Include="Common\BaseModel.cs" />
     <Compile Include="Common\ContentSource.cs" />
@@ -78,11 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Json\Classes.json" />
-    <EmbeddedResource Include="Json\Spells.json" />
-    <EmbeddedResource Include="Json\Sources.json" />
-    <EmbeddedResource Include="Json\SpellComponents.json" />
-    <EmbeddedResource Include="Json\SpellSchools.json" />
-    <None Include="Json\Classes\Druid.md" />
+    <EmbeddedResource Include="Json\Classes\Druid\Druid.md" />
+    <EmbeddedResource Include="Json\Common\Sources.json" />
+    <EmbeddedResource Include="Json\Spells\SpellComponents.json" />
+    <EmbeddedResource Include="Json\Spells\Spells.json" />
+    <EmbeddedResource Include="Json\Spells\SpellSchools.json" />
+    <None Include="Json\Classes\Classes.json" />
+    <None Include="Json\Classes\ClassSpells.json" />
+    <None Include="Json\index.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

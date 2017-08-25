@@ -32,6 +32,11 @@ namespace Compendium.Model
         }
 
         #region Accessor Functions
+        public ContentSource GetSourceByID(string sourceID)
+        {
+            return ContentSources.FirstOrDefault(c => string.Equals(c.ID, sourceID));
+        }
+        // DELTE ONCE SPELLS HAVE BEEN RE-SAVED WITH NEW JSON FORMAT
         public ContentSource GetSourceByName(string source)
         {
             return ContentSources.FirstOrDefault(c => string.Equals(c.Name, source));
@@ -47,7 +52,7 @@ namespace Compendium.Model
             dynamic obj = JsonConvert.DeserializeObject(json);
 
             foreach (var source in obj.sources)
-                _ContentSources.Add(new ContentSource((string)source.name));
+                _ContentSources.Add(new ContentSource((string)source.name, (string)source.id));
 
             if (ContentSources.Count() <= 0)
             {

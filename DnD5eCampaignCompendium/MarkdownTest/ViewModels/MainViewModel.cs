@@ -17,6 +17,6 @@ namespace MarkdownTest.ViewModels
             _Model = model;
         }
 
-        public string HTML => _Model.HTML;
+        public string Markdown => _Model.Markdown;
     }
 }
