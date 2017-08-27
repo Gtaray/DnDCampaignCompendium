@@ -1,6 +1,6 @@
 ﻿using Assisticant;
 using Compendium.Model;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
 using Compendium.Model.SpellViewer;
 using Compendium.WPF.ViewModels.ClassViewer;
 using Compendium.WPF.ViewModels.SpellViewer;
@@ -13,12 +13,15 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
+using Compendium.Model.Races;
+using Compendium.WPF.ViewModels.RaceViewer;
+using Compendium.Model.Common;
 
 namespace Compendium.WPF.ViewModels
 {
     public class ViewModelLocator : ViewModelLocatorBase
     {
-        private const string DATA_FOLDER = "CompendiumData";
+        private const string DATA_FOLDER = @"..\..\..\Compendium.Model\Json";
         private const string INDEX = "index.json";
 
         //private const string DATA_FOLDER = "Compendium.Model.Json";
@@ -31,24 +34,29 @@ namespace Compendium.WPF.ViewModels
 
         private readonly CompendiumModel _Compendium;
         private readonly SpellViewerModel _SpellViewer;
-        private readonly SpellSelectionModel _SelectedSpell;
+        private readonly SelectionModel<Spell> _SelectedSpell;
         private readonly ClassViewerModel _ClassViewer;
-        private readonly ClassSelectionModel _SelectedClass;
+        private readonly SelectionModel<CharacterClass> _SelectedClass;
+        private readonly RaceViewerModel _RaceViewer;
+        private readonly SelectionModel<Race> _SelectedRace;
 
         public object Compendium => ViewModel(() => new CompendiumViewModel(_Compendium));
 
         public object SpellViewer => ViewModel(() => new SpellViewerViewModel(_Compendium, _SelectedSpell));
-        public object SpellDisplay => ViewModel(() => new SpellDisplayViewModel(_SelectedSpell));
 
         public object ClassViewer => ViewModel(() => new ClassViewerViewModel(_ClassViewer, _SelectedClass));
+
+        public object RaceViewer => ViewModel(() => new RaceViewerViewModel(_RaceViewer, _SelectedRace));
 
         public ViewModelLocator()
         {
             _Compendium = new CompendiumModel();
             _SpellViewer = new SpellViewerModel(_Compendium);
             _ClassViewer = new ClassViewerModel(_Compendium);
-            _SelectedSpell = new SpellSelectionModel();
-            _SelectedClass = new ClassSelectionModel();
+            _RaceViewer = new RaceViewerModel(_Compendium);
+            _SelectedSpell = new SelectionModel<Spell>();
+            _SelectedClass = new SelectionModel<CharacterClass>();
+            _SelectedRace = new SelectionModel<Race>();
 
             if (DesignMode)
             {
@@ -70,41 +78,40 @@ namespace Compendium.WPF.ViewModels
 
                 // CONTENT SOURCES
                 _Compendium.DeserializeContentSources(
-                    ReadFileFromIndex(dataDir, index.sources, "index.json is missing entry for sources."));
+                    ReadFileFromIndex(Path.Combine(dataDir, (string)index.sources)));
 
                 // SPELLS
-                _SpellViewer.DeserializeSchools(
-                    ReadFileFromIndex(dataDir, index.spellSchools, "index.json is missing entry for spell schools."));
-                _SpellViewer.DeserializeComponents(
-                    ReadFileFromIndex(dataDir, index.spellComponents, "index.json is missing entry for spell components."));
-                _SpellViewer.DeserializeSpells(
-                    ReadFileFromIndex(dataDir, index.spells, "index.json is missing entry for spells."));
+                if (index.spells != null && index.spellSchools != null && index.spellComponents != null)
+                {
+                    _SpellViewer.DeserializeSchools(
+                        ReadFileFromIndex(Path.Combine(dataDir, (string)index.spellSchools)));
+                    _SpellViewer.DeserializeComponents(
+                        ReadFileFromIndex(Path.Combine(dataDir, (string)index.spellComponents)));
+                    _SpellViewer.DeserializeSpells(
+                        ReadFileFromIndex(Path.Combine(dataDir, (string)index.spells)));
+                }
 
                 // CLASSES
-                _ClassViewer.DeserializeClasses(
-                    dataDir,
-                    ReadFileFromIndex(dataDir, index.classes, "index.json is missing entry for classes."));
+                if(index.classes != null && index.classSpells != null)
+                {
+                    _ClassViewer.DeserializeClasses(
+                        dataDir,
+                        ReadFileFromIndex(Path.Combine(dataDir, (string)index.classes)));
+                    _ClassViewer.DeserializeClassSpells(
+                        ReadFileFromIndex(Path.Combine(dataDir, (string)index.classSpells)));
+                }
 
-                // SPELLS
-                //_SpellViewer.DeserializeSchools(
-                //    ResourceHelper.ReadEmbeddedResourceContent(SPELL_SCHOOLS));
-                //_SpellViewer.DeserializeComponents(
-                //    ResourceHelper.ReadEmbeddedResourceContent(SPELL_COMPONENTS));
-                //_SpellViewer.DeserializeSpells(
-                //    ResourceHelper.ReadEmbeddedResourceContent(SPELLS));
-
-                // CLASSES
-                // Classes HAVE to be done after spells, because classes contain spells, and thus the spell list
-                // needs to be populated before creating classes that query for those spells
-                //_ClassViewer.DeserializeClasses(CLASSES_FOLDER, CLASSES_INDEX);
+                // Races
+                if(index.races != null)
+                {
+                    _RaceViewer.DeserializeRaces(
+                        dataDir, ReadFileFromIndex(Path.Combine(dataDir, (string)index.races)));
+                }
             }
         }
 
-        private string ReadFileFromIndex(string dataDir, dynamic json, string error)
+        private string ReadFileFromIndex(string path)
         {
-            if (json == null)
-                throw new ArgumentNullException(error);
-            string path = Path.Combine(dataDir, (string)json);
             if (!File.Exists(path))
                 throw new ArgumentNullException(path + " does not exist.");
             return ResourceHelper.ReadTextFromFile(path);

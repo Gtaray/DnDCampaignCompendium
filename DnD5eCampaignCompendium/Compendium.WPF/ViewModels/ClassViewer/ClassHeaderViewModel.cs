@@ -1,6 +1,7 @@
 ﻿using Assisticant;
 using Assisticant.Fields;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
+using Compendium.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace Compendium.WPF.ViewModels.ClassViewer
     public class ClassHeaderViewModel
     {
         private readonly CharacterClass _Model;
-        private readonly ClassSelectionModel _Selection;
+        private readonly SelectionModel<CharacterClass> _Selection;
 
-        public ClassHeaderViewModel(CharacterClass model, ClassSelectionModel selection)
+        public ClassHeaderViewModel(CharacterClass model, SelectionModel<CharacterClass> selection)
         {
             _Model = model;
             _Selection = selection;
@@ -40,7 +41,10 @@ namespace Compendium.WPF.ViewModels.ClassViewer
         }
 
         public IEnumerable<ClassHeaderViewModel> Subclasses =>
-            _Model.Subclasses.Select(s => new ClassHeaderViewModel(s, _Selection));
+            _Model.Subclasses.Where(c => c.ShowInClassList).Select(s => new ClassHeaderViewModel(s, _Selection));
+
+        public string Markdown => string.IsNullOrEmpty(Model?.Markdown) ? "" : Model.Markdown;
+
 
         public override bool Equals(object obj)
         {

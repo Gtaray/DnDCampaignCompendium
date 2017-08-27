@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Compendium.Model.SpellViewer;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
 using Assisticant.Fields;
 using System.IO;
 using System.Reflection;
@@ -12,6 +12,7 @@ using Compendium.Model.Helpers;
 using Compendium.Model.Common;
 using Assisticant.Collections;
 using Newtonsoft.Json;
+using Compendium.Model.Races;
 
 namespace Compendium.Model
 {
@@ -19,6 +20,7 @@ namespace Compendium.Model
     {
         public SpellViewerModel SpellViewer;
         public ClassViewerModel ClassViewer;
+        public RaceViewerModel RaceViewer;
 
         public CompendiumModel()
         {
@@ -46,9 +48,6 @@ namespace Compendium.Model
         #region Deserialize Functions
         public void DeserializeContentSources(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                throw new NullReferenceException("Sources.json is null, empty, or is not being read properly");
-
             dynamic obj = JsonConvert.DeserializeObject(json);
 
             foreach (var source in obj.sources)
@@ -56,7 +55,7 @@ namespace Compendium.Model
 
             if (ContentSources.Count() <= 0)
             {
-                throw new NullReferenceException("No sources were loaded from Sources.json. Is the file empty?");
+                throw new NullReferenceException("No sources were loaded from source json file. Is the file empty?");
             }
         }
         #endregion

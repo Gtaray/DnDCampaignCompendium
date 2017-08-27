@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.CharacterClasses
+namespace Compendium.Model.ClassViewer
 {
     public class CharacterClass : BaseModel
     {
@@ -38,6 +38,13 @@ namespace Compendium.Model.CharacterClasses
             set { _Name.Value = value; }
         }
 
+        private Observable<string> _ShortName = new Observable<string>(default(string));
+        public string ShortName
+        {
+            get { return _ShortName; }
+            set { _ShortName.Value = value; }
+        }
+
         private Observable<string> _ID = new Observable<string>(default(string));
         public string ID
         {
@@ -52,11 +59,18 @@ namespace Compendium.Model.CharacterClasses
             set { _Source.Value = value; }
         }
 
-        private Observable<bool> _FilterOnly = new Observable<bool>(false);
-        public bool FilterOnly
+        private Observable<bool> _ShowInClassList = new Observable<bool>(true);
+        public bool ShowInClassList
         {
-            get { return _FilterOnly; }
-            set { _FilterOnly.Value = value; }
+            get { return _ShowInClassList; }
+            set { _ShowInClassList.Value = value; }
+        }
+
+        private Observable<bool> _ShowInFilterList = new Observable<bool>(true);
+        public bool ShowInFilterList
+        {
+            get { return _ShowInFilterList; }
+            set { _ShowInFilterList.Value = value; }
         }
 
         private Observable<string> _Markdown = new Observable<string>("");

@@ -2,7 +2,7 @@
 
 using Assisticant.Collections;
 using Assisticant.Fields;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
 using Newtonsoft.Json;
 using System;
@@ -35,6 +35,14 @@ namespace Compendium.Model.SpellViewer
             set { _Name.Value = value; }
         }
 
+        private Observable<int> _Level = new Observable<int>(0);
+        [JsonProperty(PropertyName = "level")]
+        public int Level
+        {
+            get { return _Level; }
+            set { _Level.Value = value; }
+        }
+
         private Observable<bool> _IsConcentration = new Observable<bool>(false);
         [JsonProperty(PropertyName = "concentration")]
         public bool IsConcentration
@@ -51,32 +59,12 @@ namespace Compendium.Model.SpellViewer
             set { _IsRitual.Value = value; }
         }
 
-        private Observable<int> _Level = new Observable<int>(0);
-        [JsonProperty(PropertyName = "level")]
-        public int Level
-        {
-            get { return _Level; }
-            set { _Level.Value = value; }
-        }
-
         private Observable<SpellSchool> _School = new Observable<SpellSchool>(default(SpellSchool));
         [JsonIgnore]
         public SpellSchool School
         {
             get { return _School; }
             set { _School.Value = value; }
-        }
-
-        private Computed<string> _SpellSchoolName;
-        [JsonProperty(PropertyName = "school")]
-        public string SpellSchoolName
-        {
-            get
-            {
-                if (_SpellSchoolName == null)
-                    _SpellSchoolName = new Computed<string>(() => School.Name);
-                return _SpellSchoolName.Value;
-            }
         }
 
         private ObservableList<SpellComponent> _Components = new ObservableList<SpellComponent>();
@@ -124,7 +112,7 @@ namespace Compendium.Model.SpellViewer
         }
 
         private Observable<string> _Description = new Observable<string>(default(string));
-        [JsonProperty(PropertyName = "description")]
+        [JsonIgnore]
         public string Description
         {
             get { return _Description; }
@@ -132,7 +120,7 @@ namespace Compendium.Model.SpellViewer
         }
 
         private Observable<string> _HigherLevel = new Observable<string>(default(string));
-        [JsonProperty(PropertyName = "higherLevel")]
+        [JsonIgnore]
         public string HigherLevel
         {
             get { return _HigherLevel; }
@@ -140,6 +128,7 @@ namespace Compendium.Model.SpellViewer
         }
 
         private ObservableList<CharacterClass> _Classes = new ObservableList<CharacterClass>();
+        [JsonIgnore]
         public IEnumerable<CharacterClass> Classes
         {
             get { return _Classes; }
@@ -153,6 +142,65 @@ namespace Compendium.Model.SpellViewer
             set { _Source.Value = value; }
         }
 
+        private ObservableList<Errata> _ErrataList = new ObservableList<Errata>();
+        [JsonProperty(PropertyName = "errata")]
+        public IEnumerable<Errata> ErrataList
+        {
+            get { return _ErrataList; }
+        }
+        #endregion
+
+        #region Json Properties
+        private Computed<string> _SpellSchoolName;
+        [JsonProperty(PropertyName = "school")]
+        public string SpellSchoolName
+        {
+            get
+            {
+                if (_SpellSchoolName == null)
+                    _SpellSchoolName = new Computed<string>(() => School.Name);
+                return _SpellSchoolName.Value;
+            }
+        }
+
+        [JsonProperty(PropertyName = "description")]
+        public IEnumerable<string> DescriptionAsParagraphs
+        {
+            get
+            {
+                var list = Description
+                    .Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(p => p.Trim())
+                    .ToList();
+                int max = list.Count();
+                for(int i = 0; i < max; i+=2)
+                {
+                    if(list[i] != list.Last())
+                        list.Insert(i + 1, "");    
+                }
+                return list;
+            }
+        }
+
+        [JsonProperty(PropertyName = "higherLevel")]
+        public IEnumerable<string> HigherLevelAsParagraphs
+        {
+            get
+            {
+                var list = HigherLevel
+                    .Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(p => p.Trim())
+                    .ToList();
+                int max = list.Count();
+                for (int i = 0; i < max; i += 2)
+                {
+                    if (list[i] != list.Last())
+                        list.Insert(i + 1, "");
+                }
+                return list;
+            }
+        }
+
         private Computed<string> _SourceName;
         [JsonProperty(PropertyName = "source")]
         public string SourceName
@@ -163,13 +211,6 @@ namespace Compendium.Model.SpellViewer
                     _SourceName = new Computed<string>(() => Source.Name);
                 return _SourceName.Value;
             }
-        }
-
-        private ObservableList<Errata> _ErrataList = new ObservableList<Errata>();
-        [JsonProperty(PropertyName = "errata")]
-        public IEnumerable<Errata> ErrataList
-        {
-            get { return _ErrataList; }
         }
         #endregion
 

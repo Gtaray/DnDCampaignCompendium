@@ -41,6 +41,9 @@
     <Grid>
         <material:DialogHost
             Identifier="RootDialog">
+            <!--<material:DialogHost.DialogContent>
+                
+            </material:DialogHost.DialogContent>-->
             <material:DrawerHost
                 IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
                 <material:DrawerHost.LeftDrawerContent>
@@ -78,6 +81,14 @@
                                 DockPanel.Dock="Left"
                                 Margin="12,0,0,0" />
 
+                            <!--<Button
+                                Content="Save"
+                                Command="{Binding SaveSpellsWithUpdatedJson}"
+                                Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=0}"
+                                Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                                DockPanel.Dock="Right"
+                                Margin="0,0,12,0"/>-->
+
                             <!--<material:PopupBox
                                 DockPanel.Dock="Right"
                                 PlacementMode="BottomAndAlignRightEdges"
@@ -108,6 +119,11 @@
                         Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=1}">
                         <view:ClassViewerView
                             x:Name="ClassViewer"/>
+                    </Grid>
+                    <Grid
+                        Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=2}">
+                        <view:RaceViewerView
+                            x:Name="RaceViewer" />
                     </Grid>
                 </DockPanel>
             </material:DrawerHost>

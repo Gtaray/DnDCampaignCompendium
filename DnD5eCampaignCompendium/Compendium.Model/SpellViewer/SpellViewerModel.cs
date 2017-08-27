@@ -1,7 +1,8 @@
 ﻿using Assisticant.Collections;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,6 @@ namespace Compendium.Model.SpellViewer
             _SpellSchools = new ObservableList<SpellSchool>();
             _Components = new ObservableList<SpellComponent>();
             _SpellLists = new ObservableList<SpellList>();
-
-            //var sl = new SpellList()
-            //{
-            //    Name = "All Spells",
-            //    ReadOnly = true
-            //};
-            //sl.AddManySpells(AllSpells);
-            //_SpellLists.Add(sl);
         }
 
         #region Properties and Accessors
@@ -41,6 +34,7 @@ namespace Compendium.Model.SpellViewer
         }
 
         private ObservableList<Spell> _AllSpells = new ObservableList<Spell>();
+        [JsonProperty(propertyName:"spells")]
         public IEnumerable<Spell> AllSpells
         {
             get { return _AllSpells; }
@@ -101,9 +95,6 @@ namespace Compendium.Model.SpellViewer
         #region Json Parsing
         public void DeserializeSchools(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                throw new NullReferenceException("SpellSchools.json is null, empty, or is not being read properly");
-
             dynamic obj = JsonConvert.DeserializeObject(json);
 
             foreach (var school in obj.schools)
@@ -118,9 +109,6 @@ namespace Compendium.Model.SpellViewer
 
         public void DeserializeComponents(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                throw new NullReferenceException("SpellComponents.json is null, empty, or is not being read properly");
-
             dynamic obj = JsonConvert.DeserializeObject(json);
 
             foreach (var comp in obj.components)
@@ -135,9 +123,6 @@ namespace Compendium.Model.SpellViewer
 
         public void DeserializeSpells(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                throw new NullReferenceException("Spells.json is null, empty, or is not being read properly");
-
             dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
 
             List<Spell> spells = new List<Spell>();
@@ -148,14 +133,15 @@ namespace Compendium.Model.SpellViewer
                 {
                     ID = (string)spell.id,
                     Name = (string)spell.name,
+                    Level = (int)spell.level,
                     IsConcentration = (bool)spell.concentration,
                     IsRitual = (bool)spell.isRitual,
-                    Level = (int)spell.level,
+                    MaterialComponent = (string)spell.material,
                     Range = (string)spell.range,
                     CastingTime = (string)spell.castingTime,
                     Duration = (string)spell.duration,
-                    Description = (string)spell.description,
-                    HigherLevel = (string)spell.higherLevel
+                    Description = string.Join("\r\n", spell.description),
+                    HigherLevel = string.Join("\r\n", spell.higherLevel)
                 };
 
                 // Parse school
@@ -166,13 +152,12 @@ namespace Compendium.Model.SpellViewer
                     newSpell.School = SpellSchools.First();
 
                 // Parse components
-                foreach(string compString in spell.spellComponents.components)
+                foreach(string compString in spell.components)
                 {
                     var comp = GetComponentByInitial(compString);
                     if(comp != null)
                         newSpell.AddComponent(comp);
                 }
-                newSpell.MaterialComponent = spell.spellComponents.material;
 
                 // Parse errata
                 foreach (var errata in spell.errata)

@@ -53,22 +53,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterClasses\CharacterClass.cs" />
-    <Compile Include="CharacterClasses\ClassSelectionModel.cs" />
-    <Compile Include="CharacterClasses\ClassViewerModel.cs" />
+    <Compile Include="ClassViewer\CharacterClass.cs" />
+    <Compile Include="ClassViewer\ClassViewerModel.cs" />
     <Compile Include="Common\BaseModel.cs" />
     <Compile Include="Common\ContentSource.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Common\Errata.cs" />
     <Compile Include="Common\FilterFlag.cs" />
+    <Compile Include="Common\SelectionModel.cs" />
     <Compile Include="CompendiumModel.cs" />
+    <Compile Include="Helpers\LinqExtensions.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Races\Race.cs" />
+    <Compile Include="Races\RaceViewerModel.cs" />
     <Compile Include="SpellViewer\Spell.cs" />
     <Compile Include="SpellViewer\SpellComponent.cs" />
     <Compile Include="SpellViewer\SpellList.cs" />
     <Compile Include="SpellViewer\SpellSchool.cs" />
-    <Compile Include="SpellViewer\SpellSelectionModel.cs" />
     <Compile Include="SpellViewer\SpellViewerModel.cs" />
   </ItemGroup>
   <ItemGroup>

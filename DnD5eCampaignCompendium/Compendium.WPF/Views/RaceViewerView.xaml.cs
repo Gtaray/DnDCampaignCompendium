@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Compendium.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for SpellDisplayView.xaml
+    /// Interaction logic for RaceViewer.xaml
     /// </summary>
-    public partial class SpellDisplayView : UserControl
+    public partial class RaceViewerView : UserControl
     {
-        public SpellDisplayView()
+        public RaceViewerView()
         {
             InitializeComponent();
         }

@@ -1,39 +1,30 @@
-﻿using Assisticant;
-using Assisticant.Collections;
-using Assisticant.Collections.Impl;
+﻿using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
+using Compendium.Model.Helpers;
 using Compendium.Model.SpellViewer;
-using Compendium.WPF.Extentions;
 using Compendium.WPF.ViewModels.Common;
-using Dragablz;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Input;
 
 namespace Compendium.WPF.ViewModels.SpellViewer
 {
     public class SpellViewerViewModel
     {
         private readonly CompendiumModel _Compendium;
-        private readonly SpellSelectionModel _SelectedSpell;
+        private readonly SelectionModel<Spell> _SelectedSpell;
 
-        public SpellViewerViewModel(CompendiumModel compendium, SpellSelectionModel selected)
+        public SpellViewerViewModel(CompendiumModel compendium, SelectionModel<Spell> selected)
         {
             _Compendium = compendium;
             _SelectedSpell = selected;
 
             // Initialize filters
             _ClassFilters = new ObservableList<FilterFlagViewModel<CharacterClass>>(
-                _ClassViewerModel.Classes.Select(c => GetClassFilterObject(c)));
+                _ClassViewerModel.Classes.Where(c => c.ShowInFilterList).Select(c => GetClassFilterObject(c)));
 
             _SchoolFilters = new ObservableList<FilterFlagViewModel<SpellSchool>>(
                 _SpellViewerModel.SpellSchools.Select(s => new FilterFlagViewModel<SpellSchool>(s, () => s.Name)));
@@ -148,8 +139,8 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         private FilterFlagViewModel<CharacterClass> GetClassFilterObject(CharacterClass cc)
         {
             FilterFlagViewModel<CharacterClass> newfilter =
-                new FilterFlagViewModel<CharacterClass>(cc, () => cc.Name, false);
-            foreach (var child in cc.Subclasses)
+                new FilterFlagViewModel<CharacterClass>(cc, () => string.IsNullOrEmpty(cc.ShortName) ? cc.Name : cc.ShortName, false);
+            foreach (var child in cc.Subclasses.Where(c => c.ShowInFilterList))
                 newfilter.AddChildFilter(GetClassFilterObject(child));
 
             return newfilter;

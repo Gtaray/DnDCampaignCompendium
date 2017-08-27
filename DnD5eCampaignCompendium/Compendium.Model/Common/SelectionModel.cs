@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.SpellViewer
+namespace Compendium.Model.Common
 {
-    public class SpellSelectionModel
+    public class SelectionModel<T>
     {
-        private Observable<Spell> _Value = new Observable<Spell>();
-        public Spell Value
+        public Observable<T> _Value = new Observable<T>();
+        public T Value
         {
-            get { return _Value; }
+            get { return _Value.Value; }
             set { _Value.Value = value; }
         }
     }

@@ -1,7 +1,18 @@
 {
 	"sources" : "Common\\Sources.json",
-	"classes" : "Classes\\Classes.json",
 	"spells" : "Spells\\spells.json",
 	"spellSchools" : "Spells\\SpellSchools.json",
 	"spellComponents" : "Spells\\SpellComponents.json",
+	"classes" : "Classes\\Classes.json",
+	"classSpells" : "Classes\\ClassSpells.json",
+	"OtherPages" : [
+		{
+			"header" : "Races"
+			"content" : "Races\\Races.json"
+		},
+		{
+			"header" : "Glossary"
+			"content" : "Glossary\\Glossary.json"
+		},
+	]
 }

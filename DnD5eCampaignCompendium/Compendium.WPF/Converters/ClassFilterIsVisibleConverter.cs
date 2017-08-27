@@ -1,5 +1,5 @@
 ﻿using Assisticant;
-using Compendium.Model.CharacterClasses;
+using Compendium.Model.ClassViewer;
 using Compendium.WPF.ViewModels.Common;
 using System;
 using System.Collections.Generic;

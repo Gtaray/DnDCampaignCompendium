@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.WPF.Extentions
+namespace Compendium.Model.Helpers
 {
     public static class LinqExtensions
     {

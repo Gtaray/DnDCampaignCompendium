@@ -9,6 +9,7 @@
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:convert="clr-namespace:Compendium.WPF.Converters"
     xmlns:xceed="http://schemas.xceed.com/wpf/xaml/datagrid"
+    xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
     mc:Ignorable="d" 
     d:DesignHeight="500" d:DesignWidth="800"
     DataContext="{Binding SpellViewer, Source={StaticResource Locator}}"
@@ -227,8 +228,11 @@
         </ScrollViewer>
 
         <!-- SPELL DISPLAY -->
-        <local:SpellDisplayView
+        <uc:MarkdownViewer
             Visibility="{Binding Path=DataContext.SpellDisplayIsVisible, Converter={StaticResource boolToVis}, ElementName=SpellViewerRoot}"
+            Markdown="{Binding SelectedSpell.Markdown}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
             Grid.Column="2"
             Grid.Row="1"
             Canvas.ZIndex="0"/>

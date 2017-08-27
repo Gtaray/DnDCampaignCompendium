@@ -8,6 +8,7 @@
     xmlns:convert="clr-namespace:Compendium.WPF.Converters"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:ext="clr-namespace:Compendium.WPF.Extentions"
+    xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300"
     DataContext="{Binding ClassViewer, Source={StaticResource Locator}}"
@@ -36,24 +37,23 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition
-                Width="0" />
+                Width="*" />
             <ColumnDefinition
                 Width="3*" />
-            <ColumnDefinition
-                Width="2*" />
         </Grid.ColumnDefinitions>
-        <!-- FILTERS -->
 
         <!-- DISPLAY -->
-        <TextBlock
-            Text="{Binding SelectedClass}" 
-            Grid.Column="2"/>
-
+        <uc:MarkdownViewer
+            Markdown="{Binding SelectedClass.Markdown}"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Canvas.ZIndex="0"/>
 
         <!-- LIST -->
         <ScrollViewer
             VerticalScrollBarVisibility="Auto"
-            Grid.Column="1"
+            Grid.Column="0"
             Canvas.ZIndex="0">
             <TreeView
                 ItemsSource="{Binding Classes}"

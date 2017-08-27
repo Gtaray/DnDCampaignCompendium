@@ -4,12 +4,17 @@ using Assisticant.Fields;
 using Compendium.Model;
 using Compendium.WPF.ViewModels.ClassViewer;
 using Compendium.WPF.ViewModels.SpellViewer;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Compendium.WPF.ViewModels
 {
@@ -24,7 +29,8 @@ namespace Compendium.WPF.ViewModels
             _NavList = new ObservableList<string>()
             {
                 "Spells",
-                "Classes"
+                "Classes",
+                "Races"
             };
         }
 
