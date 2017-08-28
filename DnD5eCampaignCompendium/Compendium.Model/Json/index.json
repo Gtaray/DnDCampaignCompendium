@@ -5,14 +5,10 @@
 	"spellComponents" : "Spells\\SpellComponents.json",
 	"classes" : "Classes\\Classes.json",
 	"classSpells" : "Classes\\ClassSpells.json",
-	"OtherPages" : [
+	"otherPages" : [
 		{
-			"header" : "Races"
+			"title" : "Races",
 			"content" : "Races\\Races.json"
-		},
-		{
-			"header" : "Glossary"
-			"content" : "Glossary\\Glossary.json"
-		},
+		}
 	]
 }

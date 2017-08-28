@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.SpellViewer
+namespace Compendium.Model.Common
 {
     public class SpellSchool
     {

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Compendium.Model.SpellViewer;
-using Compendium.Model.ClassViewer;
 using Assisticant.Fields;
 using System.IO;
 using System.Reflection;
@@ -12,19 +10,19 @@ using Compendium.Model.Helpers;
 using Compendium.Model.Common;
 using Assisticant.Collections;
 using Newtonsoft.Json;
-using Compendium.Model.Races;
+using Compendium.Model.Interfaces;
 
-namespace Compendium.Model
+namespace Compendium.Model.Models
 {
     public class CompendiumModel
     {
-        public SpellViewerModel SpellViewer;
-        public ClassViewerModel ClassViewer;
-        public RaceViewerModel RaceViewer;
+        public SpellPageModel SpellViewer;
+        public ClassPageModel ClassViewer;
+        public List<ContentPageModel> OtherPages;
 
         public CompendiumModel()
         {
-
+            OtherPages = new List<ContentPageModel>();
         }
 
         private ObservableList<ContentSource> _ContentSources = new ObservableList<ContentSource>();

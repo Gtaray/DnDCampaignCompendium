@@ -1,63 +1,53 @@
 {  
-  "items":[
+  "content":[
 		{
 			"name":"Dragonborn",
 			"id":"dragonborn",
-			"source":"players_handbook",
 			"file":"Races\\Dragonborn.md",
 		},
 		{
 			"name":"Dwarf",
 			"id":"dwarf",
-			"source":"players_handbook",
 			"file":"Races\\Dwarf.md",
 		},
 		{
 			"name":"Eladrin",
 			"id":"eladrin",
-			"source":"homebrew",
 			"file":"Races\\Eladrin.md",
 		},
 		{
 			"name":"Gnome",
 			"id":"gnome",
-			"source":"players_handbook",
 			"file":"Races\\Gnome.md",
 		},
 		{
 			"name":"Goliath",
 			"id":"goliath",
-			"source":"elemental_evil",
 			"file":"Races\\Goliath.md",
 		},
 		{
 			"name":"Half-Elf",
 			"id":"half_elf",
-			"source":"players_handbook",
 			"file":"Races\\HalfElf.md",
 		},
 		{
 			"name":"Halfling",
 			"id":"halfling",
-			"source":"players_handbook",
 			"file":"Races\\Halfling.md",
 		},
 		{
 			"name":"Human",
 			"id":"human",
-			"source":"players_handbook",
 			"file":"Races\\Human.md",
 		},
 		{
 			"name":"Shifter",
 			"id":"shifter",
-			"source":"homebrew",
 			"file":"Races\\Shifter.md",
 		},
 		{
 			"name":"Tiefling",
 			"id":"tiefling",
-			"source":"players_handbook",
 			"file":"Races\\Tiefling.md",
 		},
   ]

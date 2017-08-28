@@ -1,9 +1,7 @@
-﻿// TODO: Add character classes
-
-using Assisticant.Collections;
+﻿using Assisticant.Collections;
 using Assisticant.Fields;
-using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
+using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.SpellViewer
+namespace Compendium.Model.Models
 {
-    public class Spell : BaseModel
+    public class SpellModel : IContent
     {
-        public Spell()
+        public SpellModel()
         { }
 
         #region Properties and Accessors
@@ -127,9 +125,9 @@ namespace Compendium.Model.SpellViewer
             set { _HigherLevel.Value = value; }
         }
 
-        private ObservableList<CharacterClass> _Classes = new ObservableList<CharacterClass>();
+        private ObservableList<ClassModel> _Classes = new ObservableList<ClassModel>();
         [JsonIgnore]
-        public IEnumerable<CharacterClass> Classes
+        public IEnumerable<ClassModel> Classes
         {
             get { return _Classes; }
         }
@@ -147,6 +145,76 @@ namespace Compendium.Model.SpellViewer
         public IEnumerable<Errata> ErrataList
         {
             get { return _ErrataList; }
+        }
+        #endregion
+
+        #region Markdown and Display Properties
+        public string Markdown
+        {
+            get
+            {
+                return string.Format(
+                    "# {0}\n\n" +
+                    "### {1}\n\n" +
+                    "---\n\n" +
+                    "**Casting Time:** {2}\n\n" +
+                    "**Range:** {3}\n\n" +
+                    "**Components:** {4}\n\n" +
+                    "**Duration:** {5}\n\n" +
+                    "{6}\n\n" +
+                    "{7}" +
+                    "**Source:** {8}",
+                    Name,
+                    LevelAndSchool,
+                    CastingTime,
+                    Range,
+                    string.Format("{0}{1}",
+                        string.Join(", ", ComponentInitials),
+                        string.IsNullOrWhiteSpace(MaterialComponent) ? "" : string.Format(" ({0})", MaterialComponent)),
+                    IsConcentration ? "Concentration, up to " + Duration : Duration,
+                    Description,
+                    string.IsNullOrEmpty(HigherLevel)
+                        ? ""
+                        : string.Format("**At Higher Levels:** {0}\n\n", HigherLevel),
+                    Source != null ? Source.ToString() : "Unknown"
+                );
+            }
+            set { }
+        }
+
+        public string LevelAndSchool
+        {
+            get
+            {
+                string s = "";
+                switch (Level)
+                {
+                    case (0):
+                        s = School + " cantrip";
+                        break;
+                    case (1):
+                        s = "1st-level " + School;
+                        break;
+                    case (2):
+                        s = "2nd-level " + School;
+                        break;
+                    case (3):
+                        s = "3rd-level " + School;
+                        break;
+                    case (4):
+                    case (5):
+                    case (6):
+                    case (7):
+                    case (8):
+                    case (9):
+                        s = Level + "th-level " + School;
+                        break;
+                }
+                if (IsRitual)
+                    s += " (ritual)";
+
+                return s;
+            }
         }
         #endregion
 
@@ -226,7 +294,7 @@ namespace Compendium.Model.SpellViewer
                 _ErrataList.Add(errata);
         }
 
-        public void AddClass(CharacterClass newClass)
+        public void AddClass(ClassModel newClass)
         {
             if (_Classes.Contains(newClass))
                 return;
@@ -235,7 +303,7 @@ namespace Compendium.Model.SpellViewer
             newClass.AddSpell(this);
         }
 
-        public void RemoveClass(CharacterClass toRemove)
+        public void RemoveClass(ClassModel toRemove)
         {
             if (!_Classes.Contains(toRemove))
                 return;

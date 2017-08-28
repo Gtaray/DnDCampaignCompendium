@@ -1,5 +1,5 @@
 ﻿using Assisticant;
-using Compendium.Model.ClassViewer;
+using Compendium.Model.Models;
 using Compendium.WPF.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Compendium.WPF.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            FilterFlagViewModel<CharacterClass> filter = ForView.Unwrap<FilterFlagViewModel<CharacterClass>>(values[0]);
+            FilterFlagViewModel<ClassModel> filter = ForView.Unwrap<FilterFlagViewModel<ClassModel>>(values[0]);
             bool showAllClasses = (bool)values[1];
 
             return showAllClasses || filter.Filter.HasSpells ? Visibility.Visible : Visibility.Collapsed;

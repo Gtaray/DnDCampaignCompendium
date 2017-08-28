@@ -1,6 +1,7 @@
 ﻿using Assisticant.Collections;
-using Compendium.Model.ClassViewer;
+using Assisticant.Fields;
 using Compendium.Model.Common;
+using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,35 +10,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.SpellViewer
+namespace Compendium.Model.Models
 {
-    public class SpellViewerModel
+    public class SpellPageModel : IContentPage<SpellModel>
     {
-        private readonly CompendiumModel Compendium;
+        private readonly CompendiumModel _Compendium;
+        private readonly SelectionModel<SpellModel> _Selection;
 
-        public SpellViewerModel(CompendiumModel compendium)
+        public SpellPageModel(CompendiumModel compendium)
         {
-            Compendium = compendium;
-            Compendium.SpellViewer = this;
+            _Compendium = compendium;
+            _Compendium.SpellViewer = this;
 
-            _AllSpells = new ObservableList<Spell>();
+            _Selection = new SelectionModel<SpellModel>();
+
+            _Content = new ObservableList<SpellModel>();
             _SpellSchools = new ObservableList<SpellSchool>();
             _Components = new ObservableList<SpellComponent>();
-            _SpellLists = new ObservableList<SpellList>();
         }
 
         #region Properties and Accessors
-        private ObservableList<SpellList> _SpellLists = new ObservableList<SpellList>();
-        public IEnumerable<SpellList> SpellLists
+        public SpellModel SelectedItem
         {
-            get { return _SpellLists; }
+            get { return _Selection.Value; }
+            set { _Selection.Value = value; }
         }
 
-        private ObservableList<Spell> _AllSpells = new ObservableList<Spell>();
-        [JsonProperty(propertyName:"spells")]
-        public IEnumerable<Spell> AllSpells
+        private Observable<string> _Header = new Observable<string>(default(string));
+        public string Header
         {
-            get { return _AllSpells; }
+            get { return _Header; }
+            set { _Header.Value = value; }
+        }
+
+        private ObservableList<SpellModel> _Content = new ObservableList<SpellModel>();
+        [JsonProperty(propertyName:"spells")]
+        public IEnumerable<SpellModel> Content
+        {
+            get { return _Content; }
         }
 
         private ObservableList<SpellSchool> _SpellSchools = new ObservableList<SpellSchool>();
@@ -54,25 +64,7 @@ namespace Compendium.Model.SpellViewer
         #endregion
 
         #region Add/Remove functions
-        public SpellList AddNewSpellList()
-        {
-            SpellList sl = new SpellList()
-            {
-                Name = "New Spellbook",
-                ReadOnly = false
-            };
 
-            _SpellLists.Add(sl);
-            return sl;
-        }
-
-        public void RemoveSpellList(SpellList list)
-        {
-            if (_SpellLists.Contains(list))
-            {
-                _SpellLists.Remove(list);
-            }
-        }
         #endregion
 
         #region Accessor Functions
@@ -86,13 +78,15 @@ namespace Compendium.Model.SpellViewer
             return SpellSchools.FirstOrDefault(s => string.Equals(s.Name, name));
         }
 
-        public Spell GetSpellByID(string id)
+        public SpellModel GetSpellByID(string id)
         {
-            return AllSpells.FirstOrDefault(s => string.Equals(s.ID, id));
+            return Content.FirstOrDefault(s => string.Equals(s.ID, id));
         }
         #endregion
 
         #region Json Parsing
+        public void DeserializeContent(string dataDir, string json) { }
+
         public void DeserializeSchools(string json)
         {
             dynamic obj = JsonConvert.DeserializeObject(json);
@@ -125,11 +119,11 @@ namespace Compendium.Model.SpellViewer
         {
             dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
 
-            List<Spell> spells = new List<Spell>();
+            List<SpellModel> spells = new List<SpellModel>();
             foreach(var spell in obj.spells)
             {
                 // Initialize with basic values
-                Spell newSpell = new Spell()
+                SpellModel newSpell = new SpellModel()
                 {
                     ID = (string)spell.id,
                     Name = (string)spell.name,
@@ -164,7 +158,7 @@ namespace Compendium.Model.SpellViewer
                     newSpell.AddErrata(new Errata((string)spell.month, (string)spell.year, (string)spell.text, newSpell));
 
                 // Parse source
-                var source = Compendium.GetSourceByName((string)spell.source);
+                var source = _Compendium.GetSourceByName((string)spell.source);
                 if (source != null)
                     newSpell.Source = source;
                 else
@@ -174,7 +168,7 @@ namespace Compendium.Model.SpellViewer
             }
 
             // Sort Spells by level and then name
-            _AllSpells = new ObservableList<Spell>(
+            _Content = new ObservableList<SpellModel>(
                 spells.OrderBy(s => s.Level).ThenBy(s => s.Name));
         }
         #endregion

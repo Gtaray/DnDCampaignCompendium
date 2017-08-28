@@ -144,22 +144,19 @@
     <Compile Include="UserControls\MarkdownViewer.xaml.cs">
       <DependentUpon>MarkdownViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ClassViewer\ClassViewerViewModel.cs" />
+    <Compile Include="ViewModels\ClassViewer\ClassPageViewModel.cs" />
     <Compile Include="ViewModels\ClassViewer\ClassHeaderViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterFlagViewModel.cs" />
     <Compile Include="ViewModels\Common\GroupFilter.cs" />
     <Compile Include="ViewModels\Common\RelayCommand.cs" />
     <Compile Include="ViewModels\CompendiumViewModel.cs" />
-    <Compile Include="ViewModels\RaceViewer\RaceHeaderViewModel.cs" />
-    <Compile Include="ViewModels\RaceViewer\RaceViewerViewModel.cs" />
+    <Compile Include="ViewModels\ContentViewer\ContentItemViewModel.cs" />
+    <Compile Include="ViewModels\ContentViewer\ContentPageViewModel.cs" />
     <Compile Include="ViewModels\SpellViewer\SpellHeaderViewModel.cs" />
-    <Compile Include="ViewModels\SpellViewer\SpellViewerViewModel.cs" />
+    <Compile Include="ViewModels\SpellViewer\SpellPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ClassViewerView.xaml.cs">
       <DependentUpon>ClassViewerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RaceViewerView.xaml.cs">
-      <DependentUpon>RaceViewerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SpellViewerView.xaml.cs">
       <DependentUpon>SpellViewerView.xaml</DependentUpon>
@@ -200,10 +197,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RaceViewerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SpellViewerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,9 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Readme_Assisticant_Snippets.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Compendium.Model\Compendium.Model.csproj">

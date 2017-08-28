@@ -1,7 +1,7 @@
 ﻿using Assisticant;
 using Assisticant.Fields;
-using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
+using Compendium.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +12,16 @@ namespace Compendium.WPF.ViewModels.ClassViewer
 {
     public class ClassHeaderViewModel
     {
-        private readonly CharacterClass _Model;
-        private readonly SelectionModel<CharacterClass> _Selection;
+        private readonly ClassModel _Model;
+        private readonly SelectionModel<ClassModel> _Selection;
 
-        public ClassHeaderViewModel(CharacterClass model, SelectionModel<CharacterClass> selection)
+        public ClassHeaderViewModel(ClassModel model, SelectionModel<ClassModel> selection)
         {
             _Model = model;
             _Selection = selection;
         }
 
-        internal CharacterClass Model => _Model;
+        internal ClassModel Model => _Model;
 
         public string Name
         {

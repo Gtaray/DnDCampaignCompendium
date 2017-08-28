@@ -1,6 +1,7 @@
 ﻿using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model.Helpers;
+using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,55 +10,75 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.ClassViewer
+namespace Compendium.Model.Models
 {
-    public class ClassViewerModel
+    public class ClassPageModel : IContentPage<ClassModel>
     {
-        private readonly CompendiumModel Compendium;
+        private readonly CompendiumModel _Compendium;
+        private readonly SelectionModel<ClassModel> _Selection;
 
-        public ClassViewerModel(CompendiumModel compendium)
+        public ClassPageModel(CompendiumModel compendium)
         {
-            Compendium = compendium;
-            Compendium.ClassViewer = this;
-            _Classes = new ObservableList<CharacterClass>();
+            _Compendium = compendium;
+            _Compendium.ClassViewer = this;
+            _Content = new ObservableList<ClassModel>();
+            _Selection = new SelectionModel<ClassModel>();
         }
 
         #region Properties and Accessors
-        private ObservableList<CharacterClass> _Classes;
-        public IEnumerable<CharacterClass> Classes
+        // This is made public because we need to be able to pass it to the view model
+        // so that the vm can handle selection within the hierarchical/tree vieww of the classes.
+        // if ever there's a way to set a tree's selectedItem binding, then this won't be necessary
+        public SelectionModel<ClassModel> Selection => _Selection;
+
+        public ClassModel SelectedItem
         {
-            get { return _Classes; }
+            get { return _Selection.Value; }
+            set { _Selection.Value = value; }
+        }
+
+        private Observable<string> _Header = new Observable<string>(default(string));
+        public string Header
+        {
+            get { return _Header; }
+            set { _Header.Value = value; }
+        }
+
+        private ObservableList<ClassModel> _Content;
+        public IEnumerable<ClassModel> Content
+        {
+            get { return _Content; }
         }
         #endregion
 
         #region Json Parsing
-        public void DeserializeClasses(string dataDir, string json)
+        public void DeserializeContent(string dataDir, string json)
         {
             dynamic obj = JsonConvert.DeserializeObject(json);
 
             foreach (var charClass in obj.classes)
             {
-                _Classes.Add(DeserializeSingleClass(dataDir, charClass));
+                _Content.Add(DeserializeSingleClass(dataDir, charClass));
             }
 
-            if (Classes.Count() <= 0)
+            if (Content.Count() <= 0)
             {
                 throw new ArgumentNullException("No classes were loaded from classes json file. Is the file empty?");
             }
         }
 
-        private CharacterClass DeserializeSingleClass(string dataDir, dynamic json)
+        private ClassModel DeserializeSingleClass(string dataDir, dynamic json)
         {
             string name = json.name != null ? (string)json.name : "Unknown";
             string id = json.id != null ? (string)json.id : "";
             string source = json.source != null ? (string)json.source : null;
             string filePath = Path.Combine(dataDir, (string)json.file);
-            CharacterClass newClass = new CharacterClass()
+            ClassModel newClass = new ClassModel()
             {
                 Name = name,
                 ShortName = json.shortName != null ? json.shortName : "",
                 ID = id,
-                Source = Compendium.GetSourceByID(source),
+                Source = _Compendium.GetSourceByID(source),
                 Markdown = ResourceHelper.ReadTextFromFile(filePath),
                 ShowInClassList = json.showInClassList != null ? json.showInClassList : true,
                 ShowInFilterList = json.showInFilterList != null ? json.showInFilterList : true
@@ -80,7 +101,7 @@ namespace Compendium.Model.ClassViewer
             {
                 if (charClass.id == null) continue;
 
-                var cc = Classes.Flatten(c => c.Subclasses).FirstOrDefault(c => string.Equals(c.ID, (string)charClass.id));
+                var cc = Content.Flatten(c => c.Subclasses).FirstOrDefault(c => string.Equals(c.ID, (string)charClass.id));
 
                 if (cc == null) continue;
                 if (charClass.spells == null) continue;
@@ -88,7 +109,7 @@ namespace Compendium.Model.ClassViewer
                 foreach (var s in charClass.spells)
                 {
                     if (s == null) continue;
-                    var spell = Compendium.SpellViewer.GetSpellByID((string)s);
+                    var spell = _Compendium.SpellViewer.GetSpellByID((string)s);
                     if (spell == null) continue;
                     cc.AddSpell(spell);
                 }

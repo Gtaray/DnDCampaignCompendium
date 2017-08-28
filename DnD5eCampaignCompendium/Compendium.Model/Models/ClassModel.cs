@@ -2,7 +2,7 @@
 using Assisticant.Fields;
 using Compendium.Model.Common;
 using Compendium.Model.Helpers;
-using Compendium.Model.SpellViewer;
+using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,20 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.ClassViewer
+namespace Compendium.Model.Models
 {
-    public class CharacterClass : BaseModel
+    public class ClassModel : IContent
     {
-        public CharacterClass()
+        public ClassModel()
         {
-            _Spells = new ObservableList<Spell>();
-            _Subclasses = new ObservableList<CharacterClass>();
+            _Spells = new ObservableList<SpellModel>();
+            _Subclasses = new ObservableList<ClassModel>();
         }
 
-        public CharacterClass(string name, ContentSource source, string markdown)
+        public ClassModel(string name, ContentSource source, string markdown)
         {
-            _Spells = new ObservableList<Spell>();
-            _Subclasses = new ObservableList<CharacterClass>();
+            _Spells = new ObservableList<SpellModel>();
+            _Subclasses = new ObservableList<ClassModel>();
 
             Name = name;
             Source = source;
@@ -80,14 +80,14 @@ namespace Compendium.Model.ClassViewer
             set { _Markdown.Value = value; }
         }
 
-        private ObservableList<CharacterClass> _Subclasses = new ObservableList<CharacterClass>();
-        public IEnumerable<CharacterClass> Subclasses => _Subclasses;
+        private ObservableList<ClassModel> _Subclasses = new ObservableList<ClassModel>();
+        public IEnumerable<ClassModel> Subclasses => _Subclasses;
 
-        private ObservableList<Spell> _Spells = new ObservableList<Spell>();
-        public IEnumerable<Spell> Spells => _Spells;
+        private ObservableList<SpellModel> _Spells = new ObservableList<SpellModel>();
+        public IEnumerable<SpellModel> Spells => _Spells;
 
-        private Observable<CharacterClass> _Parent = new Observable<CharacterClass>(default(CharacterClass));
-        public CharacterClass Parent
+        private Observable<ClassModel> _Parent = new Observable<ClassModel>(default(ClassModel));
+        public ClassModel Parent
         {
             get { return _Parent; }
             set { _Parent.Value = value; }
@@ -151,7 +151,7 @@ namespace Compendium.Model.ClassViewer
         #endregion
 
         #region Add Remove Functions
-        public void AddSpell(Spell spell)
+        public void AddSpell(SpellModel spell)
         {
             if (Spells.Contains(spell))
                 return;
@@ -160,7 +160,7 @@ namespace Compendium.Model.ClassViewer
             spell.AddClass(this);
         }
 
-        public void RemoveSpell(Spell toRemove)
+        public void RemoveSpell(SpellModel toRemove)
         {
             if (!Spells.Contains(toRemove))
                 return;
@@ -169,13 +169,13 @@ namespace Compendium.Model.ClassViewer
             toRemove.RemoveClass(this);
         }
 
-        public void AddSubclass(CharacterClass newClass)
+        public void AddSubclass(ClassModel newClass)
         {
             newClass.Parent = this;
             _Subclasses.Add(newClass);
         }
 
-        public void RemoveSubclass(CharacterClass toRemove)
+        public void RemoveSubclass(ClassModel toRemove)
         {
             toRemove.Parent = null;
             _Subclasses.Remove(toRemove);

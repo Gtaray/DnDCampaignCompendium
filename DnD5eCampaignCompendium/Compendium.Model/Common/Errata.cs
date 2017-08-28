@@ -1,4 +1,5 @@
 ﻿using Assisticant.Fields;
+using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Compendium.Model.Common
             Description = t;
         }
 
-        public Errata(string m, string y, string t, BaseModel parent)
+        public Errata(string m, string y, string t, IContent parent)
         {
             Month = m;
             Year = y;
@@ -25,9 +26,9 @@ namespace Compendium.Model.Common
             _Parent = parent;
         }
 
-        private BaseModel _Parent;
+        private IContent _Parent;
         [JsonIgnore]
-        public BaseModel Parent
+        public IContent Parent
         { get { return _Parent; } }
 
         private Observable<string> _Month = new Observable<string>(default(string));

@@ -1,33 +1,32 @@
-﻿using Compendium.Model.Races;
+﻿using Compendium.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.WPF.ViewModels.RaceViewer
+namespace Compendium.WPF.ViewModels.ContentViewer
 {
-    public class RaceHeaderViewModel
+    public class ContentItemViewModel
     {
-        private readonly Race _Model;
+        private readonly ContentItemModel _Model;
 
-        public RaceHeaderViewModel(Race model)
+        public ContentItemViewModel(ContentItemModel model)
         {
             _Model = model;
         }
 
+        public ContentItemModel Model => _Model;
+
         public string Name => _Model.Name;
 
-        internal Race Model
-        { get { return _Model; } }
-
-        public string Markdown => string.IsNullOrEmpty(Model?.Markdown) ? "" : Model.Markdown;
+        public string Markdown => _Model.Markdown;
 
         public override bool Equals(object obj)
         {
             if (obj == this)
                 return true;
-            RaceHeaderViewModel that = obj as RaceHeaderViewModel;
+            ContentItemViewModel that = obj as ContentItemViewModel;
             if (that == null)
                 return false;
             return Object.Equals(this._Model, that._Model);

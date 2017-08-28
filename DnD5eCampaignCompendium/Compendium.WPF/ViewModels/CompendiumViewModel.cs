@@ -2,8 +2,7 @@
 using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model;
-using Compendium.WPF.ViewModels.ClassViewer;
-using Compendium.WPF.ViewModels.SpellViewer;
+using Compendium.Model.Models;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;

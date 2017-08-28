@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.Model.Common
+namespace Compendium.Model.Models
 {
     public class SelectionModel<T>
     {

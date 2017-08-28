@@ -1,7 +1,7 @@
 ﻿using Assisticant;
 using Assisticant.Fields;
-using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
+using Compendium.Model.Models;
 using Compendium.WPF.Extentions;
 using System;
 using System.Collections.Generic;
@@ -11,29 +11,27 @@ using System.Threading.Tasks;
 
 namespace Compendium.WPF.ViewModels.ClassViewer
 {
-    public class ClassViewerViewModel
+    public class ClassPageViewModel
     {
-        private readonly ClassViewerModel _Model;
-        private readonly SelectionModel<CharacterClass> _SelectedClass;
+        private readonly ClassPageModel _Model;
 
-        public ClassViewerViewModel(ClassViewerModel model, SelectionModel<CharacterClass> selected)
+        public ClassPageViewModel(ClassPageModel model)
         {
             _Model = model;
-            _SelectedClass = selected;
         }
 
         public IEnumerable<ClassHeaderViewModel> Classes
         {
             get
             {
-                return _Model.Classes
+                return _Model.Content
                     .Where(c => c.ShowInClassList)
-                    .Select(s => new ClassHeaderViewModel(s, _SelectedClass));
+                    .Select(s => new ClassHeaderViewModel(s, _Model.Selection));
             }
         }
 
         public ClassHeaderViewModel SelectedClass =>
-            _SelectedClass.Value != null ? new ClassHeaderViewModel(_SelectedClass.Value, _SelectedClass) : null;
+            _Model.SelectedItem != null ? new ClassHeaderViewModel(_Model.SelectedItem, _Model.Selection) : null;
 
         #region Filters
         #endregion

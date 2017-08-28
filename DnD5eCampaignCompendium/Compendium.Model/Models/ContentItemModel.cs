@@ -1,21 +1,14 @@
 ﻿using Assisticant.Fields;
 using Compendium.Model.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Compendium.Model.Interfaces;
 
-namespace Compendium.Model.Races
+namespace Compendium.Model.Models
 {
-    public class Race
+    public class ContentItemModel : IContent
     {
-        public Race()
-        {
+        public ContentItemModel()
+        { }
 
-        }
-
-        #region Properties
         private Observable<string> _Name = new Observable<string>(default(string));
         public string Name
         {
@@ -43,6 +36,10 @@ namespace Compendium.Model.Races
             get { return _Markdown; }
             set { _Markdown.Value = value; }
         }
-        #endregion
+
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", Name, Source?.ToString());
+        }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Assisticant.Collections;
 using Assisticant.Fields;
-using Compendium.Model;
-using Compendium.Model.ClassViewer;
 using Compendium.Model.Common;
 using Compendium.Model.Helpers;
-using Compendium.Model.SpellViewer;
+using Compendium.Model.Models;
 using Compendium.WPF.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -12,19 +10,17 @@ using System.Linq;
 
 namespace Compendium.WPF.ViewModels.SpellViewer
 {
-    public class SpellViewerViewModel
+    public class SpellPageViewModel
     {
         private readonly CompendiumModel _Compendium;
-        private readonly SelectionModel<Spell> _SelectedSpell;
 
-        public SpellViewerViewModel(CompendiumModel compendium, SelectionModel<Spell> selected)
+        public SpellPageViewModel(CompendiumModel compendium)
         {
             _Compendium = compendium;
-            _SelectedSpell = selected;
 
             // Initialize filters
-            _ClassFilters = new ObservableList<FilterFlagViewModel<CharacterClass>>(
-                _ClassViewerModel.Classes.Where(c => c.ShowInFilterList).Select(c => GetClassFilterObject(c)));
+            _ClassFilters = new ObservableList<FilterFlagViewModel<ClassModel>>(
+                _ClassViewerModel.Content.Where(c => c.ShowInFilterList).Select(c => GetClassFilterObject(c)));
 
             _SchoolFilters = new ObservableList<FilterFlagViewModel<SpellSchool>>(
                 _SpellViewerModel.SpellSchools.Select(s => new FilterFlagViewModel<SpellSchool>(s, () => s.Name)));
@@ -36,17 +32,17 @@ namespace Compendium.WPF.ViewModels.SpellViewer
                 _Compendium.ContentSources.Select(s => new FilterFlagViewModel<ContentSource>(s, () => s.Name)));
         }
 
-        private SpellViewerModel _SpellViewerModel => _Compendium.SpellViewer;
-        private ClassViewerModel _ClassViewerModel => _Compendium.ClassViewer;
+        private SpellPageModel _SpellViewerModel => _Compendium.SpellViewer;
+        private ClassPageModel _ClassViewerModel => _Compendium.ClassViewer;
 
         public IEnumerable<SpellHeaderViewModel> Spells =>
-            _SpellViewerModel.AllSpells.Select(s => new SpellHeaderViewModel(s));
+            _SpellViewerModel.Content.Select(s => new SpellHeaderViewModel(s));
 
         public IEnumerable<SpellHeaderViewModel> FilteredSpells
         {
             get
             {
-                var list = _SpellViewerModel.AllSpells;
+                var list = _SpellViewerModel.Content;
                 if (!string.IsNullOrEmpty(NameFilter))
                     list = list.Where(s => s.Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0 || 
                     s.Description.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
@@ -97,12 +93,12 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         {
             get
             {
-                return _SelectedSpell.Value == null ? null : new SpellHeaderViewModel(_SelectedSpell.Value);
+                return _SpellViewerModel.SelectedItem == null ? null : new SpellHeaderViewModel(_SpellViewerModel.SelectedItem);
             }
-            set { _SelectedSpell.Value = value?.Model; }
+            set { _SpellViewerModel.SelectedItem = value?.Model; }
         }
 
-        public bool SpellDisplayIsVisible => _SelectedSpell.Value != null;
+        public bool SpellDisplayIsVisible => SelectedSpell != null;
 
         #region Filters
         #region By Name
@@ -133,20 +129,20 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         #endregion
 
         #region By Class
-        private ObservableList<FilterFlagViewModel<CharacterClass>> _ClassFilters;
-        public IEnumerable<FilterFlagViewModel<CharacterClass>> ClassFilters => _ClassFilters;
+        private ObservableList<FilterFlagViewModel<ClassModel>> _ClassFilters;
+        public IEnumerable<FilterFlagViewModel<ClassModel>> ClassFilters => _ClassFilters;
 
-        private FilterFlagViewModel<CharacterClass> GetClassFilterObject(CharacterClass cc)
+        private FilterFlagViewModel<ClassModel> GetClassFilterObject(ClassModel cc)
         {
-            FilterFlagViewModel<CharacterClass> newfilter =
-                new FilterFlagViewModel<CharacterClass>(cc, () => string.IsNullOrEmpty(cc.ShortName) ? cc.Name : cc.ShortName, false);
+            FilterFlagViewModel<ClassModel> newfilter =
+                new FilterFlagViewModel<ClassModel>(cc, () => string.IsNullOrEmpty(cc.ShortName) ? cc.Name : cc.ShortName, false);
             foreach (var child in cc.Subclasses.Where(c => c.ShowInFilterList))
                 newfilter.AddChildFilter(GetClassFilterObject(child));
 
             return newfilter;
         }
 
-        private IEnumerable<FilterFlagViewModel<CharacterClass>> GetCheckedClassFilters()
+        private IEnumerable<FilterFlagViewModel<ClassModel>> GetCheckedClassFilters()
         {
             return ClassFilters.Flatten(c => c.Children).Where(c => c.IsChecked);
         }
