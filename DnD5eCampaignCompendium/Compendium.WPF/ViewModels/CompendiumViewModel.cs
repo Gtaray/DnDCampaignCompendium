@@ -3,6 +3,8 @@ using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model;
 using Compendium.Model.Models;
+using Compendium.WPF.ViewModels.Common;
+using Compendium.WPF.Views;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -20,41 +22,23 @@ namespace Compendium.WPF.ViewModels
     public class CompendiumViewModel
     {
         private readonly CompendiumModel _Model;
+        private readonly IEnumerable<Page> _AllPages;
 
-        public CompendiumViewModel(CompendiumModel model)
+        public CompendiumViewModel(CompendiumModel model, IEnumerable<Page> allPages)
         {
             _Model = model;
-
-            _NavList = new ObservableList<string>()
-            {
-                "Spells",
-                "Classes",
-                "Races"
-            };
+            _AllPages = allPages;
         }
 
-        private ObservableList<string> _NavList;
-        public IEnumerable<string> NavList
-        {
-            get { return _NavList; }
-        }
+        public IEnumerable<Page> AllPages => _AllPages;
 
-        private Observable<int> _SelectedPage = new Observable<int>(1);
-        public int SelectedPage
-        {
-            get { return _SelectedPage; }
-            set { _SelectedPage.Value = value; }
-        }
+        //public IEnumerable<Page> SpellPage =>
+        //    new List<Page>() { new Page("Spells", new SpellViewerView())};
 
-        private Computed<string> _PageTitle;
-        public string PageTitle
-        {
-            get
-            {
-                if (_PageTitle == null)
-                    _PageTitle = new Computed<string>(() => _NavList[SelectedPage]);
-                return _PageTitle.Value;
-            }
-        }
+        //public IEnumerable<Page> ClassPage =>
+        //    new List<Page>() { new Page("Classes", new ClassViewerView()) };
+
+        //public IEnumerable<Page> OtherPages =>
+        //    _Model.OtherPages.Select(p => new Page(p.Header, new ))
     }
 }

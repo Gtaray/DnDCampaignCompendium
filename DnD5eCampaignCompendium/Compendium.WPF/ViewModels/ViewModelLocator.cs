@@ -13,6 +13,9 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Compendium.Model.Common;
 using Compendium.Model.Models;
+using Compendium.WPF.ViewModels.Common;
+using Compendium.WPF.Views;
+using Compendium.WPF.ViewModels.ContentViewer;
 
 namespace Compendium.WPF.ViewModels
 {
@@ -22,21 +25,21 @@ namespace Compendium.WPF.ViewModels
         private const string INDEX = "index.json";
 
         private readonly CompendiumModel _Compendium;
-        private readonly SpellPageModel _SpellViewer;
-        private readonly ClassPageModel _ClassViewer;
+        private readonly SpellPageModel _SpellPage;
+        private readonly ClassPageModel _ClassPage;
 
-        public object Compendium => ViewModel(() => new CompendiumViewModel(_Compendium));
-
-        public object SpellViewer => ViewModel(() => new SpellPageViewModel(_Compendium));
-
-        public object ClassViewer => ViewModel(() => new ClassPageViewModel(_ClassViewer));
+        public object CompendiumVM => ViewModel(() => new CompendiumViewModel(_Compendium, _AllPagesVM));
+        public object SpellPageVM => ViewModel(() => new SpellPageViewModel(_Compendium));
+        public object ClassPageVM => ViewModel(() => new ClassPageViewModel(_ClassPage));
+        private List<Page> _AllPagesVM;
 
 
         public ViewModelLocator()
         {
             _Compendium = new CompendiumModel();
-            _SpellViewer = new SpellPageModel(_Compendium);
-            _ClassViewer = new ClassPageModel(_Compendium);
+            _SpellPage = new SpellPageModel(_Compendium);
+            _ClassPage = new ClassPageModel(_Compendium);
+            _AllPagesVM = new List<Page>();
 
             if (DesignMode)
             {
@@ -66,29 +69,29 @@ namespace Compendium.WPF.ViewModels
                 if (index.spells != null && index.spellSchools != null && index.spellComponents != null)
                 {
                     // Do schools and components first since the spells rely on those
-                    _SpellViewer.DeserializeSchools(
+                    _SpellPage.DeserializeSchools(
                         ReadFileFromIndex(Path.Combine(dataDir, (string)index.spellSchools)));
-                    _SpellViewer.DeserializeComponents(
+                    _SpellPage.DeserializeComponents(
                         ReadFileFromIndex(Path.Combine(dataDir, (string)index.spellComponents)));
-                    _SpellViewer.DeserializeSpells(
+                    _SpellPage.DeserializeSpells(
                         ReadFileFromIndex(Path.Combine(dataDir, (string)index.spells)));
                 }
 
                 // If both class json files are present, load the classe
-                if(index.classes != null && index.classSpells != null)
+                if (index.classes != null && index.classSpells != null)
                 {
                     // Load classes firest since they need to be loaded before binding classes with their spell lists
-                    _ClassViewer.DeserializeContent(
+                    _ClassPage.DeserializeContent(
                         dataDir,
                         ReadFileFromIndex(Path.Combine(dataDir, (string)index.classes)));
-                    _ClassViewer.DeserializeClassSpells(
+                    _ClassPage.DeserializeClassSpells(
                         ReadFileFromIndex(Path.Combine(dataDir, (string)index.classSpells)));
                 }
 
                 // Load the rest of the content from the "otherPages" into their own content viewers
-                if(index.otherPages != null)
+                if (index.otherPages != null)
                 {
-                    foreach(var page in index.otherPages)
+                    foreach (var page in index.otherPages)
                     {
                         // TODO: Add dialog about incorrect json
                         if (page.title == null || page.content == null)
@@ -104,6 +107,21 @@ namespace Compendium.WPF.ViewModels
                         _Compendium.OtherPages.Add(cpm);
                     }
                 }
+            }
+
+            var spells = new SpellViewerView();
+            spells.DataContext = SpellPageVM;
+            _AllPagesVM.Add(new Page("Spells", spells));
+
+            var classes = new ClassViewerView();
+            classes.DataContext = ClassPageVM;
+            _AllPagesVM.Add(new Page("Classes", classes));
+
+            foreach(var page in _Compendium.OtherPages)
+            {
+                var content = new ContentViewerView();
+                content.DataContext = ViewModel(() => new ContentPageViewModel(_Compendium, page));
+                _AllPagesVM.Add(new Page(page.Header, content));
             }
         }
 

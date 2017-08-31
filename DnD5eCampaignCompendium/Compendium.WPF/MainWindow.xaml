@@ -9,10 +9,11 @@
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:view="clr-namespace:Compendium.WPF.Views"
     xmlns:convert="clr-namespace:Compendium.WPF.Converters"
+    xmlns:common="clr-namespace:Compendium.WPF.ViewModels.Common"
     mc:Ignorable="d"
     x:Name="Root"
     Title="D&amp;D 5e Campaign Compendium"
-    DataContext="{Binding Compendium, Source={StaticResource Locator}}"
+    DataContext="{Binding CompendiumVM, Source={StaticResource Locator}}"
     GlowBrush="{DynamicResource AccentColorBrush}"
     BorderThickness="1"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -27,7 +28,27 @@
         <ResourceDictionary>
             <convert:SelectedPageVisibilityConverter
                 x:Key="PageVisConverter" />
-            
+
+            <!--<CollectionViewSource
+                x:Key="SpellPageSource"
+                Source="{Binding SpellPage}" />
+            <CollectionViewSource
+                x:Key="ClassPageSource"
+                Source="{Binding ClassPage}" />-->
+            <!--<CollectionViewSource
+            x:Key="OtherPageSource"
+            Source="{Binding OtherPages}" />-->
+
+            <!--<CompositeCollection
+                x:Key="AllPages">
+                <CollectionContainer
+                    Collection="{Binding Source={StaticResource SpellPageSource}}" />
+                <CollectionContainer
+                    Collection="{Binding Source={StaticResource ClassPageSource}}" />
+                <CollectionContainer
+                Collection="{Binding Source={StaticResource OtherPagesSource}}" />
+            </CompositeCollection>-->
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -58,11 +79,19 @@
                             HorizontalAlignment="Right"
                             IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                         <ListBox
-                            x:Name="NavigationListBox"
-                            ItemsSource="{Binding NavList}"
-                            SelectedIndex="{Binding SelectedPage, Mode=TwoWay}"
+                            x:Name="NavList"
+                            SelectedIndex="1"
+                            ItemsSource="{Binding AllPages}"
                             Margin="0 16 0 16"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate
+                                    DataType="common:Page">
+                                    <TextBlock
+                                        Text="{Binding Name}"
+                                        Margin="32 0" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
                 </material:DrawerHost.LeftDrawerContent>
@@ -80,34 +109,18 @@
                                 x:Name="MenuToggleButton"
                                 DockPanel.Dock="Left"
                                 Margin="12,0,0,0" />
-
-                            <Button
-                                Content="Save"
-                                Command="{Binding SaveSpellsWithUpdatedJson}"
-                                Visibility="{Binding SelectedPage, Converter={StaticResource PageVisConverter}, ConverterParameter=0}"
-                                Style="{DynamicResource MaterialDesignRaisedAccentButton}"
-                                DockPanel.Dock="Right"
-                                Margin="0,0,12,0" />
-
-                            <material:PopupBox
-                                DockPanel.Dock="Right"
-                                PlacementMode="BottomAndAlignRightEdges"
-                                StaysOpen="False"
-                                Height="40"
-                                Margin="0,0,12,0">
-                                <StackPanel>
-
-                                </StackPanel>
-                            </material:PopupBox>
-
                             <TextBlock
-                                Text="{Binding PageTitle}"
+                                Text="{Binding ElementName=NavList, Path=SelectedItem.Name}"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="22"
                                 Margin="24,0,0,0" />
                         </DockPanel>
                     </material:ColorZone>
+
+                    <ContentControl
+                        Content="{Binding ElementName=NavList, Path=SelectedItem.Content}"/>
+
                 </DockPanel>
             </material:DrawerHost>
         </material:DialogHost>

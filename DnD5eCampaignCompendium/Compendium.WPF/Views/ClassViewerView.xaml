@@ -11,8 +11,8 @@
     xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
     mc:Ignorable="d" 
     d:DesignHeight="300" d:DesignWidth="300"
-    DataContext="{Binding ClassViewer, Source={StaticResource Locator}}"
     x:Name="ClassViewerRoot">
+    <!--DataContext="{Binding ClassPageVM, Source={StaticResource Locator}}"-->
     <UserControl.Resources>
         <convert:IntToMarginConverter
             x:Key="IntToMargin" />

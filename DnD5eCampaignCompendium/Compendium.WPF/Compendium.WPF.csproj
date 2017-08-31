@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\ClassViewer\ClassHeaderViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterFlagViewModel.cs" />
     <Compile Include="ViewModels\Common\GroupFilter.cs" />
+    <Compile Include="ViewModels\Common\Page.cs" />
     <Compile Include="ViewModels\Common\RelayCommand.cs" />
     <Compile Include="ViewModels\CompendiumViewModel.cs" />
     <Compile Include="ViewModels\ContentViewer\ContentItemViewModel.cs" />
@@ -157,6 +158,9 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ClassViewerView.xaml.cs">
       <DependentUpon>ClassViewerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentViewerView.xaml.cs">
+      <DependentUpon>ContentViewerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SpellViewerView.xaml.cs">
       <DependentUpon>SpellViewerView.xaml</DependentUpon>
@@ -194,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ClassViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentViewerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
