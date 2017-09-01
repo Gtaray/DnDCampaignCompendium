@@ -5,30 +5,105 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Compendium.WPF.Views"
              xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
+             xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="2*" />
-            <ColumnDefinition
-                Width="3*" />
-        </Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <DataTemplate
+            x:Key="FilterGroupTemplate">
+            <Expander
+                Header="{Binding Header}"
+                HeaderTemplate="{StaticResource ExpanderHeaderTemplate}"
+                IsExpanded="True"
+                HorizontalAlignment="Stretch"
+                BorderThickness="2">
+                <ItemsControl
+                    ItemsSource="{Binding Options}" 
+                    ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}"/>
+            </Expander>
+        </DataTemplate>
 
-        <!-- DISPLAY -->
-        <uc:MarkdownViewer
-            Markdown="{Binding ElementName=ContentList, Path=SelectedItem.Markdown}"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Canvas.ZIndex="0" />
-        
-        <!-- LIST -->
-        <ListBox
-            x:Name="ContentList"
-            ItemsSource="{Binding Content}"
-            DisplayMemberPath="Name"
-            Style="{DynamicResource MaterialDesignListBox}"
-            ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"/>
-    </Grid>
+        <DataTemplate x:Key="FilterFlagTemplate">
+            
+        </DataTemplate>
+    </UserControl.Resources>
+    <material:TransitioningContent
+        OpeningEffect="{material:TransitionEffect Kind=SlideInFromLeft}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="225"
+                    MaxWidth="300" />
+                <ColumnDefinition
+                    Width="5" />
+                <ColumnDefinition
+                    Width="3*" />
+                <ColumnDefinition
+                    Width="5" />
+                <ColumnDefinition
+                    Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- NAME FILTER -->
+            <TextBox
+                Text="{Binding SearchFilter, Delay=500, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                material:HintAssist.Hint="Search content"
+                material:HintAssist.FloatingScale="0.75"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                HorizontalAlignment="Stretch"
+                Grid.Row="0"
+                Grid.ColumnSpan="5"
+                Margin="8" />
+
+            <!-- FILTERS -->
+            <ScrollViewer
+                Grid.Column="0"
+                Grid.Row="1"
+                VerticalScrollBarVisibility="Auto"
+                CanContentScroll="True">
+                <ItemsControl
+                    ItemsSource="{Binding FilterGroups}"
+                    ItemTemplate="{StaticResource FilterGroupTemplate}">
+                </ItemsControl>
+            </ScrollViewer>
+
+            <GridSplitter
+                Grid.Column="1"
+                Grid.Row="1"
+                Width="5"
+                HorizontalAlignment="Stretch" />
+
+            <!-- LIST -->
+            <ListBox
+                x:Name="ContentList"
+                ItemsSource="{Binding FilteredContent}"
+                SelectedItem="{Binding Selected}"
+                DisplayMemberPath="Name"
+                Style="{DynamicResource MaterialDesignListBox}"
+                ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
+                Grid.Column="2"
+                Grid.Row="1" />
+
+            <GridSplitter
+                Grid.Column="3"
+                Grid.Row="1"
+                Width="5"
+                HorizontalAlignment="Stretch" />
+            
+            <!-- DISPLAY -->
+            <uc:MarkdownViewer
+                Markdown="{Binding Selected.Markdown}"
+                Grid.Column="4"
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Canvas.ZIndex="0" />
+        </Grid>
+    </material:TransitioningContent>
 </UserControl>

@@ -72,7 +72,7 @@ namespace Compendium.Model.Models
             string name = json.name != null ? (string)json.name : "Unknown";
             string id = json.id != null ? (string)json.id : "";
             string source = json.source != null ? (string)json.source : null;
-            string filePath = Path.Combine(dataDir, (string)json.file);
+            string filePath = json.file != null ? Path.Combine(dataDir, (string)json.file) : "";
             ClassModel newClass = new ClassModel()
             {
                 Name = name,

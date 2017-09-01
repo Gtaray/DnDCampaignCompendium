@@ -154,13 +154,12 @@ namespace Compendium.Model.Models
             get
             {
                 return string.Format(
-                    "# {0}\n\n" +
-                    "### {1}\n\n" +
-                    "---\n\n" +
-                    "**Casting Time:** {2}\n\n" +
-                    "**Range:** {3}\n\n" +
-                    "**Components:** {4}\n\n" +
-                    "**Duration:** {5}\n\n" +
+                    "## {0}\n\n" +
+                    "_{1}_\n\n" +
+                    "#### Casting Time:\n\n{2}\n\n" +
+                    "#### Range:\n\n{3}\n\n" +
+                    "#### Components:\n\n{4}\n\n" +
+                    "#### Duration:\n\n{5}\n\n" +
                     "{6}\n\n" +
                     "{7}" +
                     "**Source:** {8}",

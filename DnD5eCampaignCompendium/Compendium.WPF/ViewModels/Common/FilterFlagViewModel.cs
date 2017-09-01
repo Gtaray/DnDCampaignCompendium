@@ -18,6 +18,13 @@ namespace Compendium.WPF.ViewModels.Common
             Filter = filter;
         }
 
+        public FilterFlagViewModel(T filter, bool check = false)
+        {
+            _Label = new Computed<string>(() => filter.ToString());
+            IsChecked = check;
+            Filter = filter;
+        }
+
         private Observable<T> _Filter = new Observable<T>(default(T));
         public T Filter
         {

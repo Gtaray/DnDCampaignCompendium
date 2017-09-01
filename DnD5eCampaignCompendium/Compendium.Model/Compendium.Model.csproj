@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filtering\FilterGroup.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="Models\ClassPageModel.cs" />
     <Compile Include="Common\BaseModel.cs" />

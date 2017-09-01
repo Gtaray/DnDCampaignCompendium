@@ -1,54 +1,96 @@
-{  
-  "content":[
-		{
-			"name":"Dragonborn",
-			"id":"dragonborn",
-			"file":"Races\\Dragonborn.md",
-		},
-		{
-			"name":"Dwarf",
-			"id":"dwarf",
-			"file":"Races\\Dwarf.md",
-		},
-		{
-			"name":"Eladrin",
-			"id":"eladrin",
-			"file":"Races\\Eladrin.md",
-		},
-		{
-			"name":"Gnome",
-			"id":"gnome",
-			"file":"Races\\Gnome.md",
-		},
-		{
-			"name":"Goliath",
-			"id":"goliath",
-			"file":"Races\\Goliath.md",
-		},
-		{
-			"name":"Half-Elf",
-			"id":"half_elf",
-			"file":"Races\\HalfElf.md",
-		},
-		{
-			"name":"Halfling",
-			"id":"halfling",
-			"file":"Races\\Halfling.md",
-		},
-		{
-			"name":"Human",
-			"id":"human",
-			"file":"Races\\Human.md",
-		},
-		{
-			"name":"Shifter",
-			"id":"shifter",
-			"file":"Races\\Shifter.md",
-		},
-		{
-			"name":"Tiefling",
-			"id":"tiefling",
-			"file":"Races\\Tiefling.md",
-		},
+{
+  "content": [
+    {
+      "name": "Dragonborn",
+      "id": "dragonborn",
+      "file": "Races\\Dragonborn.md"
+    },
+    {
+      "name": "Dwarf",
+      "id": "dwarf",
+      "file": "Races\\Dwarf.md"
+    },
+    {
+      "name": "Eladrin",
+      "id": "eladrin",
+      "file": "Races\\Eladrin.md",
+      "filters": [
+        {
+          "id": "primary_attributes",
+          "values": [
+            "Intelligence"
+          ]
+        },
+        {
+          "id": "secondary_attributes",
+          "values": [
+            "Dexterity",
+            "Charisma",
+            "Wisdom"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Gnome",
+      "id": "gnome",
+      "file": "Races\\Gnome.md"
+    },
+    {
+      "name": "Goliath",
+      "id": "goliath",
+      "file": "Races\\Goliath.md"
+    },
+    {
+      "name": "Half-Elf",
+      "id": "half_elf",
+      "file": "Races\\HalfElf.md"
+    },
+    {
+      "name": "Halfling",
+      "id": "halfling",
+      "file": "Races\\Halfling.md"
+    },
+    {
+      "name": "Human",
+      "id": "human",
+      "file": "Races\\Human.md"
+    },
+    {
+      "name": "Shifter",
+      "id": "shifter",
+      "file": "Races\\Shifter.md"
+    },
+    {
+      "name": "Tiefling",
+      "id": "tiefling",
+      "file": "Races\\Tiefling.md"
+    }
+  ],
+  "filters": [
+    {
+      "id": "primary_attributes",
+      "title": "Primary Attributes",
+      "options": [
+        "Strength",
+        "Dexterity",
+        "Constitution",
+        "Intelligence",
+        "Wisdom",
+        "Charisma"
+      ]
+    },
+    {
+      "id": "secondary_attributes",
+      "title": "Secondary Attributes",
+      "options": [
+        "Strength",
+        "Dexterity",
+        "Constitution",
+        "Intelligence",
+        "Wisdom",
+        "Charisma"
+      ]
+    }
   ]
 }

@@ -16,6 +16,9 @@ namespace Compendium.WPF.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (values[1] == DependencyProperty.UnsetValue)
+                return Visibility.Collapsed;
+
             FilterFlagViewModel<ClassModel> filter = ForView.Unwrap<FilterFlagViewModel<ClassModel>>(values[0]);
             bool showAllClasses = (bool)values[1];
 

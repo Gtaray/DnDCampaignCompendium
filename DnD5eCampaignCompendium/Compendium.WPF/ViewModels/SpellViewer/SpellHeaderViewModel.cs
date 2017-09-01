@@ -47,6 +47,8 @@ namespace Compendium.WPF.ViewModels.SpellViewer
             get { return _Model.IsRitual; }
         }
 
+        public string LevelAndSchool => _Model.LevelAndSchool;
+
         public override bool Equals(object obj)
         {
             if (obj == this)

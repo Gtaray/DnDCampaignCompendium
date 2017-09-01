@@ -134,6 +134,7 @@
     <Compile Include="Extentions\BindableSelectedItemBehavior.cs" />
     <Compile Include="Extentions\DependencyObjectExtensions.cs" />
     <Compile Include="Extentions\Markdown.cs" />
+    <Compile Include="Extentions\NumLinesBehavior.cs" />
     <Compile Include="Extentions\RunVisibility.cs" />
     <Compile Include="UserControls\BulletedList.xaml.cs">
       <DependentUpon>BulletedList.xaml</DependentUpon>
@@ -147,6 +148,7 @@
     <Compile Include="ViewModels\ClassViewer\ClassPageViewModel.cs" />
     <Compile Include="ViewModels\ClassViewer\ClassHeaderViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterFlagViewModel.cs" />
+    <Compile Include="ViewModels\Common\FilterGroupViewModel.cs" />
     <Compile Include="ViewModels\Common\GroupFilter.cs" />
     <Compile Include="ViewModels\Common\Page.cs" />
     <Compile Include="ViewModels\Common\RelayCommand.cs" />

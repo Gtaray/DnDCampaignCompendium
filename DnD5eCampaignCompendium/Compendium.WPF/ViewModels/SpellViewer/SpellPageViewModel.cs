@@ -146,6 +146,13 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         {
             return ClassFilters.Flatten(c => c.Children).Where(c => c.IsChecked);
         }
+
+        private Observable<bool> _ShowAllClasses = new Observable<bool>(false);
+        public bool ShowAllClasses
+        {
+            get { return _ShowAllClasses; }
+            set { _ShowAllClasses.Value = value; }
+        }
         #endregion
 
         #region By School

@@ -34,46 +34,49 @@
                 Value="{Binding IsSelected, Mode=TwoWay}" />
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="*" />
-            <ColumnDefinition
-                Width="3*" />
-        </Grid.ColumnDefinitions>
+    <material:TransitioningContent
+        OpeningEffect="{material:TransitionEffect Kind=SlideInFromLeft}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="3*" />
+            </Grid.ColumnDefinitions>
 
-        <!-- DISPLAY -->
-        <uc:MarkdownViewer
-            Markdown="{Binding SelectedClass.Markdown}"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Canvas.ZIndex="0"/>
-
-        <!-- LIST -->
-        <ScrollViewer
-            VerticalScrollBarVisibility="Auto"
-            Grid.Column="0"
-            Canvas.ZIndex="0">
-            <TreeView
-                ItemsSource="{Binding Classes}"
-                ItemTemplate="{StaticResource TreeItemTemplate}"
-                ItemContainerStyle="{StaticResource TreeViewItemStyle}"
-                Style="{StaticResource MaterialDesignTreeView}"
-                FocusVisualStyle="{StaticResource MaterialDesignTreeViewItemFocusVisual}"
-                BorderThickness="0"
-                ScrollViewer.CanContentScroll="True"
-                VirtualizingPanel.IsVirtualizing="True"
+            <!-- DISPLAY -->
+            <uc:MarkdownViewer
+                Markdown="{Binding SelectedClass.Markdown}"
+                Grid.Column="1"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-                <TreeView.Template>
-                    <ControlTemplate>
-                        <Border>
-                            <ItemsPresenter />
-                        </Border>
-                    </ControlTemplate>
-                </TreeView.Template>
-            </TreeView>
-        </ScrollViewer>
-    </Grid>
+                VerticalAlignment="Stretch"
+                Canvas.ZIndex="0" />
+
+            <!-- LIST -->
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                Grid.Column="0"
+                Canvas.ZIndex="0">
+                <TreeView
+                    ItemsSource="{Binding Classes}"
+                    ItemTemplate="{StaticResource TreeItemTemplate}"
+                    ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                    Style="{StaticResource MaterialDesignTreeView}"
+                    FocusVisualStyle="{StaticResource MaterialDesignTreeViewItemFocusVisual}"
+                    BorderThickness="0"
+                    ScrollViewer.CanContentScroll="True"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <TreeView.Template>
+                        <ControlTemplate>
+                            <Border>
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </TreeView.Template>
+                </TreeView>
+            </ScrollViewer>
+        </Grid>
+    </material:TransitioningContent>
 </UserControl>

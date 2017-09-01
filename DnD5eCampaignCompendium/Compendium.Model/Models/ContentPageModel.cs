@@ -1,5 +1,6 @@
 ﻿using Assisticant.Collections;
 using Assisticant.Fields;
+using Compendium.Model.Filtering;
 using Compendium.Model.Helpers;
 using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
@@ -40,6 +41,9 @@ namespace Compendium.Model.Models
 
         private ObservableList<ContentItemModel> _Content;
         public IEnumerable<ContentItemModel> Content => _Content;
+
+        private ObservableList<FilterGroup> _FilterGroups = new ObservableList<FilterGroup>();
+        public IEnumerable<FilterGroup> FilterGroups => _FilterGroups;
         #endregion
 
         #region Json Parsing
@@ -49,13 +53,39 @@ namespace Compendium.Model.Models
 
             foreach (var content in obj.content)
             {
-                _Content.Add(new ContentItemModel()
+                var newContent = new ContentItemModel()
                 {
                     Name = content.name != null ? (string)content.name : "",
                     ID = content.id != null ? (string)content.id : "",
                     Source = content.source != null ? _Compendium.GetSourceByID((string)content.source) : null,
-                    Markdown = ResourceHelper.ReadTextFromFile(Path.Combine(dataDir, (string)content.file))
-                });
+                    Markdown = content.file != null
+                        ? ResourceHelper.ReadTextFromFile(Path.Combine(dataDir, (string)content.file))
+                        : ""
+                };
+                if(content.filters != null)
+                {
+                    foreach (var filter in content.filters)
+                    {
+                        string id = filter.id != null ? (string)filter.id : "";
+                        foreach (string value in filter.values)
+                            newContent.AddFilterProperty(id, value);
+                    }
+                }
+                _Content.Add(newContent);
+            }
+
+            if(obj.filters != null)
+            {
+                foreach(var filter in obj.filters)
+                {
+                    string id = filter.id != null ? (string)filter.id : "";
+                    string title = filter.title != null ? (string)filter.title : "Filter by Unknown";
+                    List<string> options = new List<string>();
+                    foreach (var option in filter.options)
+                        options.Add((string)option);
+
+                    _FilterGroups.Add(new FilterGroup(id, title, options));
+                }
             }
         }
         #endregion

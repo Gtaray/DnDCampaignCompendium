@@ -80,7 +80,7 @@
                             IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
                         <ListBox
                             x:Name="NavList"
-                            SelectedIndex="1"
+                            SelectedIndex="0"
                             ItemsSource="{Binding AllPages}"
                             Margin="0 16 0 16"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
@@ -117,7 +117,7 @@
                                 Margin="24,0,0,0" />
                         </DockPanel>
                     </material:ColorZone>
-
+                    
                     <ContentControl
                         Content="{Binding ElementName=NavList, Path=SelectedItem.Content}"/>
 

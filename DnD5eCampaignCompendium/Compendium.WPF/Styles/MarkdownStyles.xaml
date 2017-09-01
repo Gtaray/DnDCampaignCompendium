@@ -96,7 +96,7 @@
             Value="15" />
         <Setter
             Property="Foreground"
-            Value="#ff000000" />
+            Value="#af000000" />
         <Setter
             Property="Margin"
             Value="0 10 0 0" />

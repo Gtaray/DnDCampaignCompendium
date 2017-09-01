@@ -1,6 +1,9 @@
-﻿using Assisticant.Fields;
+﻿using Assisticant.Collections;
+using Assisticant.Fields;
 using Compendium.Model.Common;
 using Compendium.Model.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Compendium.Model.Models
 {
@@ -35,6 +38,24 @@ namespace Compendium.Model.Models
         {
             get { return _Markdown; }
             set { _Markdown.Value = value; }
+        }
+
+        // Dictionary that contains an id for a filter group, and then a list of strings
+        // that act as the values for that filter.
+        // When filtering, the key is used with filter groups, and if a particular
+        // key's list of strings contains the value to be filtered for, the item is shown.
+        private ObservableDictionary<string, List<string>> _FilterProperties = new ObservableDictionary<string, List<string>>();
+        public Dictionary<string, List<string>> FilterProperties =>
+            _FilterProperties.ToDictionary(x => x.Key, x => x.Value);
+
+        public void AddFilterProperty(string key, string value)
+        {
+            // If key doesn't exist, add it and a new list
+            if (!_FilterProperties.ContainsKey(key))
+                _FilterProperties.Add(key, new List<string>());
+
+            if (!_FilterProperties[key].Contains(value))
+                _FilterProperties[key].Add(value);
         }
 
         public override string ToString()

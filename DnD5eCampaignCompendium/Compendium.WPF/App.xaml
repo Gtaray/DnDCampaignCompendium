@@ -5,6 +5,7 @@
     xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     xmlns:local="clr-namespace:Compendium.WPF"
     xmlns:vm="clr-namespace:Compendium.WPF.ViewModels"
+    xmlns:ext="clr-namespace:Compendium.WPF.Extentions"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -53,6 +54,30 @@
 
             <vm:ViewModelLocator
                 x:Key="Locator" />
+            
+            <!-- DATA TEMPLATES FOR CONTROLS -->
+            <DataTemplate
+                x:Key="ExpanderHeaderTemplate">
+                <TextBlock
+                    Text="{Binding}"
+                    ext:NumLinesBehaviour.MaxLines="2"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="WrapWithOverflow" />
+            </DataTemplate>
+
+            <DataTemplate
+                x:Key="FilterFlagCheckboxTemplate">
+                <CheckBox
+                    IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignCheckBox}"
+                    Margin="0,1">
+                    <TextBlock
+                        Text="{Binding Label}"
+                        ext:NumLinesBehaviour.MaxLines="2"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="WrapWithOverflow" />
+                </CheckBox>
+            </DataTemplate>
 
             <!-- tell Dragablz tab control to use the Material Design theme -->
             <Style
