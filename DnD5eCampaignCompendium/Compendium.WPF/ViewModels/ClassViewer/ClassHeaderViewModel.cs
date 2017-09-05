@@ -1,4 +1,5 @@
 ﻿using Assisticant;
+using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model.Common;
 using Compendium.Model.Models;
@@ -19,6 +20,9 @@ namespace Compendium.WPF.ViewModels.ClassViewer
         {
             _Model = model;
             _Selection = selection;
+            _Subclasses = new ObservableList<ClassHeaderViewModel>();
+            foreach (var sub in model.Subclasses)
+                if(sub.ShowInClassList) _Subclasses.Add(new ClassHeaderViewModel(sub, _Selection));
         }
 
         internal ClassModel Model => _Model;
@@ -40,11 +44,13 @@ namespace Compendium.WPF.ViewModels.ClassViewer
             }
         }
 
-        public IEnumerable<ClassHeaderViewModel> Subclasses =>
-            _Model.Subclasses.Where(c => c.ShowInClassList).Select(s => new ClassHeaderViewModel(s, _Selection));
+        private ObservableList<ClassHeaderViewModel> _Subclasses;
+        public IEnumerable<ClassHeaderViewModel> Subclasses => _Subclasses;
+
+        //public IEnumerable<ClassHeaderViewModel> Subclasses =>
+        //    _Model.Subclasses.Where(c => c.ShowInClassList && Filter).Select(s => new ClassHeaderViewModel(s, _Selection, _SearchFilter));
 
         public string Markdown => string.IsNullOrEmpty(Model?.Markdown) ? "" : Model.Markdown;
-
 
         public override bool Equals(object obj)
         {
