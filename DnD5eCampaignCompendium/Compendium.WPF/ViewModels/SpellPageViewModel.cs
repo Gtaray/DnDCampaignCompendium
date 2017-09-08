@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Compendium.WPF.ViewModels.SpellViewer
+namespace Compendium.WPF.ViewModels
 {
-    public class SpellPageViewModel
+    public class SpellPageViewModel : BasePageViewModel
     {
         private readonly CompendiumModel _Compendium;
 
@@ -20,7 +20,9 @@ namespace Compendium.WPF.ViewModels.SpellViewer
 
             // Initialize filters
             _ClassFilters = new ObservableList<FilterFlagViewModel<ClassModel>>(
-                _ClassViewerModel.Content.Where(c => c.ShowInFilterList).Select(c => GetClassFilterObject(c)));
+                _ClassViewerModel.Content
+                    .Where(c => c.IsRoot && c.ShowInFilterList && c.HasSpells)
+                    .Select(c => GetClassFilterObject(c)));
 
             _SchoolFilters = new ObservableList<FilterFlagViewModel<SpellSchool>>(
                 _SpellViewerModel.SpellSchools.Select(s => new FilterFlagViewModel<SpellSchool>(s, () => s.Name)));
@@ -32,8 +34,8 @@ namespace Compendium.WPF.ViewModels.SpellViewer
                 _Compendium.ContentSources.Select(s => new FilterFlagViewModel<ContentSource>(s, () => s.Name)));
         }
 
-        private SpellPageModel _SpellViewerModel => _Compendium.SpellViewer;
-        private ClassPageModel _ClassViewerModel => _Compendium.ClassViewer;
+        private SpellPageModel _SpellViewerModel => _Compendium.SpellPage;
+        private ClassPageModel _ClassViewerModel => _Compendium.ClassPage;
 
         public IEnumerable<SpellHeaderViewModel> Spells =>
             _SpellViewerModel.Content.Select(s => new SpellHeaderViewModel(s));
@@ -136,8 +138,12 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         {
             FilterFlagViewModel<ClassModel> newfilter =
                 new FilterFlagViewModel<ClassModel>(cc, () => string.IsNullOrEmpty(cc.ShortName) ? cc.Name : cc.ShortName, false);
-            foreach (var child in cc.Subclasses.Where(c => c.ShowInFilterList))
-                newfilter.AddChildFilter(GetClassFilterObject(child));
+
+            foreach (var child in cc.Subclasses)
+            {
+                if (child.ShowInFilterList && child.HasSpells)
+                    newfilter.AddChildFilter(GetClassFilterObject(child));
+            }
 
             return newfilter;
         }
@@ -145,13 +151,6 @@ namespace Compendium.WPF.ViewModels.SpellViewer
         private IEnumerable<FilterFlagViewModel<ClassModel>> GetCheckedClassFilters()
         {
             return ClassFilters.Flatten(c => c.Children).Where(c => c.IsChecked);
-        }
-
-        private Observable<bool> _ShowAllClasses = new Observable<bool>(false);
-        public bool ShowAllClasses
-        {
-            get { return _ShowAllClasses; }
-            set { _ShowAllClasses.Value = value; }
         }
         #endregion
 

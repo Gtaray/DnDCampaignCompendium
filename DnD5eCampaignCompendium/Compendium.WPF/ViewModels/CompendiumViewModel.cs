@@ -3,12 +3,14 @@ using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model;
 using Compendium.Model.Models;
+using Compendium.WPF.ViewModels;
 using Compendium.WPF.ViewModels.Common;
 using Compendium.WPF.Views;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,29 +18,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace Compendium.WPF.ViewModels
 {
     public class CompendiumViewModel
     {
         private readonly CompendiumModel _Model;
-        private readonly IEnumerable<Page> _AllPages;
+        private readonly IEnumerable<Page> _CompendiumPages;
 
-        public CompendiumViewModel(CompendiumModel model, IEnumerable<Page> allPages)
+        public CompendiumViewModel(CompendiumModel model, IEnumerable<Page> compendiumPages)
         {
             _Model = model;
-            _AllPages = allPages;
+            _CompendiumPages = compendiumPages;
         }
 
-        public IEnumerable<Page> AllPages => _AllPages;
+        public IEnumerable<Page> CompendiumPages => _CompendiumPages;
 
-        //public IEnumerable<Page> SpellPage =>
-        //    new List<Page>() { new Page("Spells", new SpellViewerView())};
+        // Characters that appear in the navigation panel
+        public IEnumerable<CharacterHeaderViewModel> Characters =>
+            _Model.Characters.Select(c => new CharacterHeaderViewModel(c));
 
-        //public IEnumerable<Page> ClassPage =>
-        //    new List<Page>() { new Page("Classes", new ClassViewerView()) };
+        public ICommand AddNewCharacterCommand =>
+            MakeCommand.Do(() =>
+            {
+                _Model.AddNewCharacter();
+            });
 
-        //public IEnumerable<Page> OtherPages =>
-        //    _Model.OtherPages.Select(p => new Page(p.Header, new ))
+        public ICommand ExportSpellsToJson =>
+            MakeCommand.Do(() =>
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.DefaultExt = ".json";
+
+                if(sfd.ShowDialog() == true)
+                {
+                    File.WriteAllText(
+                        sfd.FileName, 
+                        _Model.SpellPage.SerializeSpells());
+                }
+            });
     }
 }

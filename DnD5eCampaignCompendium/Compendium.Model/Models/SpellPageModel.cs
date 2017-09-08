@@ -3,12 +3,10 @@ using Assisticant.Fields;
 using Compendium.Model.Common;
 using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Compendium.Model.Models
 {
@@ -20,7 +18,7 @@ namespace Compendium.Model.Models
         public SpellPageModel(CompendiumModel compendium)
         {
             _Compendium = compendium;
-            _Compendium.SpellViewer = this;
+            _Compendium.SpellPage = this;
 
             _Selection = new SelectionModel<SpellModel>();
 
@@ -134,8 +132,8 @@ namespace Compendium.Model.Models
                     Range = (string)spell.range,
                     CastingTime = (string)spell.castingTime,
                     Duration = (string)spell.duration,
-                    Description = string.Join("\r\n", spell.description),
-                    HigherLevel = string.Join("\r\n", spell.higherLevel)
+                    Description = string.Join("\n", spell.description),
+                    HigherLevel = string.Join("\n", spell.higherLevel)
                 };
 
                 // Parse school
@@ -155,7 +153,7 @@ namespace Compendium.Model.Models
 
                 // Parse errata
                 foreach (var errata in spell.errata)
-                    newSpell.AddErrata(new Errata((string)spell.month, (string)spell.year, (string)spell.text, newSpell));
+                    newSpell.AddErrata(new Errata((string)errata.month, (string)errata.year, (string)errata.text, newSpell));
 
                 // Parse source
                 var source = _Compendium.GetSourceByName((string)spell.source);
@@ -170,6 +168,13 @@ namespace Compendium.Model.Models
             // Sort Spells by level and then name
             _Content = new ObservableList<SpellModel>(
                 spells.OrderBy(s => s.Level).ThenBy(s => s.Name));
+        }
+
+        public string SerializeSpells()
+        {
+            dynamic json = new ExpandoObject();
+            json.spells = Content;
+            return JsonConvert.SerializeObject(json, Formatting.Indented);
         }
         #endregion
     }

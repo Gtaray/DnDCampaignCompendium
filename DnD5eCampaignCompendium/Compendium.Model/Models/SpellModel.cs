@@ -87,6 +87,7 @@ namespace Compendium.Model.Models
         }
 
         private Observable<string> _Range = new Observable<string>(default(string));
+        [JsonProperty(PropertyName = "range")]
         public string Range
         {
             get { return _Range; }
@@ -149,6 +150,7 @@ namespace Compendium.Model.Models
         #endregion
 
         #region Markdown and Display Properties
+        [JsonIgnore]
         public string Markdown
         {
             get
@@ -162,7 +164,8 @@ namespace Compendium.Model.Models
                     "#### Duration:\n\n{5}\n\n" +
                     "{6}\n\n" +
                     "{7}" +
-                    "**Source:** {8}",
+                    "#### Source:\n\n{8}" +
+                    "{9}",
                     Name,
                     LevelAndSchool,
                     CastingTime,
@@ -175,12 +178,17 @@ namespace Compendium.Model.Models
                     string.IsNullOrEmpty(HigherLevel)
                         ? ""
                         : string.Format("**At Higher Levels:** {0}\n\n", HigherLevel),
-                    Source != null ? Source.ToString() : "Unknown"
+                    Source != null ? Source.ToString() : "Unknown",
+                    ErrataList.Count() > 0 
+                        ? string.Format("\n\n#### Errata: \n\n{0}", 
+                            string.Join("\n", ErrataList.Select(e => string.Format("+ {0}", e.ToString()))))
+                        : ""
                 );
             }
             set { }
         }
 
+        [JsonIgnore]
         public string LevelAndSchool
         {
             get

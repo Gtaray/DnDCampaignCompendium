@@ -12,6 +12,11 @@ namespace Compendium.Model.Models
         public ContentItemModel()
         { }
 
+        public ContentItemModel(ContentItemModel parent)
+        {
+            Parent = parent;
+        }
+
         private Observable<string> _Name = new Observable<string>(default(string));
         public string Name
         {
@@ -24,6 +29,13 @@ namespace Compendium.Model.Models
         {
             get { return _ID; }
             set { _ID.Value = value; }
+        }
+
+        private Observable<ContentItemModel> _Parent = new Observable<ContentItemModel>(null);
+        public ContentItemModel Parent
+        {
+            get { return _Parent; }
+            set { _Parent.Value = value; }
         }
 
         private Observable<ContentSource> _Source = new Observable<ContentSource>(default(ContentSource));

@@ -38,16 +38,15 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="225"
-                    MaxWidth="300" />
+                    Width="200" />
                 <ColumnDefinition
-                    Width="5" />
+                    Width="24" />
                 <ColumnDefinition
-                    Width="3*" />
+                    Width="250" />
                 <ColumnDefinition
-                    Width="5" />
+                    Width="24" />
                 <ColumnDefinition
-                    Width="4*" />
+                    Width="*" />
             </Grid.ColumnDefinitions>
 
             <!-- NAME FILTER -->
@@ -59,7 +58,7 @@
                 HorizontalAlignment="Stretch"
                 Grid.Row="0"
                 Grid.ColumnSpan="5"
-                Margin="8" />
+                Margin="0 0 0 12" />
 
             <!-- FILTERS -->
             <ScrollViewer
@@ -76,7 +75,7 @@
             <GridSplitter
                 Grid.Column="1"
                 Grid.Row="1"
-                Width="5"
+                Width="4"
                 HorizontalAlignment="Stretch" />
 
             <!-- LIST -->
@@ -93,7 +92,7 @@
             <GridSplitter
                 Grid.Column="3"
                 Grid.Row="1"
-                Width="5"
+                Width="4"
                 HorizontalAlignment="Stretch" />
             
             <!-- DISPLAY -->

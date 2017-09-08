@@ -41,5 +41,15 @@ namespace Compendium.WPF.ViewModels.Common
                 .Where(o => item.FilterProperties[ID].Contains(o.Filter, StringComparer.OrdinalIgnoreCase))
                 .Any(o => o.IsChecked);
         }
+
+        public bool FilterContent(ClassModel item)
+        {
+            if (AnyChecked == false) return true;
+            if (!item.FilterProperties.ContainsKey(ID)) return false;
+
+            return Options
+                .Where(o => item.FilterProperties[ID].Contains(o.Filter, StringComparer.OrdinalIgnoreCase))
+                .Any(o => o.IsChecked);
+        }
     }
 }

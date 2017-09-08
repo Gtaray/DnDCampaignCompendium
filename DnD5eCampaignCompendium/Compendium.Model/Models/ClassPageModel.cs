@@ -1,5 +1,6 @@
 ﻿using Assisticant.Collections;
 using Assisticant.Fields;
+using Compendium.Model.Filtering;
 using Compendium.Model.Helpers;
 using Compendium.Model.Interfaces;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace Compendium.Model.Models
         public ClassPageModel(CompendiumModel compendium)
         {
             _Compendium = compendium;
-            _Compendium.ClassViewer = this;
+            _Compendium.ClassPage = this;
             _Content = new ObservableList<ClassModel>();
             _Selection = new SelectionModel<ClassModel>();
         }
@@ -49,6 +50,9 @@ namespace Compendium.Model.Models
         {
             get { return _Content; }
         }
+
+        private ObservableList<FilterGroup> _FilterGroups = new ObservableList<FilterGroup>();
+        public IEnumerable<FilterGroup> FilterGroups => _FilterGroups;
         #endregion
 
         #region Json Parsing
@@ -58,7 +62,22 @@ namespace Compendium.Model.Models
 
             foreach (var charClass in obj.classes)
             {
-                _Content.Add(DeserializeSingleClass(dataDir, charClass));
+                _Content.Add(
+                    DeserializeSingleClass(dataDir, charClass));
+            }
+
+            if (obj.filters != null)
+            {
+                foreach (var filter in obj.filters)
+                {
+                    string id = filter.id != null ? (string)filter.id : "";
+                    string title = filter.title != null ? (string)filter.title : "Filter by Unknown";
+                    List<string> options = new List<string>();
+                    foreach (var option in filter.options)
+                        options.Add((string)option);
+
+                    _FilterGroups.Add(new FilterGroup(id, title, options));
+                }
             }
 
             if (Content.Count() <= 0)
@@ -69,28 +88,29 @@ namespace Compendium.Model.Models
 
         private ClassModel DeserializeSingleClass(string dataDir, dynamic json)
         {
-            string name = json.name != null ? (string)json.name : "Unknown";
-            string id = json.id != null ? (string)json.id : "";
-            string source = json.source != null ? (string)json.source : null;
-            string filePath = json.file != null ? Path.Combine(dataDir, (string)json.file) : "";
             ClassModel newClass = new ClassModel()
             {
-                Name = name,
+                Name = json.name != null ? (string)json.name : "Unknown",
                 ShortName = json.shortName != null ? json.shortName : "",
-                ID = id,
-                Source = _Compendium.GetSourceByID(source),
-                Markdown = ResourceHelper.ReadTextFromFile(filePath),
+                ID = json.id != null ? (string)json.id : "",
+                Source = _Compendium.GetSourceByID(json.source != null ? (string)json.source : null),
+                Markdown = ResourceHelper.ReadTextFromFile(json.file != null ? Path.Combine(dataDir, (string)json.file) : ""),
                 ShowInClassList = json.showInClassList != null ? json.showInClassList : true,
-                ShowInFilterList = json.showInFilterList != null ? json.showInFilterList : true
+                ShowInFilterList = json.showInFilterList != null ? json.showInFilterList : true,
             };
 
-            if(json.subclasses != null)
-            {
+            // Set all filters
+            if (json.filters != null)
+                foreach (var filter in json.filters)
+                    newClass.AddFilterProperty(
+                        filter.id != null ? (string)filter.id : "",
+                        filter.value != null ? (string)filter.value : "");
+
+            if (json.subclasses != null)
                 foreach (var subclass in json.subclasses)
                     newClass.AddSubclass(DeserializeSingleClass(dataDir, subclass));
-            }
 
-            return newClass;            
+            return newClass;
         }
 
         public void DeserializeClassSpells(string json)
@@ -109,7 +129,7 @@ namespace Compendium.Model.Models
                 foreach (var s in charClass.spells)
                 {
                     if (s == null) continue;
-                    var spell = _Compendium.SpellViewer.GetSpellByID((string)s);
+                    var spell = _Compendium.SpellPage.GetSpellByID((string)s);
                     if (spell == null) continue;
                     cc.AddSpell(spell);
                 }

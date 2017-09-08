@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.WPF.ViewModels.ContentViewer
+namespace Compendium.WPF.ViewModels
 {
     public class ContentItemViewModel
     {

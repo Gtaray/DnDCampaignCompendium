@@ -17,18 +17,20 @@
       "filters": [
         {
           "id": "primary_attributes",
-          "values": [
-            "Intelligence"
-          ]
+          "value": "Intelligence"
         },
         {
           "id": "secondary_attributes",
-          "values": [
-            "Dexterity",
-            "Charisma",
-            "Wisdom"
-          ]
-        }
+          "value": "Dexterity"
+				},
+				{
+          "id": "secondary_attributes",
+          "value": "Charisma"
+				},
+				{
+          "id": "secondary_attributes",
+          "value": "Wisdom"
+				}
       ]
     },
     {

@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.WPF.ViewModels.ContentViewer
+namespace Compendium.WPF.ViewModels
 {
-    public class ContentPageViewModel
+    public class ContentPageViewModel : BasePageViewModel
     {
         private readonly CompendiumModel _Compendium;
         private readonly ContentPageModel _Model;
@@ -50,7 +50,6 @@ namespace Compendium.WPF.ViewModels.ContentViewer
             get { return _Selected.Value != null ? new ContentItemViewModel(_Selected.Value) : null; }
             set { _Selected.Value = value.Model; }
         }
-
 
         private ObservableList<FilterGroupViewModel> _FilterGroups = new ObservableList<FilterGroupViewModel>();
         public IEnumerable<FilterGroupViewModel> FilterGroups

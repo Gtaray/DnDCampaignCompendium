@@ -16,13 +16,16 @@ namespace Compendium.Model.Models
 {
     public class CompendiumModel
     {
-        public SpellPageModel SpellViewer;
-        public ClassPageModel ClassViewer;
+        //private readonly SelectionModel<CharacterModel> _CharacterSelection;
+
+        public SpellPageModel SpellPage;
+        public ClassPageModel ClassPage;
         public List<ContentPageModel> OtherPages;
 
         public CompendiumModel()
         {
             OtherPages = new List<ContentPageModel>();
+            //_CharacterSelection = new SelectionModel<CharacterModel>();
         }
 
         private ObservableList<ContentSource> _ContentSources = new ObservableList<ContentSource>();
@@ -40,6 +43,22 @@ namespace Compendium.Model.Models
         public ContentSource GetSourceByName(string source)
         {
             return ContentSources.FirstOrDefault(c => string.Equals(c.Name, source));
+        }
+        #endregion
+
+        #region Character Stuff
+        private ObservableList<CharacterModel> _Characters = new ObservableList<CharacterModel>();
+        public IEnumerable<CharacterModel> Characters
+        {
+            get { return _Characters; }
+        }
+
+        //public SelectionModel<CharacterModel> _CharacterSelection;
+        //public CharacterModel SelectedCharacter => _CharacterSelection.Value;
+
+        public void AddNewCharacter()
+        {
+            _Characters.Add(new CharacterModel());
         }
         #endregion
 

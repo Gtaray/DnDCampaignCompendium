@@ -182,8 +182,34 @@ namespace Compendium.Model.Models
         }
         #endregion
 
+
+        #region Filtering
+        private ObservableDictionary<string, List<string>> _FilterProperties = new ObservableDictionary<string, List<string>>();
+        public Dictionary<string, List<string>> FilterProperties =>
+            _FilterProperties.ToDictionary(x => x.Key, x => x.Value);
+
+        public void AddFilterProperty(string key, string value)
+        {
+            // If key doesn't exist, add it and a new list
+            if (!_FilterProperties.ContainsKey(key))
+                _FilterProperties.Add(key, new List<string>());
+
+            if (!_FilterProperties[key].Contains(value))
+                _FilterProperties[key].Add(value);
+        }
+        #endregion
+
         #region Misc Functions
-        
+        public bool ContainsText(string query)
+        {
+            // if the query is empty, return true
+            if (string.IsNullOrEmpty(query) || string.IsNullOrWhiteSpace(query))
+                return true;
+            // if the query is not empty test
+            return 
+                (!string.IsNullOrEmpty(Markdown) && Markdown.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                || Subclasses.Any(s => s.ContainsText(query));
+        }
         #endregion
 
         public override string ToString()

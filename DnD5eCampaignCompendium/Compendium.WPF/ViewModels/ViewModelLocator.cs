@@ -1,21 +1,13 @@
 ﻿using Assisticant;
-using Compendium.Model;
-using Compendium.WPF.ViewModels.ClassViewer;
-using Compendium.WPF.ViewModels.SpellViewer;
 using Compendium.Model.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
-using Compendium.Model.Common;
 using Compendium.Model.Models;
 using Compendium.WPF.ViewModels.Common;
 using Compendium.WPF.Views;
-using Compendium.WPF.ViewModels.ContentViewer;
 
 namespace Compendium.WPF.ViewModels
 {
@@ -28,10 +20,14 @@ namespace Compendium.WPF.ViewModels
         private readonly SpellPageModel _SpellPage;
         private readonly ClassPageModel _ClassPage;
 
+        private readonly SelectionModel<CharacterModel> _CharacterSelection;
+
         public object CompendiumVM => ViewModel(() => new CompendiumViewModel(_Compendium, _AllPagesVM));
         public object SpellPageVM => ViewModel(() => new SpellPageViewModel(_Compendium));
         public object ClassPageVM => ViewModel(() => new ClassPageViewModel(_ClassPage));
         private List<Page> _AllPagesVM;
+
+        public object CharacterVM => ViewModel(() => new CharacterViewModel(_Compendium, _CharacterSelection));
 
 
         public ViewModelLocator()

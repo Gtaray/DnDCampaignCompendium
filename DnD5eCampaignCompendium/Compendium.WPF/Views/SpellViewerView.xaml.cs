@@ -1,5 +1,5 @@
 ﻿using Compendium.WPF.Dialogs;
-using Compendium.WPF.ViewModels.SpellViewer;
+using Compendium.WPF.ViewModels;
 using MaterialDesignThemes.Wpf;
 using System.Windows;
 using System.Windows.Controls;

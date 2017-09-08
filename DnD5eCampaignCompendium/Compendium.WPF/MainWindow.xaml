@@ -8,6 +8,7 @@
     xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:view="clr-namespace:Compendium.WPF.Views"
+    xmlns:vm="clr-namespace:Compendium.WPF.ViewModels"
     xmlns:convert="clr-namespace:Compendium.WPF.Converters"
     xmlns:common="clr-namespace:Compendium.WPF.ViewModels.Common"
     mc:Ignorable="d"
@@ -22,33 +23,10 @@
     TextElement.FontSize="14"
     TitleCaps="False"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-    Height="800"
-    Width="1000">
+    Height="900"
+    Width="1600">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
-            <convert:SelectedPageVisibilityConverter
-                x:Key="PageVisConverter" />
-
-            <!--<CollectionViewSource
-                x:Key="SpellPageSource"
-                Source="{Binding SpellPage}" />
-            <CollectionViewSource
-                x:Key="ClassPageSource"
-                Source="{Binding ClassPage}" />-->
-            <!--<CollectionViewSource
-            x:Key="OtherPageSource"
-            Source="{Binding OtherPages}" />-->
-
-            <!--<CompositeCollection
-                x:Key="AllPages">
-                <CollectionContainer
-                    Collection="{Binding Source={StaticResource SpellPageSource}}" />
-                <CollectionContainer
-                    Collection="{Binding Source={StaticResource ClassPageSource}}" />
-                <CollectionContainer
-                Collection="{Binding Source={StaticResource OtherPagesSource}}" />
-            </CompositeCollection>-->
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
@@ -57,17 +35,48 @@
                 <ResourceDictionary
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate
+                x:Key="PageListTemplate"
+                DataType="common:Page">
+                <TextBlock
+                    Text="{Binding Name}"
+                    Margin="32 0" />
+            </DataTemplate>
+
+            <DataTemplate
+                DataType="{x:Type vm:SpellPageViewModel}">
+                <view:SpellViewerView />
+            </DataTemplate>
+
+            <DataTemplate
+                DataType="{x:Type vm:ClassPageViewModel}">
+                <view:SpellViewerView />
+            </DataTemplate>
+
+            <DataTemplate
+                DataType="{x:Type vm:ContentPageViewModel}">
+                <view:ContentViewerView />
+            </DataTemplate>
+
+            <DataTemplate
+                DataType="{x:Type vm:CharacterHeaderViewModel}">
+                <view:CharacterView />
+            </DataTemplate>
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
     <Grid>
+
         <material:DialogHost
             Identifier="RootDialog">
             <!--<material:DialogHost.DialogContent>
                 
             </material:DialogHost.DialogContent>-->
 
+
             <material:DrawerHost
-                IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}"
+                BorderBrush="{DynamicResource MaterialDesignDivider}">
                 <material:DrawerHost.LeftDrawerContent>
                     <StackPanel
                         MinWidth="212">
@@ -78,21 +87,46 @@
                             Margin="12,4,0,4"
                             HorizontalAlignment="Right"
                             IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+
+                        <Label
+                            Content="Compendium"
+                            Style="{DynamicResource MaterialDesignLabel}" />
                         <ListBox
-                            x:Name="NavList"
+                            x:Name="CompendiumPages"
                             SelectedIndex="0"
-                            ItemsSource="{Binding AllPages}"
-                            Margin="0 16 0 16"
-                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate
-                                    DataType="common:Page">
-                                    <TextBlock
-                                        Text="{Binding Name}"
-                                        Margin="32 0" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
+                            ItemsSource="{Binding CompendiumPages}"
+                            Style="{DynamicResource MaterialDesignListBox}"
+                            ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
+                            ItemTemplate="{StaticResource PageListTemplate}"
+                            Margin="0"
+                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
+                            SelectionChanged="Compendium_OnSelected">
                         </ListBox>
+
+                        <Separator
+                            Style="{DynamicResource MaterialDesignSeparator}" />
+
+                        <Label
+                            Content="Characters"
+                            Style="{DynamicResource MaterialDesignLabel}" />
+                        <ListBox
+                            x:Name="Characters"
+                            SelectedIndex="0"
+                            ItemsSource="{Binding Characters}"
+                            Style="{DynamicResource MaterialDesignListBox}"
+                            ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
+                            ItemTemplate="{StaticResource PageListTemplate}"
+                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
+                            SelectionChanged="Characters_OnSelected"
+                            Margin="0">
+                        </ListBox>
+                        <Button
+                            Content="New Character"
+                            Command="{Binding AddNewCharacterCommand}"
+                            Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                            Height="32"
+                            Margin="16 0"
+                            HorizontalAlignment="Stretch" />
                     </StackPanel>
                 </material:DrawerHost.LeftDrawerContent>
                 <DockPanel>
@@ -110,16 +144,17 @@
                                 DockPanel.Dock="Left"
                                 Margin="12,0,0,0" />
                             <TextBlock
-                                Text="{Binding ElementName=NavList, Path=SelectedItem.Name}"
+                                x:Name="PageHeader"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="22"
                                 Margin="24,0,0,0" />
                         </DockPanel>
                     </material:ColorZone>
-                    
+
                     <ContentControl
-                        Content="{Binding ElementName=NavList, Path=SelectedItem.Content}"/>
+                        x:Name="ContentContainer"
+                        Margin="12" />
 
                 </DockPanel>
             </material:DrawerHost>

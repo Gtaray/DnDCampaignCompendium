@@ -145,19 +145,23 @@
     <Compile Include="UserControls\MarkdownViewer.xaml.cs">
       <DependentUpon>MarkdownViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ClassViewer\ClassPageViewModel.cs" />
-    <Compile Include="ViewModels\ClassViewer\ClassHeaderViewModel.cs" />
+    <Compile Include="ViewModels\BasePageViewModel.cs" />
+    <Compile Include="ViewModels\CharacterHeaderViewModel.cs" />
+    <Compile Include="ViewModels\CharacterViewModel.cs" />
+    <Compile Include="ViewModels\ClassPageViewModel.cs" />
+    <Compile Include="ViewModels\ClassHeaderViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterFlagViewModel.cs" />
     <Compile Include="ViewModels\Common\FilterGroupViewModel.cs" />
-    <Compile Include="ViewModels\Common\GroupFilter.cs" />
     <Compile Include="ViewModels\Common\Page.cs" />
-    <Compile Include="ViewModels\Common\RelayCommand.cs" />
     <Compile Include="ViewModels\CompendiumViewModel.cs" />
-    <Compile Include="ViewModels\ContentViewer\ContentItemViewModel.cs" />
-    <Compile Include="ViewModels\ContentViewer\ContentPageViewModel.cs" />
-    <Compile Include="ViewModels\SpellViewer\SpellHeaderViewModel.cs" />
-    <Compile Include="ViewModels\SpellViewer\SpellPageViewModel.cs" />
+    <Compile Include="ViewModels\ContentItemViewModel.cs" />
+    <Compile Include="ViewModels\ContentPageViewModel.cs" />
+    <Compile Include="ViewModels\SpellHeaderViewModel.cs" />
+    <Compile Include="ViewModels\SpellPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\CharacterView.xaml.cs">
+      <DependentUpon>CharacterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ClassViewerView.xaml.cs">
       <DependentUpon>ClassViewerView.xaml</DependentUpon>
     </Compile>
@@ -196,6 +200,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\MarkdownViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CharacterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

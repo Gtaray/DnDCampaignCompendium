@@ -52,27 +52,7 @@ namespace Compendium.Model.Models
             dynamic obj = JsonConvert.DeserializeObject(json);
 
             foreach (var content in obj.content)
-            {
-                var newContent = new ContentItemModel()
-                {
-                    Name = content.name != null ? (string)content.name : "",
-                    ID = content.id != null ? (string)content.id : "",
-                    Source = content.source != null ? _Compendium.GetSourceByID((string)content.source) : null,
-                    Markdown = content.file != null
-                        ? ResourceHelper.ReadTextFromFile(Path.Combine(dataDir, (string)content.file))
-                        : ""
-                };
-                if(content.filters != null)
-                {
-                    foreach (var filter in content.filters)
-                    {
-                        string id = filter.id != null ? (string)filter.id : "";
-                        foreach (string value in filter.values)
-                            newContent.AddFilterProperty(id, value);
-                    }
-                }
-                _Content.Add(newContent);
-            }
+                DeserializeContentItem(content, dataDir);
 
             if(obj.filters != null)
             {
@@ -87,6 +67,35 @@ namespace Compendium.Model.Models
                     _FilterGroups.Add(new FilterGroup(id, title, options));
                 }
             }
+        }
+
+        private void DeserializeContentItem(dynamic content, string dataDir, ContentItemModel parent = null)
+        {
+            // Basic properties
+            var newContent = new ContentItemModel()
+            {
+                Name = content.name != null ? (string)content.name : "",
+                ID = content.id != null ? (string)content.id : "",
+                Source = content.source != null ? _Compendium.GetSourceByID((string)content.source) : null,
+                Markdown = content.file != null
+                        ? ResourceHelper.ReadTextFromFile(Path.Combine(dataDir, (string)content.file))
+                        : "",
+                Parent = parent
+            };
+
+            // Set all filters
+            if (content.filters != null)
+                foreach (var filter in content.filters)
+                    newContent.AddFilterProperty(
+                        filter.id != null ? (string)filter.id : "",
+                        filter.value != null ? (string)filter.value : "");
+
+            _Content.Add(newContent);
+            
+            // Handle sub-content
+            if(content.subcontent != null)
+                foreach(var subcontent in content.subcontent)
+                    DeserializeContentItem(subcontent, dataDir, newContent);
         }
         #endregion
 

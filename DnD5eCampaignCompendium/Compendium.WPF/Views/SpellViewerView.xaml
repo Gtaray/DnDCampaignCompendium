@@ -4,7 +4,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:local="clr-namespace:Compendium.WPF.Views"
-    xmlns:vm="clr-namespace:Compendium.WPF.ViewModels.SpellViewer"
+    xmlns:vm="clr-namespace:Compendium.WPF.ViewModels"
     xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:convert="clr-namespace:Compendium.WPF.Converters"
@@ -28,19 +28,6 @@
             <Setter
                 Property="IsExpanded"
                 Value="False" />
-            <Setter
-                Property="Visibility">
-                <Setter.Value>
-                    <MultiBinding
-                        Converter="{StaticResource classFilterVis}">
-                        <Binding
-                            Path="" />
-                        <Binding
-                            Source="{x:Reference Name=SpellViewerRoot}"
-                            Path="DataContext.ShowAllClasses" />
-                    </MultiBinding>
-                </Setter.Value>
-            </Setter>
             <Setter
                 Property="KeyboardNavigation.AcceptsReturn"
                 Value="True" />
@@ -72,16 +59,15 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
-                    Width="225"
-                    MaxWidth="300" />
+                    Width="200"/>
                 <ColumnDefinition
-                    Width="5" />
+                    Width="24" />
                 <ColumnDefinition
-                    Width="3*" />
+                    Width="250" />
                 <ColumnDefinition
-                    Width="5" />
+                    Width="24" />
                 <ColumnDefinition
-                    Width="4*" />
+                    Width="*" />
             </Grid.ColumnDefinitions>
 
             <!-- NAME FILTER -->
@@ -93,12 +79,13 @@
                 HorizontalAlignment="Stretch"
                 Grid.Row="0"
                 Grid.ColumnSpan="5"
-                Margin="8" />
+                Margin="0 0 0 12" />
 
             <!-- FILTERS -->
             <ScrollViewer
                 Grid.Column="0"
                 Grid.Row="1"
+                Margin="0 -4"
                 VerticalScrollBarVisibility="Auto"
                 CanContentScroll="True">
                 <DockPanel>
@@ -109,7 +96,8 @@
                         DockPanel.Dock="Top"
                         IsExpanded="True"
                         HorizontalAlignment="Stretch"
-                        BorderThickness="2">
+                        BorderThickness="2"
+                        Margin="0 4">
                         <ItemsControl
                             ItemsSource="{Binding LevelFilters}"
                             ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}" />
@@ -122,44 +110,23 @@
                         DockPanel.Dock="Top"
                         IsExpanded="True"
                         HorizontalAlignment="Stretch"
-                        BorderThickness="2">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition
-                                    Height="*" />
-                                <RowDefinition
-                                    Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TreeView
-                                Height="Auto"
-                                HorizontalAlignment="Stretch"
-                                ItemContainerStyle="{StaticResource TreeViewItemStyle}"
-                                ItemTemplate="{StaticResource CheckBoxTreeItemTemplate}"
-                                ItemsSource="{Binding ClassFilters}"
-                                BorderThickness="0">
-                                <TreeView.Template>
-                                    <ControlTemplate>
-                                        <Border>
-                                            <ItemsPresenter />
-                                        </Border>
-                                    </ControlTemplate>
-                                </TreeView.Template>
-                            </TreeView>
-                            <CheckBox
-                                x:Name="ShowAllClassesCheckbox"
-                                IsChecked="{Binding ShowAllClasses}"
-                                Style="{StaticResource MaterialDesignCheckBox}"
-                                VerticalAlignment="Center"
-                                VerticalContentAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Grid.Row="1">
-                                <TextBlock
-                                    Text="Show all classes"
-                                    ext:NumLinesBehaviour.MaxLines="3"
-                                    TextTrimming="CharacterEllipsis"
-                                    TextWrapping="WrapWithOverflow" />
-                            </CheckBox>
-                        </Grid>
+                        BorderThickness="2"
+                        Margin="0 4">
+                        <TreeView
+                            Height="Auto"
+                            HorizontalAlignment="Stretch"
+                            ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                            ItemTemplate="{StaticResource CheckBoxTreeItemTemplate}"
+                            ItemsSource="{Binding ClassFilters}"
+                            BorderThickness="0">
+                            <TreeView.Template>
+                                <ControlTemplate>
+                                    <Border>
+                                        <ItemsPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </TreeView.Template>
+                        </TreeView>
                     </Expander>
 
                     <!--FILTER BY SCHOOL-->
@@ -169,7 +136,8 @@
                         DockPanel.Dock="Top"
                         IsExpanded="False"
                         HorizontalAlignment="Stretch"
-                        BorderThickness="2">
+                        BorderThickness="2"
+                        Margin="0 4">
                         <ItemsControl
                             ItemsSource="{Binding SchoolFilters}"
                             ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}" />
@@ -182,7 +150,8 @@
                         DockPanel.Dock="Top"
                         IsExpanded="False"
                         HorizontalAlignment="Stretch"
-                        BorderThickness="2">
+                        BorderThickness="2"
+                        Margin="0 4">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition
@@ -218,7 +187,8 @@
                         DockPanel.Dock="Top"
                         IsExpanded="False"
                         HorizontalAlignment="Stretch"
-                        BorderThickness="2">
+                        BorderThickness="2"
+                        Margin="0 4">
                         <ItemsControl
                             ItemsSource="{Binding SourceFilters}"
                             ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}" />
@@ -230,7 +200,8 @@
                         DockPanel.Dock="Top"
                         IsExpanded="False"
                         HorizontalAlignment="Stretch"
-                        BorderThickness="2">
+                        BorderThickness="2"
+                        Margin="0 4">
                         <ItemsControl>
                             <CheckBox
                                 Style="{StaticResource MaterialDesignCheckBox}"
@@ -260,9 +231,10 @@
             </ScrollViewer>
 
             <GridSplitter
+                Style="{DynamicResource MaterialDesignGridSplitter}"
                 Grid.Column="1"
                 Grid.Row="1"
-                Width="5"
+                Width="4"
                 HorizontalAlignment="Stretch" />
 
             <!-- SPELL LIST -->
@@ -270,6 +242,7 @@
                 x:Name="SpellsListBox"
                 ItemsSource="{Binding FilteredSpells}"
                 SelectedItem="{Binding SelectedSpell, Mode=TwoWay}"
+                SelectedIndex="0"
                 Style="{DynamicResource MaterialDesignListBox}"
                 ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
                 SelectionMode="Single"
@@ -294,9 +267,11 @@
             </ListBox>
 
             <GridSplitter
+                Style="{DynamicResource MaterialDesignGridSplitter}"
                 Grid.Column="3"
                 Grid.Row="1"
-                Width="5" HorizontalAlignment="Stretch" />
+                Width="4" 
+                HorizontalAlignment="Stretch" />
 
             <!-- SPELL DISPLAY -->
             <uc:MarkdownViewer

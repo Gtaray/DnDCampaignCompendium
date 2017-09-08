@@ -49,7 +49,13 @@
           "source":"players_handbook",
           "file":"Classes\\Bard\\Valor.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Full Caster"
+        }
+			]
     },
     {  
       "name":"Cleric",
@@ -106,7 +112,13 @@
           "source":"players_handbook",
           "file":"Classes\\Cleric\\War.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Full Caster"
+        }
+			]
     },
     {  
       "name":"Druid",
@@ -178,7 +190,13 @@
           "source":"players_handbook",
           "showInClassList":false
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Full Caster"
+        }
+			]
     },
     {  
       "name":"Figher",
@@ -205,9 +223,15 @@
           "shortName":"Eldritch Knight",
           "id":"fighter.eldritch_knight",
           "source":"players_handbook",
-          "file":"Classes\\Figher\\EldritcKnight.md"
+          "file":"Classes\\Figher\\EldritchKnight.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Third Caster"
+        }
+			]
     },
     {  
       "name":"Monk",
@@ -272,7 +296,13 @@
           "source":"sword_coast",
           "file":"Classes\\Paladin\\Crown.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Half Caster"
+        }
+			]
     },
     {  
       "name":"Ranger",
@@ -294,7 +324,13 @@
           "source":"players_handbook",
           "file":"Classes\\Ranger\\BeastMaster.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Half Caster"
+        }
+			]
     },
     {  
       "name":"Rogue",
@@ -323,7 +359,13 @@
           "source":"players_handbook",
           "file":"Classes\\Rogue\\ArcaneTrickster.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Third Caster"
+        }
+			]
     },
     {  
       "name":"Sorcerer",
@@ -352,7 +394,13 @@
           "source":"elemental_evil",
           "file":"Classes\\Sorcerer\\Storm.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Full Caster"
+        }
+			]
     },
     {  
       "name":"Warlock",
@@ -445,7 +493,13 @@
           "source":"players_handbook",
           "file":"Classes\\Wizard\\Transmutation.md"
         }
-      ]
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Full Caster"
+        }
+			]
     },
     {  
       "name":"Magus",
@@ -488,7 +542,24 @@
           "source":"homebrew",
           "file":"Classes\\Magus\\SylvanCircle.md"
         }
+      ],
+			"filters": [
+        {
+          "id": "spellcaster_type",
+          "value": "Half Caster"
+        }
+			]
+    }
+  ],
+	"filters": [
+    {
+      "id": "spellcaster_type",
+      "title": "Spellcasting Type",
+      "options": [
+        "Full Caster",
+        "Half Caster",
+        "Third Caster"
       ]
     }
-  ]
+	]
 }

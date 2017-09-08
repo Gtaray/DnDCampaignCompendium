@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Compendium.WPF.ViewModels.SpellViewer
+namespace Compendium.WPF.ViewModels
 {
     public class SpellHeaderViewModel
     {

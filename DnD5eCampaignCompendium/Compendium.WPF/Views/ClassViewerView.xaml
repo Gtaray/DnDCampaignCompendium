@@ -10,19 +10,36 @@
     xmlns:ext="clr-namespace:Compendium.WPF.Extentions"
     xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
     mc:Ignorable="d" 
-    d:DesignHeight="300" d:DesignWidth="300"
+    d:DesignHeight="500" d:DesignWidth="800"
     x:Name="ClassViewerRoot">
     <!--DataContext="{Binding ClassPageVM, Source={StaticResource Locator}}"-->
     <UserControl.Resources>
         <convert:IntToMarginConverter
             x:Key="IntToMargin" />
+        
+        <DataTemplate
+            x:Key="FilterGroupTemplate">
+            <Expander
+                Header="{Binding Header}"
+                HeaderTemplate="{StaticResource ExpanderHeaderTemplate}"
+                IsExpanded="True"
+                HorizontalAlignment="Stretch"
+                BorderThickness="2">
+                <ItemsControl
+                    ItemsSource="{Binding Options}"
+                    ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}" />
+            </Expander>
+        </DataTemplate>
 
         <HierarchicalDataTemplate
             x:Key="TreeItemTemplate"
-            ItemsSource="{Binding Subclasses, Mode=OneTime}">
+            ItemsSource="{Binding Subclasses}">
             <TextBlock
                 Text="{Binding Name}"
-                Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                ext:NumLinesBehaviour.MaxLines="2"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="WrapWithOverflow" />
         </HierarchicalDataTemplate>
 
         <Style
@@ -44,34 +61,51 @@
                     Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <!--<ColumnDefinition
-                    Width="225"
-                    MaxWidth="300" />
                 <ColumnDefinition
-                    Width="5" />-->
+                    Width="200" />
+                <ColumnDefinition
+                    Width="24" />
+                <ColumnDefinition
+                    Width="250" />
+                <ColumnDefinition
+                    Width="24" />
                 <ColumnDefinition
                     Width="*" />
-                <ColumnDefinition
-                    Width="5" />
-                <ColumnDefinition
-                    Width="3*" />
             </Grid.ColumnDefinitions>
 
             <!-- NAME FILTER -->
             <TextBox
                 Text="{Binding SearchFilter, Delay=500, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                material:HintAssist.Hint="Search content"
+                material:HintAssist.Hint="Search class name and description"
                 material:HintAssist.FloatingScale="0.75"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 HorizontalAlignment="Stretch"
                 Grid.Row="0"
-                Grid.ColumnSpan="3"
-                Margin="8" />
+                Grid.ColumnSpan="5"
+                Margin="0 0 0 12" />
+
+            <!-- FILTERS -->
+            <ScrollViewer
+                Grid.Column="0"
+                Grid.Row="1"
+                VerticalScrollBarVisibility="Auto"
+                CanContentScroll="True">
+                <ItemsControl
+                    ItemsSource="{Binding FilterGroups}"
+                    ItemTemplate="{StaticResource FilterGroupTemplate}">
+                </ItemsControl>
+            </ScrollViewer>
+
+            <GridSplitter
+                Grid.Column="1"
+                Grid.Row="1"
+                Width="4"
+                HorizontalAlignment="Stretch" />
             
             <!-- LIST -->
             <ScrollViewer
                 VerticalScrollBarVisibility="Auto"
-                Grid.Column="0"
+                Grid.Column="2"
                 Grid.Row="1"
                 Canvas.ZIndex="0">
                 <TreeView
@@ -82,7 +116,6 @@
                     FocusVisualStyle="{StaticResource MaterialDesignTreeViewItemFocusVisual}"
                     BorderThickness="0"
                     ScrollViewer.CanContentScroll="True"
-                    VirtualizingPanel.IsVirtualizing="True"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
                     <TreeView.Template>
@@ -96,15 +129,15 @@
             </ScrollViewer>
 
             <GridSplitter
-                Grid.Column="1"
+                Grid.Column="3"
                 Grid.Row="1"
-                Width="5"
+                Width="4"
                 HorizontalAlignment="Stretch" />
 
             <!-- DISPLAY -->
             <uc:MarkdownViewer
                 Markdown="{Binding SelectedClass.Markdown}"
-                Grid.Column="2"
+                Grid.Column="4"
                 Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
