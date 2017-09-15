@@ -2,6 +2,7 @@
 using Assisticant.Fields;
 using Compendium.Model.Common;
 using Compendium.Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,7 @@ namespace Compendium.Model.Models
             Parent = parent;
         }
 
+        #region Properties / Accessors
         private Observable<string> _Name = new Observable<string>(default(string));
         public string Name
         {
@@ -52,6 +54,67 @@ namespace Compendium.Model.Models
             set { _Markdown.Value = value; }
         }
 
+        private ObservableList<ContentItemModel> _SubContent = new ObservableList<ContentItemModel>();
+        public IEnumerable<ContentItemModel> SubContent
+        {
+            get { return _SubContent; }
+        }
+        #endregion
+
+        #region Computed Values
+        private Computed<bool> _IsRoot;
+        public bool IsRoot
+        {
+            get
+            {
+                if (_IsRoot == null)
+                    _IsRoot = new Computed<bool>(() => Parent == null);
+                return _IsRoot.Value;
+            }
+        }
+
+        private Computed<string> _Header;
+        public string Header
+        {
+            get
+            {
+                if (_Header == null)
+                    _Header = new Computed<string>(() => IsRoot ? Name : Parent.Header + " > " + Name);
+                return _Header.Value;
+            }
+        }
+
+        private Computed<string> _Path;
+        public string Path
+        {
+            get
+            {
+                if (_Path == null)
+                    _Path = new Computed<string>(() => IsRoot ? Name : Parent.Path + "." + Path);
+                return _Path.Value;
+            }
+        }
+        #endregion
+
+        #region Add SubContent
+        public void AddSubContent(ContentItemModel toAdd)
+        {
+            if (_SubContent.Contains(toAdd))
+                return;
+            toAdd.Parent = this;
+            _SubContent.Add(toAdd);
+        }
+
+        public void RemoveSubContent(ContentItemModel toRemove)
+        {
+            if (!_SubContent.Contains(toRemove))
+                return;
+            toRemove.Parent = null;
+            _SubContent.Remove(toRemove);
+        }
+        #endregion
+
+        #region Filtering
         // Dictionary that contains an id for a filter group, and then a list of strings
         // that act as the values for that filter.
         // When filtering, the key is used with filter groups, and if a particular
@@ -69,6 +132,18 @@ namespace Compendium.Model.Models
             if (!_FilterProperties[key].Contains(value))
                 _FilterProperties[key].Add(value);
         }
+
+        public bool ContainsText(string query)
+        {
+            // if the query is empty, return true
+            if (string.IsNullOrEmpty(query) || string.IsNullOrWhiteSpace(query))
+                return true;
+            // if the query is not empty test
+            return
+                (!string.IsNullOrEmpty(Markdown) && Markdown.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0)
+                || SubContent.Any(s => s.ContainsText(query));
+        }
+        #endregion
 
         public override string ToString()
         {

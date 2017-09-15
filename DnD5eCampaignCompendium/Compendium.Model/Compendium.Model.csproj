@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Filtering\FilterGroup.cs" />
+    <Compile Include="Filtering\FilterItem.cs" />
     <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="Models\ClassPageModel.cs" />

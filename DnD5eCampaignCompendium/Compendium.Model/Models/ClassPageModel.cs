@@ -70,13 +70,18 @@ namespace Compendium.Model.Models
             {
                 foreach (var filter in obj.filters)
                 {
-                    string id = filter.id != null ? (string)filter.id : "";
-                    string title = filter.title != null ? (string)filter.title : "Filter by Unknown";
-                    List<string> options = new List<string>();
+                    FilterGroup fg = new FilterGroup()
+                    {
+                        ID = filter.id != null ? (string)filter.id : "",
+                        Header = filter.title != null ? (string)filter.title : "Filter by Unknown",
+                        ShowExlusiveToggle = filter.showExclusiveToggle != null ? (bool)filter.showExclusiveToggle : false,
+                        ExclusiveToggleLabel = filter.exclusiveToggleLabel != null ? (string)filter.exclusiveToggleLabel : "Exclude unchecked options",
+                        IsExclusive = filter.isExclusive != null ? (bool)filter.isExclusive : false
+                    };
                     foreach (var option in filter.options)
-                        options.Add((string)option);
+                        fg.AddItem((string)option);
 
-                    _FilterGroups.Add(new FilterGroup(id, title, options));
+                    _FilterGroups.Add(fg);
                 }
             }
 

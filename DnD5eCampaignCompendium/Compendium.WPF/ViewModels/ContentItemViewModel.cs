@@ -1,4 +1,5 @@
-﻿using Compendium.Model.Models;
+﻿using Assisticant.Fields;
+using Compendium.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,34 @@ namespace Compendium.WPF.ViewModels
     public class ContentItemViewModel
     {
         private readonly ContentItemModel _Model;
+        private readonly SelectionModel<ContentItemModel> _Selection;
 
-        public ContentItemViewModel(ContentItemModel model)
+        public ContentItemViewModel(ContentItemModel model, SelectionModel<ContentItemModel> selection)
         {
             _Model = model;
+            _Selection = selection;
         }
 
         public ContentItemModel Model => _Model;
 
         public string Name => _Model.Name;
 
-        public string Markdown => _Model.Markdown;
+        public string Markdown => string.IsNullOrEmpty(Model?.Markdown) ? "" : Model.Markdown;
+
+        private Observable<bool> _IsSelected = new Observable<bool>(default(bool));
+        public bool IsSelected
+        {
+            get { return _IsSelected; }
+            set
+            {
+                _IsSelected.Value = value;
+                if (value == true)
+                    _Selection.Value = _Model;
+            }
+        }
+
+        public IEnumerable<ContentItemViewModel> SubContent =>
+            _Model.SubContent.Select(c => new ContentItemViewModel(c, _Selection));
 
         public override bool Equals(object obj)
         {

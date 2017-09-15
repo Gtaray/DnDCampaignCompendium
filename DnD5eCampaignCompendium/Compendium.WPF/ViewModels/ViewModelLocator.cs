@@ -20,14 +20,12 @@ namespace Compendium.WPF.ViewModels
         private readonly SpellPageModel _SpellPage;
         private readonly ClassPageModel _ClassPage;
 
-        private readonly SelectionModel<CharacterModel> _CharacterSelection;
-
-        public object CompendiumVM => ViewModel(() => new CompendiumViewModel(_Compendium, _AllPagesVM));
+        public object CompendiumVM => ViewModel(() => new CompendiumViewModel(_Compendium));
         public object SpellPageVM => ViewModel(() => new SpellPageViewModel(_Compendium));
         public object ClassPageVM => ViewModel(() => new ClassPageViewModel(_ClassPage));
         private List<Page> _AllPagesVM;
 
-        public object CharacterVM => ViewModel(() => new CharacterViewModel(_Compendium, _CharacterSelection));
+        //public object CharacterVM => ViewModel(() => new CharacterViewModel(_Compendium, _CharacterSelection));
 
 
         public ViewModelLocator()
@@ -105,20 +103,20 @@ namespace Compendium.WPF.ViewModels
                 }
             }
 
-            var spells = new SpellViewerView();
-            spells.DataContext = SpellPageVM;
-            _AllPagesVM.Add(new Page("Spells", spells));
+            //var spells = new SpellViewerView();
+            //spells.DataContext = SpellPageVM;
+            //_AllPagesVM.Add(new Page("Spells", null));
 
-            var classes = new ClassViewerView();
-            classes.DataContext = ClassPageVM;
-            _AllPagesVM.Add(new Page("Classes", classes));
+            //var classes = new ClassViewerView();
+            //classes.DataContext = ClassPageVM;
+            //_AllPagesVM.Add(new Page("Classes", classes));
 
-            foreach(var page in _Compendium.OtherPages)
-            {
-                var content = new ContentViewerView();
-                content.DataContext = ViewModel(() => new ContentPageViewModel(_Compendium, page));
-                _AllPagesVM.Add(new Page(page.Header, content));
-            }
+            //foreach(var page in _Compendium.OtherPages)
+            //{
+            //    var content = new ContentViewerView();
+            //    content.DataContext = ViewModel(() => new ContentPageViewModel(_Compendium, page));
+            //    _AllPagesVM.Add(new Page(page.Header, content));
+            //}
         }
 
         private string ReadFileFromIndex(string path)

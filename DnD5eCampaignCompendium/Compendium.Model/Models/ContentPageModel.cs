@@ -26,6 +26,8 @@ namespace Compendium.Model.Models
         }
 
         #region Properties and Accessors
+        public SelectionModel<ContentItemModel> Selection => _Selection;
+
         public ContentItemModel SelectedItem
         {
             get { return _Selection.Value; }
@@ -46,6 +48,13 @@ namespace Compendium.Model.Models
         public IEnumerable<FilterGroup> FilterGroups => _FilterGroups;
         #endregion
 
+        public void AddFilterGroup(FilterGroup fg)
+        {
+            if (_FilterGroups.Contains(fg))
+                return;
+            _FilterGroups.Add(fg);
+        }
+
         #region Json Parsing
         public void DeserializeContent(string dataDir, string json)
         {
@@ -58,13 +67,18 @@ namespace Compendium.Model.Models
             {
                 foreach(var filter in obj.filters)
                 {
-                    string id = filter.id != null ? (string)filter.id : "";
-                    string title = filter.title != null ? (string)filter.title : "Filter by Unknown";
-                    List<string> options = new List<string>();
+                    FilterGroup fg = new FilterGroup()
+                    {
+                        ID = filter.id != null ? (string)filter.id : "",
+                        Header = filter.title != null ? (string)filter.title : "Filter by Unknown",
+                        ShowExlusiveToggle = filter.showExclusiveToggle != null ? (bool)filter.showExclusiveToggle : false,
+                        ExclusiveToggleLabel = filter.exclusiveToggleLabel != null ? (string)filter.exclusiveToggleLabel : "Exclude unchecked options",
+                        IsExclusive = filter.isExclusive != null ? (bool)filter.isExclusive : false
+                    };
                     foreach (var option in filter.options)
-                        options.Add((string)option);
+                        fg.AddItem((string)option);
 
-                    _FilterGroups.Add(new FilterGroup(id, title, options));
+                    _FilterGroups.Add(fg);
                 }
             }
         }

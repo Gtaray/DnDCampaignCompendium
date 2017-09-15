@@ -49,12 +49,11 @@
                 <!-- Mardown Styles -->
                 <ResourceDictionary
                     Source="Styles/MarkdownStyles.xaml" />
-                
             </ResourceDictionary.MergedDictionaries>
 
             <vm:ViewModelLocator
                 x:Key="Locator" />
-            
+
             <!-- DATA TEMPLATES FOR CONTROLS -->
             <DataTemplate
                 x:Key="ExpanderHeaderTemplate">

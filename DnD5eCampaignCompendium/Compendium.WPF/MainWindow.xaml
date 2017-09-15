@@ -38,20 +38,20 @@
 
             <DataTemplate
                 x:Key="PageListTemplate"
-                DataType="common:Page">
+                DataType="vm:BasePageViewModel">
                 <TextBlock
-                    Text="{Binding Name}"
+                    Text="{Binding Header}"
                     Margin="32 0" />
             </DataTemplate>
 
-            <DataTemplate
+            <!--<DataTemplate
                 DataType="{x:Type vm:SpellPageViewModel}">
                 <view:SpellViewerView />
             </DataTemplate>
 
             <DataTemplate
                 DataType="{x:Type vm:ClassPageViewModel}">
-                <view:SpellViewerView />
+                <view:ClassViewerView />
             </DataTemplate>
 
             <DataTemplate
@@ -62,7 +62,7 @@
             <DataTemplate
                 DataType="{x:Type vm:CharacterHeaderViewModel}">
                 <view:CharacterView />
-            </DataTemplate>
+            </DataTemplate>-->
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
     <Grid>

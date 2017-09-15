@@ -16,21 +16,16 @@ namespace Compendium.WPF.ViewModels
     {
         private readonly CompendiumModel _Compendium;
         private readonly ContentPageModel _Model;
-        private readonly SelectionModel<ContentItemModel> _Selected;
 
-        public ContentPageViewModel(CompendiumModel compendium, ContentPageModel model)
+        public ContentPageViewModel(CompendiumModel compendium, ContentPageModel model) : base(model.Header)
         {
             _Compendium = compendium;
             _Model = model;
-            _Selected = new SelectionModel<ContentItemModel>();
             foreach (FilterGroup group in _Model.FilterGroups)
                 _FilterGroups.Add(new FilterGroupViewModel(group));
         }
 
-        public string Header => _Model.Header;
-
-        public IEnumerable<ContentItemViewModel> Content => 
-            _Model.Content.Select(c => new ContentItemViewModel(c));
+        public new string Header => _Model.Header;
 
         public IEnumerable<ContentItemViewModel> FilteredContent
         {
@@ -41,15 +36,12 @@ namespace Compendium.WPF.ViewModels
                     list = list.Where(i => i?.Markdown != null && i.Markdown.IndexOf(SearchFilter, StringComparison.OrdinalIgnoreCase) >= 0);
                 if (FilterGroups.Any(g => g.AnyChecked))
                     list = list.Where(c => FilterGroups.Any(g => g.FilterContent(c)));
-                return list.Select(c => new ContentItemViewModel(c));
+                return list.Select(c => new ContentItemViewModel(c, _Model.Selection));
             }
         }
 
-        public ContentItemViewModel Selected
-        {
-            get { return _Selected.Value != null ? new ContentItemViewModel(_Selected.Value) : null; }
-            set { _Selected.Value = value.Model; }
-        }
+        public ContentItemViewModel Selected =>
+            _Model.SelectedItem != null ? new ContentItemViewModel(_Model.SelectedItem, _Model.Selection) : null;
 
         private ObservableList<FilterGroupViewModel> _FilterGroups = new ObservableList<FilterGroupViewModel>();
         public IEnumerable<FilterGroupViewModel> FilterGroups

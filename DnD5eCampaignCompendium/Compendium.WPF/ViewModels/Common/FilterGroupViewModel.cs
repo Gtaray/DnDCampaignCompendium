@@ -17,7 +17,7 @@ namespace Compendium.WPF.ViewModels.Common
         {
             _Model = model;
             foreach (var item in _Model.Items)
-                _Options.Add(new FilterFlagViewModel<string>(item));
+                _Options.Add(new FilterFlagViewModel<string>(item.Value));
         }
 
         public string Header => _Model.Header;

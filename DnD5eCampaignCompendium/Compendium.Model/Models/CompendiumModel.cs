@@ -11,6 +11,7 @@ using Compendium.Model.Common;
 using Assisticant.Collections;
 using Newtonsoft.Json;
 using Compendium.Model.Interfaces;
+using Compendium.Model.Filtering;
 
 namespace Compendium.Model.Models
 {
@@ -75,6 +76,53 @@ namespace Compendium.Model.Models
                 throw new NullReferenceException("No sources were loaded from source json file. Is the file empty?");
             }
         }
+
+        //public void DeserializeSpellPage(string spellString, string schoolString, string componentString)
+        //{
+        //    dynamic spells = JsonConvert.DeserializeObject<dynamic>(spellString);
+        //    dynamic schools = JsonConvert.DeserializeObject<dynamic>(schoolString);
+        //    dynamic components = JsonConvert.DeserializeObject<dynamic>(componentString);
+
+        //    ContentPageModel page = new ContentPageModel(this);
+
+        //    page.AddFilterGroup(new FilterGroup(
+        //        "level",
+        //        "Filter by Level",
+        //        new List<string>() {
+        //            "Cantrips",
+        //            "1st-level",
+        //            "2nd-level",
+        //            "3rd-level",
+        //            "4th-level",
+        //            "5th-level",
+        //            "6th-level",
+        //            "7th-level",
+        //            "8th-level",
+        //            "9th-level"
+        //        }));
+
+        //    FilterGroup classFilters = new FilterGroup("class", "Filter by Class", new List<string>());
+        //    //foreach(var c in ClassPage.Content)
+        //    //{
+        //    //    classFilters.AddItem()
+        //    //}
+
+        //    FilterGroup schoolFilters = new FilterGroup("school", "Filter by School", new List<string>());
+        //    foreach(var s in schools.scholls)
+        //        schoolFilters.AddItem((string)s);
+        //    page.AddFilterGroup(schoolFilters);
+
+        //    FilterGroup componentFilters = new FilterGroup("components", "Filter by Components", new List<string>());
+        //    foreach(var c in components.components)
+        //        componentFilters.AddItem((string)c.name);
+        //    page.AddFilterGroup(componentFilters);
+
+        //    List<ContentItemModel> allSpells = new List<ContentItemModel>();
+        //    foreach(var spell in obj.spells)
+        //    {
+
+        //    }
+        //}
         #endregion
     }
 }

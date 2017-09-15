@@ -156,6 +156,7 @@
     <Compile Include="ViewModels\CompendiumViewModel.cs" />
     <Compile Include="ViewModels\ContentItemViewModel.cs" />
     <Compile Include="ViewModels\ContentPageViewModel.cs" />
+    <Compile Include="ViewModels\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\SpellHeaderViewModel.cs" />
     <Compile Include="ViewModels\SpellPageViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />

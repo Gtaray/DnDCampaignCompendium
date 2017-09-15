@@ -14,7 +14,7 @@ namespace Compendium.WPF.ViewModels
     {
         private readonly CompendiumModel _Compendium;
 
-        public SpellPageViewModel(CompendiumModel compendium)
+        public SpellPageViewModel(CompendiumModel compendium) : base("Spells")
         {
             _Compendium = compendium;
 

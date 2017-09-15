@@ -18,7 +18,7 @@ namespace Compendium.WPF.ViewModels
     {
         private readonly ClassPageModel _Model;
 
-        public ClassPageViewModel(ClassPageModel model)
+        public ClassPageViewModel(ClassPageModel model) : base("Classes")
         {
             _Model = model;
             foreach (FilterGroup group in _Model.FilterGroups)
@@ -36,7 +36,7 @@ namespace Compendium.WPF.ViewModels
                 .Where(c => c.ContainsText(SearchFilter))
                 .Where(c => FilterGroups.All(g => g.FilterContent(c)))
                 .Select(c => new ClassHeaderViewModel(c, _Model.Selection));
-
+         
         public ClassHeaderViewModel SelectedClass =>
             _Model.SelectedItem != null ? new ClassHeaderViewModel(_Model.SelectedItem, _Model.Selection) : null;
 

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Compendium.WPF.Views"
              xmlns:uc="clr-namespace:Compendium.WPF.UserControls"
              xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ext="clr-namespace:Compendium.WPF.Extentions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -18,14 +19,30 @@
                 HorizontalAlignment="Stretch"
                 BorderThickness="2">
                 <ItemsControl
-                    ItemsSource="{Binding Options}" 
-                    ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}"/>
+                    ItemsSource="{Binding Options}"
+                    ItemTemplate="{StaticResource FilterFlagCheckboxTemplate}" />
             </Expander>
         </DataTemplate>
 
-        <DataTemplate x:Key="FilterFlagTemplate">
-            
-        </DataTemplate>
+        <HierarchicalDataTemplate
+            x:Key="TreeItemTemplate"
+            ItemsSource="{Binding SubContent}">
+            <TextBlock
+                Text="{Binding Name}"
+                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                ext:NumLinesBehaviour.MaxLines="2"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="WrapWithOverflow" />
+        </HierarchicalDataTemplate>
+
+        <Style
+            x:Key="TreeViewItemStyle"
+            TargetType="TreeViewItem"
+            BasedOn="{StaticResource MaterialDesignTreeViewItem}">
+            <Setter
+                Property="IsSelected"
+                Value="{Binding IsSelected, Mode=TwoWay}" />
+        </Style>
     </UserControl.Resources>
     <material:TransitioningContent
         OpeningEffect="{material:TransitionEffect Kind=SlideInFromLeft}">
@@ -71,7 +88,7 @@
                     ItemTemplate="{StaticResource FilterGroupTemplate}">
                 </ItemsControl>
             </ScrollViewer>
-
+ 
             <GridSplitter
                 Grid.Column="1"
                 Grid.Row="1"
@@ -79,7 +96,31 @@
                 HorizontalAlignment="Stretch" />
 
             <!-- LIST -->
-            <ListBox
+            <ScrollViewer
+                VerticalScrollBarVisibility="Auto"
+                Grid.Column="2"
+                Grid.Row="1"
+                Canvas.ZIndex="0">
+                <TreeView
+                    ItemsSource="{Binding FilteredContent}"
+                    ItemTemplate="{StaticResource TreeItemTemplate}"
+                    ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                    Style="{StaticResource MaterialDesignTreeView}"
+                    FocusVisualStyle="{StaticResource MaterialDesignTreeViewItemFocusVisual}"
+                    BorderThickness="0"
+                    ScrollViewer.CanContentScroll="True"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <TreeView.Template>
+                        <ControlTemplate>
+                            <Border>
+                                <ItemsPresenter />
+                            </Border>
+                        </ControlTemplate>
+                    </TreeView.Template>
+                </TreeView>
+            </ScrollViewer>
+            <!--<ListBox
                 x:Name="ContentList"
                 ItemsSource="{Binding FilteredContent}"
                 SelectedItem="{Binding Selected}"
@@ -87,7 +128,7 @@
                 Style="{DynamicResource MaterialDesignListBox}"
                 ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
                 Grid.Column="2"
-                Grid.Row="1" />
+                Grid.Row="1" />-->
 
             <GridSplitter
                 Grid.Column="3"
