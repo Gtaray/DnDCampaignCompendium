@@ -3,6 +3,7 @@ using Assisticant.Fields;
 using Compendium.Model.Filtering;
 using Compendium.Model.Helpers;
 using Compendium.Model.Interfaces;
+using Compendium.Model.JsonConverters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -56,30 +57,29 @@ namespace Compendium.Model.Models
         #endregion
 
         #region Json Parsing
-        public void DeserializeContent(string dataDir, string json)
+        public void DeserializeContent(string dataDir, Base_Json json)
         {
-            dynamic obj = JsonConvert.DeserializeObject(json);
-
-            foreach (var charClass in obj.classes)
+            Classes_Json classes = json as Classes_Json;
+            foreach (var charClass in classes.classes)
             {
                 _Content.Add(
                     DeserializeSingleClass(dataDir, charClass));
             }
 
-            if (obj.filters != null)
+            if (classes.filters != null)
             {
-                foreach (var filter in obj.filters)
+                foreach (var filter in classes.filters)
                 {
                     FilterGroup fg = new FilterGroup()
                     {
-                        ID = filter.id != null ? (string)filter.id : "",
-                        Header = filter.title != null ? (string)filter.title : "Filter by Unknown",
-                        ShowExlusiveToggle = filter.showExclusiveToggle != null ? (bool)filter.showExclusiveToggle : false,
-                        ExclusiveToggleLabel = filter.exclusiveToggleLabel != null ? (string)filter.exclusiveToggleLabel : "Exclude unchecked options",
-                        IsExclusive = filter.isExclusive != null ? (bool)filter.isExclusive : false
+                        ID = filter.id != null ? filter.id : "",
+                        Header = filter.title != null ? filter.title : "Filter by Unknown",
+                        ShowExlusiveToggle = filter.showExclusiveToggle,
+                        ExclusiveToggleLabel = filter.exclusiveToggleLabel != null ? filter.exclusiveToggleLabel : "Exclude unchecked options",
+                        IsExclusive = filter.isExclusive
                     };
                     foreach (var option in filter.options)
-                        fg.AddItem((string)option);
+                        fg.AddItem(option.id, option.display);
 
                     _FilterGroups.Add(fg);
                 }
@@ -91,28 +91,28 @@ namespace Compendium.Model.Models
             }
         }
 
-        private ClassModel DeserializeSingleClass(string dataDir, dynamic json)
+        private ClassModel DeserializeSingleClass(string dataDir, Class_Json charClass)
         {
             ClassModel newClass = new ClassModel()
             {
-                Name = json.name != null ? (string)json.name : "Unknown",
-                ShortName = json.shortName != null ? json.shortName : "",
-                ID = json.id != null ? (string)json.id : "",
-                Source = _Compendium.GetSourceByID(json.source != null ? (string)json.source : null),
-                Markdown = ResourceHelper.ReadTextFromFile(json.file != null ? Path.Combine(dataDir, (string)json.file) : ""),
-                ShowInClassList = json.showInClassList != null ? json.showInClassList : true,
-                ShowInFilterList = json.showInFilterList != null ? json.showInFilterList : true,
+                Name = charClass.name != null ? charClass.name : "Unknown",
+                ShortName = charClass.shortName != null ? charClass.shortName : "",
+                ID = charClass.id != null ? charClass.id : "",
+                Source = _Compendium.GetSourceByID(charClass.source != null ? charClass.source : null),
+                Markdown = ResourceHelper.ReadTextFromFile(charClass.file != null ? Path.Combine(dataDir, charClass.file) : ""),
+                ShowInClassList = charClass.showInClassList,
+                ShowInFilterList = charClass.showInFilterList,
             };
 
             // Set all filters
-            if (json.filters != null)
-                foreach (var filter in json.filters)
+            if (charClass.filters != null)
+                foreach (var filter in charClass.filters)
                     newClass.AddFilterProperty(
-                        filter.id != null ? (string)filter.id : "",
-                        filter.value != null ? (string)filter.value : "");
+                        filter.groupID != null ? filter.groupID : "",
+                        filter.valueID != null ? filter.valueID : "");
 
-            if (json.subclasses != null)
-                foreach (var subclass in json.subclasses)
+            if (charClass.subclasses != null)
+                foreach (var subclass in charClass.subclasses)
                     newClass.AddSubclass(DeserializeSingleClass(dataDir, subclass));
 
             return newClass;

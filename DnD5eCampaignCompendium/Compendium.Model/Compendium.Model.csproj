@@ -55,6 +55,14 @@
   <ItemGroup>
     <Compile Include="Filtering\FilterGroup.cs" />
     <Compile Include="Filtering\FilterItem.cs" />
+    <Compile Include="JsonConverters\Base_Json.cs" />
+    <Compile Include="JsonConverters\Classes_Json.cs" />
+    <Compile Include="JsonConverters\ClassSpells_Json.cs" />
+    <Compile Include="JsonConverters\ContentPage_Json.cs" />
+    <Compile Include="JsonConverters\Filters_Json.cs" />
+    <Compile Include="JsonConverters\Index_Json.cs" />
+    <Compile Include="JsonConverters\Sources_Json.cs" />
+    <Compile Include="JsonConverters\Spells_Json.cs" />
     <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="Models\ClassPageModel.cs" />

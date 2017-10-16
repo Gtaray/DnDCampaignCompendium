@@ -13,11 +13,11 @@ namespace Compendium.Model.Filtering
         public FilterGroup()
         { }
 
-        public FilterGroup(string id, string header, List<string> items)
+        public FilterGroup(string id, string header, List<FilterItem> items)
         {
             ID = id;
             Header = header;
-            _Items = new ObservableList<FilterItem>(items.Select(i => new FilterItem(i)));
+            _Items = new ObservableList<FilterItem>(items);
         }
 
         private Observable<string> _ID = new Observable<string>(default(string));
@@ -61,9 +61,9 @@ namespace Compendium.Model.Filtering
             get { return _Items; }
         }
 
-        public void AddItem(string item)
+        public void AddItem(string id, string label)
         {
-            _Items.Add(new FilterItem(item));
+            _Items.Add(new FilterItem(id, label));
         }
 
         public void AddItem(FilterItem item)

@@ -3,6 +3,7 @@ using Assisticant.Fields;
 using Compendium.Model.Filtering;
 using Compendium.Model.Helpers;
 using Compendium.Model.Interfaces;
+using Compendium.Model.JsonConverters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,12 @@ namespace Compendium.Model.Models
         public IEnumerable<FilterGroup> FilterGroups => _FilterGroups;
         #endregion
 
+        public void AddContentItem(ContentItemModel cim)
+        {
+            if (!_Content.Contains(cim))
+                _Content.Add(cim);
+        }
+
         public void AddFilterGroup(FilterGroup fg)
         {
             if (_FilterGroups.Contains(fg))
@@ -55,28 +62,45 @@ namespace Compendium.Model.Models
             _FilterGroups.Add(fg);
         }
 
-        #region Json Parsing
-        public void DeserializeContent(string dataDir, string json)
+        public void AddFilterGroup(string groupID, string label)
         {
-            dynamic obj = JsonConvert.DeserializeObject(json);
+            if (!_FilterGroups.Any(g => string.Equals(g.ID, groupID, StringComparison.OrdinalIgnoreCase)))
+                _FilterGroups.Add(new FilterGroup(groupID, label, new List<FilterItem>()));
+        }
 
-            foreach (var content in obj.content)
+        public void AddOptionToFilterGroup(string groupID, string optionDisplay, string optionID)
+        {
+            var group = _FilterGroups.FirstOrDefault(g => string.Equals(g.ID, groupID, StringComparison.OrdinalIgnoreCase));
+            if(group != null)
+                group.AddItem(optionID, optionDisplay);
+        }
+
+        public ContentItemModel GetItemByID(string id)
+        {
+            return _Content.FirstOrDefault(c => string.Equals(c.ID, id, StringComparison.OrdinalIgnoreCase));
+        }
+
+        #region Json Parsing
+        public void DeserializeContent(string dataDir, Base_Json json)
+        {
+            ContentPage_Json contentPage = json as ContentPage_Json;
+            foreach (var content in contentPage.content)
                 DeserializeContentItem(content, dataDir);
 
-            if(obj.filters != null)
+            if(contentPage.filters != null)
             {
-                foreach(var filter in obj.filters)
+                foreach(var filter in contentPage.filters)
                 {
                     FilterGroup fg = new FilterGroup()
                     {
-                        ID = filter.id != null ? (string)filter.id : "",
-                        Header = filter.title != null ? (string)filter.title : "Filter by Unknown",
-                        ShowExlusiveToggle = filter.showExclusiveToggle != null ? (bool)filter.showExclusiveToggle : false,
-                        ExclusiveToggleLabel = filter.exclusiveToggleLabel != null ? (string)filter.exclusiveToggleLabel : "Exclude unchecked options",
-                        IsExclusive = filter.isExclusive != null ? (bool)filter.isExclusive : false
+                        ID = filter.id != null ? filter.id : "",
+                        Header = filter.title != null ? filter.title : "Filter by Unknown",
+                        ShowExlusiveToggle = filter.showExclusiveToggle,
+                        ExclusiveToggleLabel = filter.exclusiveToggleLabel != null ? filter.exclusiveToggleLabel : "Exclude unchecked options",
+                        IsExclusive = filter.isExclusive
                     };
                     foreach (var option in filter.options)
-                        fg.AddItem((string)option);
+                        fg.AddItem(option.id, option.display);
 
                     _FilterGroups.Add(fg);
                 }
@@ -101,8 +125,8 @@ namespace Compendium.Model.Models
             if (content.filters != null)
                 foreach (var filter in content.filters)
                     newContent.AddFilterProperty(
-                        filter.id != null ? (string)filter.id : "",
-                        filter.value != null ? (string)filter.value : "");
+                        filter.groupID != null ? (string)filter.groupID : "",
+                        filter.valueID != null ? (string)filter.valueID : "");
 
             _Content.Add(newContent);
             

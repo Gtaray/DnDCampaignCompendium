@@ -25,31 +25,14 @@ namespace Compendium.WPF.ViewModels
     public class CompendiumViewModel
     {
         private readonly CompendiumModel _Model;
-        private readonly SpellPageViewModel _SpellPage;
-        private readonly ClassPageViewModel _ClassPage;
-        private readonly List<ContentPageViewModel> _OtherPages;
 
         public CompendiumViewModel(CompendiumModel model)
         {
             _Model = model;
-            _SpellPage = new SpellPageViewModel(_Model);
-            _ClassPage = new ClassPageViewModel(_Model.ClassPage);
-            _OtherPages = new List<ContentPageViewModel>(
-                _Model.OtherPages.Select(p => new ContentPageViewModel(_Model, p)));
         }
 
-        public IEnumerable<PageHeaderViewModel> CompendiumPages
-        {
-            get
-            {
-                List<PageHeaderViewModel> list = new List<PageHeaderViewModel>();
-                list.Add(new PageHeaderViewModel(_SpellPage));
-                list.Add(new PageHeaderViewModel(_ClassPage));
-                foreach (var page in _OtherPages)
-                    list.Add(new PageHeaderViewModel(page));
-                return list;
-            }
-        }
+        public IEnumerable<ContentPageViewModel> ContentPages =>
+            _Model.ContentPages.Select(p => new ContentPageViewModel(_Model, p));
 
         // Characters that appear in the navigation panel
         //public IEnumerable<CharacterHeaderViewModel> Characters =>

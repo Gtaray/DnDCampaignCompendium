@@ -1,6 +1,7 @@
 ﻿using Assisticant.Collections;
 using Assisticant.Fields;
 using Compendium.Model.Common;
+using Compendium.Model.JsonConverters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,6 @@ namespace Compendium.Model.Interfaces
 
         IEnumerable<T> Content { get; }
 
-        void DeserializeContent(string dir, string json);
+        void DeserializeContent(string dir, Base_Json json);
     }
 }

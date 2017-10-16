@@ -1,10 +1,9 @@
 {
 	"sources" : "Common\\Sources.json",
 	"spells" : "Spells\\spells.json",
-	"spellSchools" : "Spells\\SpellSchools.json",
 	"spellComponents" : "Spells\\SpellComponents.json",
+	"classSpells" : "Spells\\ClassSpells.json",
 	"classes" : "Classes\\Classes.json",
-	"classSpells" : "Classes\\ClassSpells.json",
 	"otherPages" : [
 		{
 			"title" : "Races",

@@ -92,15 +92,14 @@
                             Content="Compendium"
                             Style="{DynamicResource MaterialDesignLabel}" />
                         <ListBox
-                            x:Name="CompendiumPages"
+                            x:Name="ContentPages"
                             SelectedIndex="0"
-                            ItemsSource="{Binding CompendiumPages}"
+                            ItemsSource="{Binding ContentPages}"
                             Style="{DynamicResource MaterialDesignListBox}"
                             ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
                             ItemTemplate="{StaticResource PageListTemplate}"
                             Margin="0"
-                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
-                            SelectionChanged="Compendium_OnSelected">
+                            PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
                         </ListBox>
 
                         <Separator
@@ -117,7 +116,6 @@
                             ItemContainerStyle="{DynamicResource MaterialDesignListBoxItem}"
                             ItemTemplate="{StaticResource PageListTemplate}"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
-                            SelectionChanged="Characters_OnSelected"
                             Margin="0">
                         </ListBox>
                         <Button
@@ -152,8 +150,9 @@
                         </DockPanel>
                     </material:ColorZone>
 
-                    <ContentControl
+                    <view:ContentViewerView
                         x:Name="ContentContainer"
+                        DataContext="{Binding ElementName=ContentPages, Path=SelectedItem}"
                         Margin="12" />
 
                 </DockPanel>

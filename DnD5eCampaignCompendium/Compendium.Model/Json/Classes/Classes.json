@@ -52,8 +52,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Full Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "full_caster"
         }
 			]
     },
@@ -115,8 +115,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Full Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "full_caster"
         }
 			]
     },
@@ -193,8 +193,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Full Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "full_caster"
         }
 			]
     },
@@ -228,8 +228,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Third Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "third_caster"
         }
 			]
     },
@@ -299,8 +299,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Half Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "half_caster"
         }
 			]
     },
@@ -327,8 +327,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Half Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "half_caster"
         }
 			]
     },
@@ -362,8 +362,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Third Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "third_caster"
         }
 			]
     },
@@ -397,8 +397,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Full Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "full_caster"
         }
 			]
     },
@@ -496,8 +496,8 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Full Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "full_caster"
         }
 			]
     },
@@ -545,20 +545,29 @@
       ],
 			"filters": [
         {
-          "id": "spellcaster_type",
-          "value": "Half Caster"
+          "groupID": "spellcaster_type",
+          "valueID": "half_caster"
         }
 			]
     }
   ],
 	"filters": [
     {
+			"title": "Spellcasting Type",
       "id": "spellcaster_type",
-      "title": "Spellcasting Type",
       "options": [
-        "Full Caster",
-        "Half Caster",
-        "Third Caster"
+				{
+					"display":"Full Caster",
+					"id":"full_caster"
+				},
+				{
+					"display":"Half Caster",
+					"id":"half_caster"
+				},
+				{
+					"display":"Third Caster",
+					"id":"third_caster"
+				}
       ]
     }
 	]

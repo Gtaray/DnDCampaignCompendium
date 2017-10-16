@@ -12,6 +12,7 @@ using Assisticant.Collections;
 using Newtonsoft.Json;
 using Compendium.Model.Interfaces;
 using Compendium.Model.Filtering;
+using Compendium.Model.JsonConverters;
 
 namespace Compendium.Model.Models
 {
@@ -29,6 +30,13 @@ namespace Compendium.Model.Models
             //_CharacterSelection = new SelectionModel<CharacterModel>();
         }
 
+
+        private ObservableList<ContentPageModel> _ContentPages = new ObservableList<ContentPageModel>();
+        public IEnumerable<ContentPageModel> ContentPages
+        {
+            get { return _ContentPages; }
+        }
+
         private ObservableList<ContentSource> _ContentSources = new ObservableList<ContentSource>();
         public IEnumerable<ContentSource> ContentSources
         {
@@ -44,6 +52,11 @@ namespace Compendium.Model.Models
         public ContentSource GetSourceByName(string source)
         {
             return ContentSources.FirstOrDefault(c => string.Equals(c.Name, source));
+        }
+
+        public void AddContentPage(ContentPageModel content)
+        {
+            _ContentPages.Add(content);
         }
         #endregion
 
@@ -64,12 +77,10 @@ namespace Compendium.Model.Models
         #endregion
 
         #region Deserialize Functions
-        public void DeserializeContentSources(string json)
+        public void DeserializeContentSources(Sources_Json sources)
         {
-            dynamic obj = JsonConvert.DeserializeObject(json);
-
-            foreach (var source in obj.sources)
-                _ContentSources.Add(new ContentSource((string)source.name, (string)source.id));
+            foreach (var source in sources.sources)
+                _ContentSources.Add(new ContentSource(source.name, source.id));
 
             if (ContentSources.Count() <= 0)
             {

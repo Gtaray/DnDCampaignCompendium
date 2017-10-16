@@ -9,14 +9,16 @@ namespace Compendium.Model.Filtering
 {
     public class FilterItem
     {
-        public FilterItem(string value)
+        public FilterItem(string id, string label)
         {
-            Value = value;
+            ID = id;
+            Label = label;
         }
-        public FilterItem(FilterItem parent, string value)
+        public FilterItem(FilterItem parent, string id, string label)
         {
             Parent = parent;
-            Value = value;
+            ID = id;
+            Label = label;
         }
 
 
@@ -27,11 +29,18 @@ namespace Compendium.Model.Filtering
             set { _Parent.Value = value; }
         }
 
-        private Observable<string> _Value = new Observable<string>("Unknown");
-        public string Value
+        private Observable<string> _ID = new Observable<string>(default(string));
+        public string ID
         {
-            get { return _Value; }
-            set { _Value.Value = value; }
+            get { return _ID; }
+            set { _ID.Value = value; }
+        }
+
+        private Observable<string> _Label = new Observable<string>("Unknown");
+        public string Label
+        {
+            get { return _Label; }
+            set { _Label.Value = value; }
         }
 
         private Observable<bool> _IsChecked = new Observable<bool>(false);

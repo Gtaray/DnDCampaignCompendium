@@ -8,14 +8,14 @@ namespace Compendium.WPF.ViewModels
 {
     public class PageHeaderViewModel
     {
-        private readonly BasePageViewModel _Model;
-        public PageHeaderViewModel(BasePageViewModel model)
+        private readonly ContentPageViewModel _Model;
+        public PageHeaderViewModel(ContentPageViewModel model)
         {
             _Model = model;
         }
 
         public string Header => _Model.Header;
 
-        public BasePageViewModel Model => _Model;
+        public ContentPageViewModel Model => _Model;
     }
 }

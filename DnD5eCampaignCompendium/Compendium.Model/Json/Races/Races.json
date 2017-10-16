@@ -16,20 +16,20 @@
       "file": "Races\\Eladrin.md",
       "filters": [
         {
-          "id": "primary_attributes",
-          "value": "Intelligence"
+          "groupID": "primary_attributes",
+          "valueID": "Intelligence"
         },
         {
-          "id": "secondary_attributes",
-          "value": "Dexterity"
+          "groupID": "secondary_attributes",
+          "valueID": "Dexterity"
 				},
 				{
-          "id": "secondary_attributes",
-          "value": "Charisma"
+          "groupID": "secondary_attributes",
+          "valueID": "Charisma"
 				},
 				{
-          "id": "secondary_attributes",
-          "value": "Wisdom"
+          "groupID": "secondary_attributes",
+          "valueID": "Wisdom"
 				}
       ]
     },
@@ -71,27 +71,63 @@
   ],
   "filters": [
     {
+			"title": "Primary Attributes",
       "id": "primary_attributes",
-      "title": "Primary Attributes",
       "options": [
-        "Strength",
-        "Dexterity",
-        "Constitution",
-        "Intelligence",
-        "Wisdom",
-        "Charisma"
+				{
+					"display":"Strength",
+					"id":"strength"
+				},
+				{
+					"display":"Dexterity",
+					"id":"dexterity"
+				},
+				{
+					"display":"Constitution",
+					"id":"constitution"
+				},
+				{
+					"display":"Intelligence",
+					"id":"intelligence"
+				},
+				{
+					"display":"Wisdom",
+					"id":"wisdom"
+				},
+				{
+					"display":"Charisma",
+					"id":"charisma"
+				}
       ]
     },
     {
       "id": "secondary_attributes",
       "title": "Secondary Attributes",
       "options": [
-        "Strength",
-        "Dexterity",
-        "Constitution",
-        "Intelligence",
-        "Wisdom",
-        "Charisma"
+        {
+					"display":"Strength",
+					"id":"strength"
+				},
+				{
+					"display":"Dexterity",
+					"id":"dexterity"
+				},
+				{
+					"display":"Constitution",
+					"id":"constitution"
+				},
+				{
+					"display":"Intelligence",
+					"id":"intelligence"
+				},
+				{
+					"display":"Wisdom",
+					"id":"wisdom"
+				},
+				{
+					"display":"Charisma",
+					"id":"charisma"
+				}
       ]
     }
   ]

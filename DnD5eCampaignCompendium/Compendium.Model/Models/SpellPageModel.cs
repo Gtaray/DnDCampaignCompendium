@@ -2,6 +2,7 @@
 using Assisticant.Fields;
 using Compendium.Model.Common;
 using Compendium.Model.Interfaces;
+using Compendium.Model.JsonConverters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -83,15 +84,13 @@ namespace Compendium.Model.Models
         #endregion
 
         #region Json Parsing
-        public void DeserializeContent(string dataDir, string json) { }
+        public void DeserializeContent(string dataDir, Base_Json json) { }
 
-        public void DeserializeSchools(string json)
+        public void DeserializeSchools(Schools_Json schools)
         {
-            dynamic obj = JsonConvert.DeserializeObject(json);
-
-            foreach (var school in obj.schools)
+            foreach (var school in schools.schools)
                 _SpellSchools.Add(
-                    new SpellSchool((string)school.name));
+                    new SpellSchool(school.name));
 
             if(SpellSchools.Count() <= 0)
             {
@@ -99,13 +98,11 @@ namespace Compendium.Model.Models
             }
         }
 
-        public void DeserializeComponents(string json)
+        public void DeserializeComponents(Components_Json components)
         {
-            dynamic obj = JsonConvert.DeserializeObject(json);
-
-            foreach (var comp in obj.components)
+            foreach (var comp in components.components)
                 _Components.Add(
-                    new SpellComponent((string)comp.name, (string)comp.initial));
+                    new SpellComponent(comp.name, comp.initial));
 
             if(Components.Count() <= 0)
             {
@@ -113,31 +110,29 @@ namespace Compendium.Model.Models
             }
         }
 
-        public void DeserializeSpells(string json)
+        public void DeserializeSpells(Spells_Json spells)
         {
-            dynamic obj = JsonConvert.DeserializeObject<dynamic>(json);
-
-            List<SpellModel> spells = new List<SpellModel>();
-            foreach(var spell in obj.spells)
+            List<SpellModel> allSpells = new List<SpellModel>();
+            foreach(var spell in spells.spells)
             {
                 // Initialize with basic values
                 SpellModel newSpell = new SpellModel()
                 {
-                    ID = (string)spell.id,
-                    Name = (string)spell.name,
-                    Level = (int)spell.level,
-                    IsConcentration = (bool)spell.concentration,
-                    IsRitual = (bool)spell.isRitual,
-                    MaterialComponent = (string)spell.material,
-                    Range = (string)spell.range,
-                    CastingTime = (string)spell.castingTime,
-                    Duration = (string)spell.duration,
+                    ID = spell.id,
+                    Name = spell.name,
+                    Level = spell.level,
+                    IsConcentration = spell.concentration,
+                    IsRitual = spell.isRitual,
+                    MaterialComponent = spell.material,
+                    Range = spell.range,
+                    CastingTime = spell.castingTime,
+                    Duration = spell.duration,
                     Description = string.Join("\n", spell.description),
                     HigherLevel = string.Join("\n", spell.higherLevel)
                 };
 
                 // Parse school
-                var school = GetSchoolByName((string)spell.school);
+                var school = GetSchoolByName(spell.school);
                 if (school != null)
                     newSpell.School = school;
                 else
@@ -153,7 +148,7 @@ namespace Compendium.Model.Models
 
                 // Parse errata
                 foreach (var errata in spell.errata)
-                    newSpell.AddErrata(new Errata((string)errata.month, (string)errata.year, (string)errata.text, newSpell));
+                    newSpell.AddErrata(new Errata(errata.month, errata.year, errata.text, newSpell));
 
                 // Parse source
                 var source = _Compendium.GetSourceByName((string)spell.source);
@@ -162,12 +157,12 @@ namespace Compendium.Model.Models
                 else
                     newSpell.Source = null;
 
-                spells.Add(newSpell);
+                allSpells.Add(newSpell);
             }
 
             // Sort Spells by level and then name
             _Content = new ObservableList<SpellModel>(
-                spells.OrderBy(s => s.Level).ThenBy(s => s.Name));
+                allSpells.OrderBy(s => s.Level).ThenBy(s => s.Name));
         }
 
         public string SerializeSpells()
